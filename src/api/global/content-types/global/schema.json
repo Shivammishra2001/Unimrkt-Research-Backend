@@ -1,0 +1,65 @@
+{
+  "kind": "singleType",
+  "collectionName": "globals",
+  "info": {
+    "singularName": "global",
+    "pluralName": "globals",
+    "displayName": "Global",
+    "description": "Site-wide navigation, footer and SEO defaults"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "siteName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "logoDark": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "primaryNav": {
+      "type": "component",
+      "component": "shared.nav-item",
+      "repeatable": true,
+      "max": 8
+    },
+    "navCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "footerColumns": {
+      "type": "component",
+      "component": "shared.footer-column",
+      "repeatable": true,
+      "max": 4
+    },
+    "socialLinks": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true
+    },
+    "copyright": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "defaultSeo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false,
+      "required": true
+    }
+  }
+}

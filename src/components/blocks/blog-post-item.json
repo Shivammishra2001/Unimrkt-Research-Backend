@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_blocks_blog_post_items",
+  "info": {
+    "displayName": "Blog Post Item",
+    "icon": "quote"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "excerpt": {
+      "type": "text",
+      "maxLength": 240
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_shared_footer_columns",
+  "info": {
+    "displayName": "Footer Column",
+    "icon": "bulletList"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "links": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true,
+      "max": 8
+    }
+  }
+}

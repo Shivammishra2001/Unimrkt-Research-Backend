@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_blocks_ctas",
+  "info": {
+    "displayName": "CTA",
+    "icon": "bell"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 240
+    },
+    "actions": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true,
+      "required": true,
+      "min": 1,
+      "max": 2
+    },
+    "background": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "accent"],
+      "default": "accent"
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_blocks_contents",
+  "info": {
+    "displayName": "Content",
+    "icon": "align-left"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "body": {
+      "type": "text",
+      "required": true,
+      "maxLength": 2000
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "mediaAlignment": {
+      "type": "enumeration",
+      "enum": ["left", "right", "none"],
+      "required": true,
+      "default": "none"
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "accent"],
+      "default": "light"
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}

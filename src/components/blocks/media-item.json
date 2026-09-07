@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_blocks_media_items",
+  "info": {
+    "displayName": "Media Item",
+    "icon": "play"
+  },
+  "attributes": {
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "size": {
+      "type": "enumeration",
+      "enum": ["large", "small"],
+      "required": true,
+      "default": "small"
+    },
+    "videoUrl": {
+      "type": "string"
+    }
+  }
+}

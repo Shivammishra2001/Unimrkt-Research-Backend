@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_blocks_industry_items",
+  "info": {
+    "displayName": "Industry Item",
+    "icon": "globe"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "accentColor": {
+      "type": "string",
+      "default": "#7f3856",
+      "regex": "^#[0-9a-fA-F]{6}$"
+    }
+  }
+}

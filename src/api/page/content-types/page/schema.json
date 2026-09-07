@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "Page",
+    "description": "Any routable page — home, about, or a nested section like services/cloud"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "unique": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    },
+    "blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "blocks.hero",
+        "blocks.content",
+        "blocks.feature-grid",
+        "blocks.testimonials",
+        "blocks.cta",
+        "blocks.stats-band",
+        "blocks.service-band",
+        "blocks.industry-grid",
+        "blocks.media-gallery",
+        "blocks.faq",
+        "blocks.blog-teaser"
+      ],
+      "required": true,
+      "min": 1
+    }
+  }
+}

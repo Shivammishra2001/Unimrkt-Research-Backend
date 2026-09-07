@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_blocks_faq_items",
+  "info": {
+    "displayName": "FAQ Item",
+    "icon": "question"
+  },
+  "attributes": {
+    "question": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "answer": {
+      "type": "text",
+      "required": true,
+      "maxLength": 600
+    }
+  }
+}

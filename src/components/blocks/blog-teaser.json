@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_blocks_blog_teasers",
+  "info": {
+    "displayName": "Blog Teaser",
+    "icon": "quote"
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "actions": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true,
+      "max": 2
+    },
+    "posts": {
+      "type": "component",
+      "component": "blocks.blog-post-item",
+      "repeatable": true,
+      "required": true,
+      "min": 1,
+      "max": 12
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}

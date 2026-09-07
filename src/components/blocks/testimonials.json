@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_blocks_testimonials",
+  "info": {
+    "displayName": "Testimonials",
+    "icon": "quote"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "subheading": {
+      "type": "text",
+      "maxLength": 280
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": ["grid", "carousel", "single"],
+      "required": true,
+      "default": "grid"
+    },
+    "testimonials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::testimonial.testimonial"
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["light", "dark"],
+      "default": "light"
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}

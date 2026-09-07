@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_blocks_faqs",
+  "info": {
+    "displayName": "FAQ",
+    "icon": "question"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "background": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "items": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "required": true,
+      "min": 1,
+      "max": 20
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}

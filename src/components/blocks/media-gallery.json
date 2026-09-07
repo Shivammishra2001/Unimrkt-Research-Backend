@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_blocks_media_galleries",
+  "info": {
+    "displayName": "Media Gallery",
+    "icon": "play"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "subheading": {
+      "type": "text",
+      "maxLength": 280
+    },
+    "actions": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true,
+      "max": 2
+    },
+    "items": {
+      "type": "component",
+      "component": "blocks.media-item",
+      "repeatable": true,
+      "required": true,
+      "min": 1,
+      "max": 8
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}

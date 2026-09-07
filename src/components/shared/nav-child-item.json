@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_nav_child_items",
+  "info": {
+    "displayName": "Nav Child Item",
+    "icon": "bulletList"
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "isExternal": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

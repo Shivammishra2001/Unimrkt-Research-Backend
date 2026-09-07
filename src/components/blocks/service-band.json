@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_blocks_service_bands",
+  "info": {
+    "displayName": "Service Band",
+    "icon": "layer"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "background": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "items": {
+      "type": "component",
+      "component": "blocks.service-band-item",
+      "repeatable": true,
+      "min": 1,
+      "max": 6
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}

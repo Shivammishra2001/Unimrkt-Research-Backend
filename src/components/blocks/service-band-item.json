@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_blocks_service_band_items",
+  "info": {
+    "displayName": "Service Band Item",
+    "icon": "bulletList"
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
