@@ -11,7 +11,12 @@ export default factories.createCoreController('api::global.global', ({ strapi })
     ctx.query = { ...ctx.query, populate: buildGlobalPopulate() };
     const isDraft = ctx.query.status === 'draft';
 
-    const { data, meta } = await super.find(ctx);
+    // super.find() returns bare `null` (not `{ data: null, meta: {} }`) when
+    // the Global singleType has no entry yet — an unseeded DB, most likely.
+    // Destructuring that directly throws; guard it so this returns a normal
+    // empty response instead of a 500.
+    const result = await super.find(ctx);
+    const { data, meta } = result ?? { data: null, meta: {} };
 
     ctx.set(
       'Cache-Control',

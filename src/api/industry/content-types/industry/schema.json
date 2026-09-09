@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "industries",
+  "info": {
+    "singularName": "industry",
+    "pluralName": "industries",
+    "displayName": "Industry",
+    "description": "A single industry vertical — listed at /industries, detailed at /industries/:slug"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "unique": true
+    },
+    "legacyUrl": {
+      "type": "string",
+      "required": false
+    },
+    "suggestedUrl": {
+      "type": "string",
+      "required": false
+    },
+    "summary": {
+      "type": "text",
+      "maxLength": 280
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "blocks.hero",
+        "blocks.content",
+        "blocks.feature-grid",
+        "blocks.testimonials",
+        "blocks.cta",
+        "blocks.stats-band"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

@@ -22,7 +22,7 @@
     },
     "mediaAlignment": {
       "type": "enumeration",
-      "enum": ["left", "right", "none"],
+      "enum": ["left", "right", "below", "none"],
       "required": true,
       "default": "none"
     },
@@ -34,6 +34,14 @@
     "anchorId": {
       "type": "string",
       "regex": "^[a-z0-9-]+$"
+    },
+    "contactPrompt": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "contactEmail": {
+      "type": "string",
+      "maxLength": 120
     }
   }
 }

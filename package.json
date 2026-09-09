@@ -12,9 +12,9 @@
     "seed:reset": "ts-node scripts/seed.ts --reset"
   },
   "dependencies": {
-    "@strapi/strapi": "^5.0.0",
-    "@strapi/plugin-users-permissions": "^5.0.0",
     "@strapi/plugin-cloud": "^5.0.0",
+    "@strapi/plugin-users-permissions": "^5.0.0",
+    "@strapi/strapi": "^5.0.0",
     "better-sqlite3": "^11.3.0",
     "pg": "^8.12.0",
     "react": "^18.3.1",

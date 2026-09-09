@@ -1,4 +1,5 @@
 export default ({ env }) => ({
+  url: env('ADMIN_PATH', '/unimrktadmin'),
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },

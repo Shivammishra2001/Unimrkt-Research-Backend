@@ -47,6 +47,14 @@
       "enum": ["display", "h2"],
       "default": "display"
     },
+    "statValue": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "statLabel": {
+      "type": "string",
+      "maxLength": 60
+    },
     "theme": {
       "type": "enumeration",
       "enum": ["light", "dark"],

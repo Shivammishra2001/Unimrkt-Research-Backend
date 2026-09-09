@@ -1,9 +1,17 @@
 import { factories } from '@strapi/strapi';
 
 /**
- * Exported so `city-service-override`'s `overrideBlocks` dynamic zone —
- * the same 5-component list, deliberately — populates identically to
- * `service.blocks`, since an override's blocks fully replace a master's.
+ * Exported so `industry`'s populate builder (src/api/industry/services/
+ * industry.ts) reuses the exact same component-populate map — both
+ * content types share the same dynamic-zone component list.
+ *
+ * `blocks.stats-band` was added here (matching page.ts's separate,
+ * longer-standing populate map) once the Google Sheet content-enrichment
+ * pass started actually using stats-band blocks on service/industry
+ * entries — before that, neither content type used the component, so its
+ * absence here was never noticed: a dynamic zone's `on`-keyed populate
+ * silently drops any component type not listed, not just its nested
+ * fields.
  */
 export const BLOCK_POPULATE = {
   'blocks.hero': { populate: { media: true, actions: true, sideMenu: true } },
@@ -13,6 +21,7 @@ export const BLOCK_POPULATE = {
     populate: { testimonials: { populate: { avatar: true, companyLogo: true } } },
   },
   'blocks.cta': { populate: { actions: true, background: true } },
+  'blocks.stats-band': { populate: { items: true } },
 };
 
 export function buildServiceListPopulate() {
@@ -25,6 +34,11 @@ export function buildServicePopulate() {
     seo: { populate: ['shareImage'] },
     features: { populate: { icon: true, link: true } },
     blocks: { on: BLOCK_POPULATE },
+    // Category hierarchy (Google Sheet IA migration) — parent is a single
+    // shallow relation (no need to populate its own parent/children), and
+    // children go one level deep only, matching the sheet's max depth.
+    parent: { fields: ['title', 'slug'] },
+    children: { fields: ['title', 'slug', 'summary'] },
   };
 }
 

@@ -8,13 +8,17 @@ import type { Core } from '@strapi/strapi';
  * API_SPECIFICATION.md §4's auth & permissions matrix, i.e. every action
  * the frontend's static generation (SSG) and published-content reads
  * depend on: the page/service slug lookups, the services listing, the
- * global nav/footer, and the location merge endpoints.
+ * global nav/footer, and the industries listing.
+ *
+ * (`city`/`city-service-override` and their location-merge endpoints —
+ * the demo city+service combo feature — were removed entirely, backend
+ * and frontend both, once the Google Sheet-migrated Services hierarchy
+ * replaced them as the site's only active Services content.)
  *
  * Every other action — all writes, and the plain core CRUD on
- * `city`/`testimonial`/`city-service-override` that the frontend never
- * calls directly — is deliberately left disabled on both roles here.
- * Granting those is an admin-panel/API-token decision this bootstrap
- * does not make silently.
+ * `testimonial` that the frontend never calls directly — is deliberately
+ * left disabled on both roles here. Granting those is an admin-panel/
+ * API-token decision this bootstrap does not make silently.
  *
  * Both `public` and `authenticated` roles get the identical matrix:
  * nothing in the source docs asks for a broader authenticated-only set,
@@ -28,10 +32,16 @@ const REQUIRED_PERMISSIONS: string[] = [
   'api::page.page.findBySlug',
   'api::service.service.find',
   'api::service.service.findOne',
+  'api::service.service.findTree',
   'api::service.service.findSlugs',
   'api::service.service.findBySlug',
-  'api::city.city-service.findByLocation',
-  'api::city.city-service.findCombinations',
+  // Industries (Google Sheet IA migration) — same 4-action shape as
+  // service: plain find (list), findOne (core detail, harmless to leave
+  // on), plus the custom slug-based lookups the frontend actually calls.
+  'api::industry.industry.find',
+  'api::industry.industry.findOne',
+  'api::industry.industry.findSlugs',
+  'api::industry.industry.findBySlug',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

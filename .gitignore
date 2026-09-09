@@ -15,6 +15,7 @@ build/
 .strapi-updater.json
 data/*.db
 data/*.db-journal
+public/uploads/
 
 ############################
 # Env

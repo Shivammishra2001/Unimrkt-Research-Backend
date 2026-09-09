@@ -23,6 +23,10 @@
       "component": "shared.nav-child-item",
       "repeatable": true,
       "max": 8
+    },
+    "showIndicator": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

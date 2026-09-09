@@ -56,8 +56,29 @@
         "blocks.content",
         "blocks.feature-grid",
         "blocks.testimonials",
-        "blocks.cta"
+        "blocks.cta",
+        "blocks.stats-band"
       ]
+    },
+    "parent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::service.service",
+      "inversedBy": "children"
+    },
+    "children": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service.service",
+      "mappedBy": "parent"
+    },
+    "legacyUrl": {
+      "type": "string",
+      "required": false
+    },
+    "suggestedUrl": {
+      "type": "string",
+      "required": false
     }
   }
 }

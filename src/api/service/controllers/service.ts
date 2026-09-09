@@ -57,6 +57,38 @@ export default factories.createCoreController('api::service.service', ({ strapi 
   },
 
   /**
+   * GET /services/tree — top-level (parent: null) service categories with
+   * one level of children populated. Separate from `find` deliberately:
+   * `find` always forces the thumbnail-only list populate for the plain
+   * /services archive, so the nav/category-tree shape needs its own route
+   * rather than overloading that contract with a query flag.
+   */
+  async findTree(ctx) {
+    const isDraft = ctx.query.status === 'draft';
+    const status = isDraft ? 'draft' : 'published';
+
+    const entries = await strapi.documents('api::service.service').findMany({
+      filters: { parent: { id: { $null: true } } },
+      status,
+      sort: 'title:asc',
+      populate: { children: { fields: ['title', 'slug', 'summary'], sort: 'title:asc' } },
+    });
+
+    const sanitized = await strapi.contentAPI.sanitize.output(
+      entries,
+      strapi.getModel('api::service.service'),
+      { auth: ctx.state.auth }
+    );
+
+    ctx.set(
+      'Cache-Control',
+      isDraft ? 'no-store' : 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400'
+    );
+
+    return { data: sanitized, meta: {} };
+  },
+
+  /**
    * GET /services/slugs — slim `{ slug, updatedAt }` list, backs
    * generateStaticParams() on the frontend.
    */

@@ -15,6 +15,12 @@ const defaultRouter = factories.createCoreRouter('api::service.service', {
 const customRoutes = [
   {
     method: 'GET',
+    path: '/services/tree',
+    handler: 'service.findTree',
+    config: { policies: ['global::is-preview-allowed'] },
+  },
+  {
+    method: 'GET',
     path: '/services/slugs',
     handler: 'service.findSlugs',
     config: { policies: ['global::is-preview-allowed'] },

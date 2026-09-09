@@ -55,6 +55,10 @@
       "type": "string",
       "maxLength": 200
     },
+    "footerTagline": {
+      "type": "text",
+      "maxLength": 200
+    },
     "defaultSeo": {
       "type": "component",
       "component": "shared.seo",

@@ -70,12 +70,22 @@ export interface BlocksContent extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 2000;
       }>;
+    contactEmail: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    contactPrompt: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
     heading: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
     media: Schema.Attribute.Media<'images'>;
-    mediaAlignment: Schema.Attribute.Enumeration<['left', 'right', 'none']> &
+    mediaAlignment: Schema.Attribute.Enumeration<
+      ['left', 'right', 'below', 'none']
+    > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'none'>;
     theme: Schema.Attribute.Enumeration<['light', 'dark', 'accent']> &
@@ -101,6 +111,7 @@ export interface BlocksCta extends Struct.ComponentSchema {
       >;
     anchorId: Schema.Attribute.String;
     background: Schema.Attribute.Media<'images'>;
+    backgroundColor: Schema.Attribute.String;
     body: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 240;
@@ -255,6 +266,14 @@ export interface BlocksHero extends Struct.ComponentSchema {
         },
         number
       >;
+    statLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    statValue: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+      }>;
     subheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 280;
@@ -401,7 +420,12 @@ export interface BlocksServiceBandItem extends Struct.ComponentSchema {
     icon: 'bulletList';
   };
   attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
     href: Schema.Attribute.String & Schema.Attribute.Required;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -566,6 +590,7 @@ export interface SharedNavItem extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 40;
       }>;
+    showIndicator: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
 

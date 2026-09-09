@@ -13,6 +13,14 @@
     "href": {
       "type": "string",
       "required": true
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 160
     }
   }
 }
