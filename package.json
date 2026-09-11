@@ -12,6 +12,7 @@
     "seed:reset": "ts-node scripts/seed.ts --reset"
   },
   "dependencies": {
+    "@radix-ui/react-tooltip": "^1.2.16",
     "@strapi/plugin-cloud": "^5.0.0",
     "@strapi/plugin-users-permissions": "^5.0.0",
     "@strapi/strapi": "^5.0.0",
