@@ -41,23 +41,227 @@
       "required": false,
       "allowedTypes": ["images"]
     },
-    "blocks": {
-      "type": "dynamiczone",
-      "components": [
-        "blocks.hero",
-        "blocks.content",
-        "blocks.feature-grid",
-        "blocks.testimonials",
-        "blocks.cta",
-        "blocks.stats-band",
-        "blocks.why-choose-us",
-        "blocks.process-steps"
-      ]
-    },
     "seo": {
       "type": "component",
       "component": "shared.seo",
       "repeatable": false
+    },
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heroHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 280
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "heroActions": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true,
+      "max": 2
+    },
+    "trustHeading": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "trustLogos": {
+      "type": "component",
+      "component": "industries.trust-logo",
+      "repeatable": true,
+      "max": 8
+    },
+    "whatWeDoEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "whatWeDoHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "whatWeDoBody": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "whatWeDoCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "whatWeDoImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "whyResearchEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "whyResearchHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "whyResearchCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 6
+    },
+    "expertiseEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "expertiseHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "expertiseItems": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 8
+    },
+    "challengesEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "challengesHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "challengesBody": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "challengesCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 6
+    },
+    "whoWeServeEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "whoWeServeHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "whoWeServeCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 6
+    },
+    "methodologiesEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "methodologiesHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "methodologiesBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "methodologies": {
+      "type": "component",
+      "component": "blocks.industry-item",
+      "repeatable": true,
+      "max": 6
+    },
+    "empowerEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "empowerHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "empowerBody": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "empowerCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "empowerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "enquiryEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "enquiryHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "enquiryBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "enquiryImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "faqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 10
+    },
+    "caseStudiesEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "caseStudiesHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "caseStudiesBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "caseStudiesCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "caseStudies": {
+      "type": "component",
+      "component": "blocks.industry-item",
+      "repeatable": true,
+      "max": 4
+    },
+    "aboutEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "aboutHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "aboutBody": {
+      "type": "text",
+      "maxLength": 2000
     }
   }
 }

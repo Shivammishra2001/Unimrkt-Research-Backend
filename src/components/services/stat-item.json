@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_services_stat_items",
+  "info": {
+    "displayName": "Service Stat Item",
+    "icon": "chart-pie"
+  },
+  "attributes": {
+    "value": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "label": {
+      "type": "text",
+      "required": true,
+      "maxLength": 160
+    },
+    "iconIdentifier": {
+      "type": "string",
+      "required": false,
+      "maxLength": 60
+    }
+  }
+}

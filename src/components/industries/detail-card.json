@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_industries_detail_cards",
+  "info": {
+    "displayName": "Industry Detail Card",
+    "icon": "grid"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "description": {
+      "type": "text",
+      "required": false,
+      "maxLength": 240
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "iconIdentifier": {
+      "type": "string",
+      "required": false,
+      "maxLength": 60
+    }
+  }
+}

@@ -9,7 +9,8 @@
     "build": "strapi build",
     "strapi": "strapi",
     "seed": "ts-node scripts/seed.ts",
-    "seed:reset": "ts-node scripts/seed.ts --reset"
+    "seed:reset": "ts-node scripts/seed.ts --reset",
+    "sync-fallbacks": "ts-node scripts/sync-frontend-fallbacks-to-strapi.ts"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.16",

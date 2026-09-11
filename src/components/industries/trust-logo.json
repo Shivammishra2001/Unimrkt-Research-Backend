@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_industries_trust_logos",
+  "info": {
+    "displayName": "Trust Logo",
+    "icon": "star"
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

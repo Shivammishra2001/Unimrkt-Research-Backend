@@ -678,11 +678,269 @@ function buildResearchSeo(title: string, c: ResearchContent) {
   };
 }
 
+/**
+ * The full Figma node-474:5731 ("Primary Research") detail-page content,
+ * mirroring `IndustryDetailSeed` (below, industries section) exactly —
+ * same shape conventions (`DetailLinkSeed`/`DetailCardSeed`, media as
+ * filenames resolved by `resolveServiceDetailSeed`). Only "Primary
+ * Research" uses this; every other service stays base-fields-only, same
+ * "missing data -> template fallback" rule the frontend enforces.
+ */
+interface ServiceCapabilitySeed {
+  title: string;
+  imageFilename: string;
+}
+
+interface ServiceStatSeed {
+  value: string;
+  label: string;
+  iconIdentifier: string;
+}
+
+interface ServiceDetailSeed {
+  heroEyebrow: string;
+  heroHeading: string;
+  heroSubheading: string;
+  heroImageFilename: string;
+  heroActions: DetailLinkSeed[];
+  trustHeading: string;
+  trustLogos: { name: string; imageFilename?: string }[];
+  overviewEyebrow: string;
+  overviewHeading: string;
+  overviewBody: string;
+  overviewImageFilename: string;
+  overviewFeatures: DetailCardSeed[];
+  capabilitiesEyebrow: string;
+  capabilitiesHeading: string;
+  capabilitiesBody: string;
+  capabilities: ServiceCapabilitySeed[];
+  credentialsHeading: string;
+  credentialsBody: string;
+  credentials: ServiceStatSeed[];
+  methodologiesEyebrow: string;
+  methodologiesHeading: string;
+  methodologies: DetailCardSeed[];
+  industriesEyebrow: string;
+  industriesHeading: string;
+  industriesBody: string;
+  industriesServed: DetailCardSeed[];
+  enquiryEyebrow: string;
+  enquiryHeading: string;
+  enquiryBody: string;
+  enquiryImageFilename: string;
+  faqItems: { question: string; answer: string }[];
+  aboutEyebrow: string;
+  aboutHeading: string;
+  aboutBody: string;
+}
+
+/**
+ * Every string below is copied verbatim from Figma node 474:5731 — the
+ * FAQ answers and the 4 methodology-card descriptions are the disclosed
+ * exceptions (Figma's own mockup copy-pastes one description under all
+ * 4 methodology cards — visibly wrong, since it mentions "manufacturers"
+ * under "Understand Objectives" — so distinct, sensible descriptions are
+ * authored here instead of reproducing that artifact). Images reuse the
+ * files already downloaded from this node into
+ * scripts/seed-assets/figma/; the enquiry-band background reuses the
+ * exact file already downloaded for /industries/[slug]'s equivalent
+ * section (`enquiry-bg.jpg`) — same Figma image, no re-download.
+ */
+const PRIMARY_RESEARCH_DETAIL: ServiceDetailSeed = {
+  heroEyebrow: 'PRIMARY RESEARCH',
+  heroHeading: 'Real Conversations. Reliable Data. Better Decisions.',
+  heroSubheading:
+    'Collect first-hand market intelligence through customized primary research solutions that uncover customer opinions, validate business decisions, and fuel strategic growth.',
+  heroImageFilename: 'primary-research-hero.jpg',
+  heroActions: [
+    { label: 'Get a Free Quote', href: '/contact', isExternal: false, variant: 'primary' },
+    { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' },
+  ],
+  trustHeading: 'Trusted by Global Businesses',
+  trustLogos: [], // Figma shows real company wordmarks as example imagery — not confirmed Unimrkt clients, left empty per instruction (same as /industries/[slug]).
+  overviewEyebrow: 'About Primary Research',
+  overviewHeading: 'First-Hand Insights That Power Better Business Decisions',
+  overviewBody:
+    'Primary research enables organizations to collect reliable information directly from customers, businesses, and stakeholders. At Unimrkt Research, we design customized research programs using qualitative and quantitative methodologies to help businesses understand markets, validate ideas, measure customer experience, and uncover new opportunities. Our experienced research professionals combine global reach, advanced technology, and proven methodologies to deliver accurate, high-quality data tailored to every project.',
+  overviewImageFilename: 'primary-research-overview.jpg',
+  overviewFeatures: [
+    { title: 'Customized Research Solutions', iconIdentifier: 'shield-tick' },
+    { title: 'Experienced Research Team', iconIdentifier: 'profile-2user' },
+    { title: 'Accurate & Reliable Insights', iconIdentifier: 'medal-star' },
+  ],
+  capabilitiesEyebrow: 'Research',
+  capabilitiesHeading: 'Our Primary Research Services',
+  capabilitiesBody:
+    'Explore our comprehensive primary research solutions, designed to collect accurate, first-hand data through proven methodologies, helping businesses gain actionable insights, understand markets, and make informed decisions.',
+  capabilities: [
+    { title: 'Telephonic Surveys', imageFilename: 'capability-telephonic-surveys.jpg' },
+    { title: 'Online Surveys', imageFilename: 'capability-online-surveys.jpg' },
+    { title: 'Focus Group Discussions', imageFilename: 'capability-focus-group-discussions.jpg' },
+    { title: 'CATI Surveys', imageFilename: 'capability-cati-surveys.jpg' },
+  ],
+  credentialsHeading: 'Why Unimrkt Research?',
+  credentialsBody:
+    'Delivering accurate first-hand data through expert researchers, global reach, proven methodologies, and quality-driven processes, helping businesses make confident decisions and achieve sustainable growth.',
+  credentials: [
+    { value: '450+', label: 'CATI stations team members', iconIdentifier: 'profile-2user' },
+    { value: 'On-time', label: 'project deliveries', iconIdentifier: 'clock' },
+    { value: '80%', label: 'Repeat business', iconIdentifier: 'clipboard-tick' },
+    { value: '250,000+ CATI', label: 'surveys completed every year', iconIdentifier: 'note' },
+    { value: 'State-of-the-art', label: 'CATI systems integrated with predictive dialers', iconIdentifier: 'call' },
+    { value: '35-40%', label: 'Average cost savings', iconIdentifier: 'rupee' },
+    { value: '300+', label: 'moderators with rich professional background', iconIdentifier: 'shield-tick' },
+    { value: 'ISO20252', label: '& ISO27001 certified', iconIdentifier: 'medal-star' },
+    { value: '1000+', label: 'projects of combined experience, with 100% QA audits', iconIdentifier: 'archive-book' },
+    { value: '30,000 sq. ft.', label: 'with the scalability of more than 450 seats', iconIdentifier: 'people' },
+    { value: '24*7', label: 'support with access to dedicated analysts', iconIdentifier: 'headphone' },
+    { value: 'ESOMAR', label: 'norms followed', iconIdentifier: 'user-tag' },
+    { value: '90 countries', label: '& over 22+ foreign languages for multi-industry research', iconIdentifier: 'global' },
+    { value: 'GDPR', label: 'compliant', iconIdentifier: 'security-user' },
+    { value: '16+', label: 'years of experience', iconIdentifier: 'star' },
+  ],
+  methodologiesEyebrow: 'Process',
+  methodologiesHeading: 'Research Methodologies',
+  methodologies: [
+    { title: 'Understand Objectives', description: 'We start by clarifying your research questions and business goals so every methodology decision that follows is grounded in what you actually need to learn.' },
+    { title: 'Research Design', description: 'We select and design the right mix of qualitative and quantitative methods, sample structure, and timeline for your specific objectives.' },
+    { title: 'Questionnaire Development', description: 'We script and pilot-test every questionnaire to make sure it captures clean, unambiguous data before fieldwork begins.' },
+    { title: 'Respondent Recruitment', description: 'We recruit and screen respondents against your target criteria, drawing on global panels and our own interviewer network.' },
+  ],
+  industriesEyebrow: 'Our Industries',
+  industriesHeading: 'Industries We Support',
+  industriesBody:
+    'Delivering tailored primary research solutions across diverse industries, helping businesses understand markets, uncover opportunities, and make confident, data-driven decisions with accurate insights.',
+  industriesServed: [
+    { title: 'Automotive', iconIdentifier: 'car' },
+    { title: 'Healthcare', iconIdentifier: 'heart-pulse' },
+    { title: 'BFSI', iconIdentifier: 'landmark' },
+    { title: 'Retail', iconIdentifier: 'shopping-bag' },
+    { title: 'Technology', iconIdentifier: 'cpu' },
+    { title: 'Manufacturing', iconIdentifier: 'factory' },
+    { title: 'Energy', iconIdentifier: 'flash' },
+    { title: 'FMCG', iconIdentifier: 'shopping-cart' },
+    { title: 'Telecom', iconIdentifier: 'radio' },
+    { title: '& More', iconIdentifier: 'more' },
+  ],
+  enquiryEyebrow: 'Get a Free Quote!',
+  enquiryHeading: "Let's Discuss Your Research Needs",
+  enquiryBody:
+    'Connect with our research experts to design customized solutions that deliver accurate insights, support informed decisions, and drive measurable business growth across your target markets.',
+  enquiryImageFilename: 'enquiry-bg.jpg',
+  faqItems: [
+    {
+      question: 'What is primary market research?',
+      answer:
+        'Primary market research is the process of collecting first-hand data directly from customers, businesses, or stakeholders — through surveys, interviews, or discussions — rather than relying on existing published sources.',
+    },
+    {
+      question: 'What primary research services does Unimrkt Research offer?',
+      answer:
+        'We offer telephonic surveys, online surveys, focus group discussions, CATI surveys, and other custom fieldwork methods, tailored to your research objectives.',
+    },
+    {
+      question: 'Which industries does Unimrkt Research serve?',
+      answer:
+        'We work across automotive, healthcare, BFSI, retail, technology, manufacturing, energy, FMCG, telecom, and many other sectors.',
+    },
+    {
+      question: 'Can Unimrkt Research conduct international market research?',
+      answer:
+        'Yes — our research capabilities span 90+ countries and 22+ languages, combining global reach with local research expertise.',
+    },
+    {
+      question: 'How does Unimrkt Research ensure data quality?',
+      answer:
+        'Every engagement runs through structured quality control — trained interviewers, live monitoring, validation callbacks, and audited datasets — backed by ISO 20252 and ISO 27001 certified processes.',
+    },
+    {
+      question: 'Why should businesses choose Unimrkt Research?',
+      answer:
+        '16+ years of research excellence, 450+ CATI workstations, 250,000+ surveys completed annually, and a track record of turning first-hand data into confident business decisions.',
+    },
+    {
+      question: 'How can I get started with Unimrkt Research?',
+      answer:
+        'Reach out via our enquiry form or Talk to Our Experts, and a research specialist will help scope your study and next steps.',
+    },
+  ],
+  aboutEyebrow: 'About Primary Research',
+  aboutHeading: 'Unlock Reliable Insights with Expert Primary Research',
+  aboutBody:
+    'At Unimrkt Research, we specialize in delivering accurate, first-hand market intelligence through customized primary research solutions tailored to your unique business objectives. From CATI surveys and in-depth interviews to focus groups, online panels, and field research, our experienced team gathers high-quality data that empowers organizations to understand customer behavior, validate business strategies, and make confident, data-driven decisions.\n\nWith 16+ years of industry experience, 450+ advanced CATI workstations, research capabilities across 90+ countries, and support in 22+ languages, we combine global reach with deep local expertise. Our commitment to quality, precision, and innovation ensures every project delivers actionable insights that help businesses reduce risk, identify new opportunities, and achieve sustainable growth.',
+};
+
+/** Resolves every `*Filename` reference in a `ServiceDetailSeed` to an
+ * uploaded media ID via `uploadAsset()`. `capabilities` maps onto the
+ * existing `features` field (`blocks.feature-item`) rather than a
+ * dedicated one — see the schema comment on that field. */
+async function resolveServiceDetailSeed(strapi: any, detail: ServiceDetailSeed) {
+  const heroImage = await uploadAsset(strapi, detail.heroImageFilename);
+  const overviewImage = await uploadAsset(strapi, detail.overviewImageFilename);
+  const enquiryImage = await uploadAsset(strapi, detail.enquiryImageFilename);
+
+  const features = [];
+  for (const cap of detail.capabilities) {
+    features.push({
+      title: cap.title,
+      // blocks.feature-item requires `description`; the Capabilities
+      // section (CapabilitiesSection.tsx) never renders it — Figma's
+      // photo cards show only a title — so this is a non-empty,
+      // schema-satisfying value only, not visible copy.
+      description: cap.title,
+      icon: await uploadAsset(strapi, cap.imageFilename),
+      order: features.length,
+    });
+  }
+
+  return {
+    heroEyebrow: detail.heroEyebrow,
+    heroHeading: detail.heroHeading,
+    heroSubheading: detail.heroSubheading,
+    heroImage,
+    heroActions: detail.heroActions,
+    trustHeading: detail.trustHeading,
+    trustLogos: detail.trustLogos,
+    overviewEyebrow: detail.overviewEyebrow,
+    overviewHeading: detail.overviewHeading,
+    overviewBody: detail.overviewBody,
+    overviewImage,
+    overviewFeatures: detail.overviewFeatures,
+    capabilitiesEyebrow: detail.capabilitiesEyebrow,
+    capabilitiesHeading: detail.capabilitiesHeading,
+    capabilitiesBody: detail.capabilitiesBody,
+    features,
+    credentialsHeading: detail.credentialsHeading,
+    credentialsBody: detail.credentialsBody,
+    credentials: detail.credentials,
+    methodologiesEyebrow: detail.methodologiesEyebrow,
+    methodologiesHeading: detail.methodologiesHeading,
+    methodologies: detail.methodologies,
+    industriesEyebrow: detail.industriesEyebrow,
+    industriesHeading: detail.industriesHeading,
+    industriesBody: detail.industriesBody,
+    industriesServed: detail.industriesServed,
+    enquiryEyebrow: detail.enquiryEyebrow,
+    enquiryHeading: detail.enquiryHeading,
+    enquiryBody: detail.enquiryBody,
+    enquiryImage,
+    faqItems: detail.faqItems,
+    aboutEyebrow: detail.aboutEyebrow,
+    aboutHeading: detail.aboutHeading,
+    aboutBody: detail.aboutBody,
+  };
+}
+
 interface ServiceHierarchySeed extends ResearchContent {
   title: string;
   legacyUrl?: string;
   suggestedUrl?: string;
   children?: ServiceHierarchySeed[];
+  /** Only "Primary Research" carries this — the rich, node-474:5731-
+   * derived detail-page content. Every other service stays base-fields-
+   * only, so every section on its page renders via the frontend's
+   * template fallback (see views/services/detail/fallback.ts). */
+  detail?: ServiceDetailSeed;
 }
 
 const SERVICES_HIERARCHY: ServiceHierarchySeed[] = [
@@ -690,6 +948,7 @@ const SERVICES_HIERARCHY: ServiceHierarchySeed[] = [
     title: 'Primary Research',
     legacyUrl: 'https://www.unimrkt.com/primary-research.php',
     suggestedUrl: 'https://www.unimrkt.com/services/primary-research.php',
+    detail: PRIMARY_RESEARCH_DETAIL,
     summary: 'Primary Research designs and fields custom studies that collect first-hand data directly from your target audience, giving decision-makers evidence built specifically around their question. Every engagement is scoped to your sample, timeline, and budget.',
     overview: 'Our Primary Research team manages the full lifecycle of a custom study — sample design, questionnaire scripting, multi-mode fieldwork, and data validation — so you receive an analysis-ready dataset rather than raw responses. A dedicated research lead oversees quality control at every stage, from pilot testing through final tabulation.',
     stats: [['50K+', 'Respondents surveyed annually'], ['90+', 'Countries covered'], ['98%', 'Data quality pass rate'], ['15+', 'Years fielding primary studies']],
@@ -1244,6 +1503,11 @@ async function upsertServiceHierarchy(strapi: any) {
     // eslint-disable-next-line no-await-in-loop
     const thumbnailId = thumbnailFilename ? await uploadAsset(strapi, thumbnailFilename) : null;
 
+    const parentDetailData = parentSeed.detail
+      ? // eslint-disable-next-line no-await-in-loop -- must resolve before the upsert below, one service at a time for readable seed logs
+        await resolveServiceDetailSeed(strapi, parentSeed.detail)
+      : {};
+
     const parentEntry = await upsertBySlug(
       strapi,
       'api::service.service',
@@ -1259,8 +1523,8 @@ async function upsertServiceHierarchy(strapi: any) {
         legacyUrl: parentSeed.legacyUrl ?? null,
         suggestedUrl: parentSeed.suggestedUrl ?? null,
         parent: null,
-        blocks: buildResearchBlocks(parentSeed.title, parentSeed),
         seo: buildResearchSeo(parentSeed.title, parentSeed),
+        ...parentDetailData,
       },
       true // published — fully content-enriched, per content-enrichment request
     );
@@ -1288,7 +1552,6 @@ async function upsertServiceHierarchy(strapi: any) {
           summary: child.summary,
           suggestedUrl: child.suggestedUrl ?? null,
           parent: parentEntry.documentId,
-          blocks: buildResearchBlocks(child.title, child),
           seo: buildResearchSeo(child.title, child),
         },
         true // published
@@ -1297,7 +1560,7 @@ async function upsertServiceHierarchy(strapi: any) {
     }
   }
 
-  strapi.log.info(`[seed] Service hierarchy: ${count} entries upserted and published, each with ${5} content blocks + SEO.`);
+  strapi.log.info(`[seed] Service hierarchy: ${count} entries upserted and published (1 with the full node-474:5731 detail-page content, ${count - 1} base-fields-only) + SEO.`);
 }
 
 // ---------------------------------------------------------------------------
@@ -1330,10 +1593,316 @@ async function upsertServiceHierarchy(strapi: any) {
 // 8. Industries — flat collection (Google Sheet IA migration)
 // ---------------------------------------------------------------------------
 
-interface IndustrySeed extends ResearchContent {
+interface DetailLinkSeed {
+  label: string;
+  href: string;
+  isExternal: boolean;
+  variant: 'primary' | 'secondary' | 'ghost' | 'link';
+}
+
+interface DetailCardSeed {
+  title: string;
+  description?: string;
+  imageFilename?: string;
+  iconIdentifier?: string;
+}
+
+interface DetailIndustryItemSeed {
+  title: string;
+  imageFilename: string;
+  accentColor?: string;
+}
+
+/**
+ * The full node-384:6205 detail-page content, in the exact shape
+ * `api::industry.industry`'s new attributes expect (media as filenames,
+ * resolved to upload IDs by `resolveIndustryDetailSeed` below rather than
+ * inline here, so this object stays plain data). Only "Automotives" uses
+ * this — see `IndustrySeed.detail`'s comment.
+ */
+interface IndustryDetailSeed {
+  heroEyebrow: string;
+  heroHeading: string;
+  heroSubheading: string;
+  heroImageFilename: string;
+  heroActions: DetailLinkSeed[];
+  trustHeading: string;
+  trustLogos: { name: string; imageFilename?: string }[];
+  whatWeDoEyebrow: string;
+  whatWeDoHeading: string;
+  whatWeDoBody: string;
+  whatWeDoCta: DetailLinkSeed;
+  whatWeDoImageFilename: string;
+  whyResearchEyebrow: string;
+  whyResearchHeading: string;
+  whyResearchCards: DetailCardSeed[];
+  expertiseEyebrow: string;
+  expertiseHeading: string;
+  expertiseItems: DetailCardSeed[];
+  challengesEyebrow: string;
+  challengesHeading: string;
+  challengesBody: string;
+  challengesCards: DetailCardSeed[];
+  whoWeServeEyebrow: string;
+  whoWeServeHeading: string;
+  whoWeServeCards: DetailCardSeed[];
+  methodologiesEyebrow: string;
+  methodologiesHeading: string;
+  methodologiesBody: string;
+  methodologies: DetailIndustryItemSeed[];
+  empowerEyebrow: string;
+  empowerHeading: string;
+  empowerBody: string;
+  empowerCta: DetailLinkSeed;
+  empowerImageFilename: string;
+  enquiryEyebrow: string;
+  enquiryHeading: string;
+  enquiryBody: string;
+  enquiryImageFilename: string;
+  faqItems: { question: string; answer: string }[];
+  caseStudiesEyebrow: string;
+  caseStudiesHeading: string;
+  caseStudiesBody: string;
+  caseStudiesCta: DetailLinkSeed;
+  caseStudies: DetailIndustryItemSeed[];
+  aboutEyebrow: string;
+  aboutHeading: string;
+  aboutBody: string;
+}
+
+const TALK_TO_EXPERTS: DetailLinkSeed = { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' };
+
+/**
+ * Every string below is copied verbatim from Figma node 384:6205
+ * ("Automotives") — the FAQ answers are the one exception, authored in
+ * the same voice as the rest of this file's FAQ content, since Figma's
+ * accordion is collapsed on canvas and never exposes answer text (same
+ * documented exception used for /blogs and /industries' own FAQs).
+ * Images reuse the 16 files already downloaded from this same node into
+ * scripts/seed-assets/figma/ — uploadAsset() skips re-uploading them.
+ */
+const AUTOMOTIVES_DETAIL: IndustryDetailSeed = {
+  heroEyebrow: 'AUTOMOTIVE MARKET RESEARCH',
+  heroHeading: 'Drive Innovation with Data-Driven Automotive Insights',
+  heroSubheading:
+    'Helping OEMs, automotive suppliers, EV manufacturers, mobility providers, and technology companies make smarter business decisions through reliable market intelligence.',
+  heroImageFilename: 'automotive-plant.jpg',
+  heroActions: [
+    { label: 'Get a Custom Proposal', href: '/contact', isExternal: false, variant: 'primary' },
+    { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' },
+  ],
+  trustHeading: 'Trusted by Automotive Leaders',
+  trustLogos: [], // Figma shows real company wordmarks (e.g. "TATA MOTORS") as example imagery — not confirmed Unimrkt clients, left empty per instruction.
+  whatWeDoEyebrow: 'What We Do',
+  whatWeDoHeading: 'Our Automotive Research Services',
+  whatWeDoBody:
+    'Unimrkt Research is a trusted automotive market research partner, delivering reliable data and actionable insights to help manufacturers, OEMs, suppliers, dealerships, EV companies, and mobility providers make informed business decisions. Our expertise spans consumer behavior, market trends, competitive intelligence, product validation, and emerging opportunities across the automotive ecosystem. Using advanced research methodologies such as CATI, Online Surveys, In-Depth Interviews (IDIs), Focus Group Discussions (FGDs), and Telephonic Surveys, we provide high-quality, accurate data tailored to your business objectives.',
+  whatWeDoCta: { label: 'Talk to Our B2B Research Experts', href: '/contact', isExternal: false, variant: 'primary' },
+  whatWeDoImageFilename: 'content-research-services.jpg',
+  whyResearchEyebrow: 'Why Automotive Research?',
+  whyResearchHeading: 'Accelerate Growth with Industry Intelligence',
+  whyResearchCards: [
+    {
+      title: 'Understand Customer Preferences',
+      description: 'Identify buying behavior, ownership trends, EV adoption, and consumer expectations to create better products.',
+      imageFilename: 'why-customer-preferences.jpg',
+    },
+    {
+      title: 'Stay Ahead of Competitors',
+      description: 'Benchmark pricing, new launches, emerging technologies, and market positioning with real-time competitive intelligence.',
+      imageFilename: 'why-competitors.jpg',
+    },
+    {
+      title: 'Improve Product Strategy',
+      description: 'Validate concepts, evaluate demand, and reduce product launch risks with research-backed decision making.',
+      imageFilename: 'why-product-strategy.jpg',
+    },
+  ],
+  expertiseEyebrow: 'Our Expertise',
+  expertiseHeading: 'Expertise Across the Automotive Ecosystem',
+  expertiseItems: [
+    { title: 'Mobility', iconIdentifier: 'mobility' },
+    { title: 'Automobile Manufacturing', iconIdentifier: 'factory' },
+    { title: 'Two-Wheeler & Three-Wheeler Vehicles', iconIdentifier: 'bike' },
+    { title: 'Automobile Technology', iconIdentifier: 'cpu' },
+    { title: 'Accessories', iconIdentifier: 'package' },
+  ],
+  challengesEyebrow: 'Business Challenges We Cover',
+  challengesHeading: 'Key Challenges We Solve',
+  challengesBody:
+    'The automotive industry is rapidly evolving with technological advancements, changing consumer expectations, and increasing regulatory demands. Unimrkt Research helps businesses overcome these challenges through reliable market intelligence and actionable insights.',
+  challengesCards: [
+    { title: 'Consumer Preferences', description: 'Understand evolving buying behavior, ownership trends, and customer expectations.', iconIdentifier: 'profile-2user' },
+    { title: 'EV & Future Mobility', description: 'Track electric vehicle adoption, charging infrastructure, and emerging mobility trends.', iconIdentifier: 'flash' },
+    { title: 'Competitive Intelligence', description: 'Monitor competitors, pricing strategies, product launches, and market positioning.', iconIdentifier: 'chart' },
+    { title: 'Regulatory & Market Dynamics', description: 'Stay informed about policy changes, sustainability initiatives, and industry developments.', iconIdentifier: 'shield-tick' },
+  ],
+  whoWeServeEyebrow: 'Who We Serve',
+  whoWeServeHeading: 'Supporting Every Automotive Segment',
+  whoWeServeCards: [
+    { title: 'Automotive Manufacturers & OEMs', description: 'Helping manufacturers understand market trends, customer expectations, and product opportunities.', iconIdentifier: 'car' },
+    { title: 'Auto Component Suppliers', description: 'Providing insights into demand forecasting, supply chains, and competitive positioning.', iconIdentifier: 'wrench' },
+    { title: 'EV & Mobility Companies', description: 'Supporting electric vehicle brands, charging providers, and mobility innovators with future-focused research.', iconIdentifier: 'battery-charging' },
+    { title: 'Dealerships, Fleet & Technology Companies', description: 'Helping dealerships, fleet operators, and mobility companies drive smarter decisions through actionable market insights.', iconIdentifier: 'building' },
+  ],
+  methodologiesEyebrow: 'Research Methodologies',
+  methodologiesHeading: 'Proven Research Methodologies',
+  methodologiesBody:
+    'We combine qualitative and quantitative research methodologies to deliver accurate, reliable, and actionable automotive market insights tailored to your business objectives.',
+  methodologies: [
+    { title: 'CATI Surveys', imageFilename: 'method-cati.jpg', accentColor: '#7f3856' },
+    { title: 'Online Surveys', imageFilename: 'method-online-surveys.jpg', accentColor: '#7f3856' },
+    { title: 'In-Depth Interviews (IDIs)', imageFilename: 'method-idis.jpg', accentColor: '#7f3856' },
+    { title: 'Focus Group Discussions (FGDs)', imageFilename: 'method-fgds.jpg', accentColor: '#7f3856' },
+  ],
+  empowerEyebrow: 'Automotive Research',
+  empowerHeading: 'Empower Your Automotive Business with Unimrkt Research',
+  empowerBody:
+    'Unimrkt Research empowers automotive businesses with accurate market intelligence and actionable insights to support informed decision-making. Leveraging advanced research methodologies, experienced professionals, and access to niche automotive audiences, we deliver reliable data that helps organizations understand customer behavior, market trends, competitive landscapes, and emerging opportunities.',
+  empowerCta: { label: 'Get Started with Unimrkt Research Today', href: '/contact', isExternal: false, variant: 'primary' },
+  empowerImageFilename: 'content-mechanics.png',
+  enquiryEyebrow: 'Get a Free Quote!',
+  enquiryHeading: "Let's Discuss Your Research Needs",
+  enquiryBody:
+    'Connect with our research experts to design customized solutions that deliver accurate insights, support informed decisions, and drive measurable business growth across your target automotive markets.',
+  enquiryImageFilename: 'enquiry-bg.jpg',
+  faqItems: [
+    {
+      question: 'What is automobile market research, and why is it important?',
+      answer:
+        'Automobile market research is the systematic study of consumer behavior, competitive dynamics, and industry trends within the automotive sector. It matters because it gives manufacturers, suppliers, and mobility companies the evidence they need to make confident, lower-risk decisions.',
+    },
+    {
+      question: 'Why is market research important for automobile industries?',
+      answer:
+        'It helps automotive businesses understand shifting customer expectations, benchmark against competitors, and validate new products before committing significant investment — reducing risk at every stage of the product lifecycle.',
+    },
+    {
+      question: 'How can automobile market research help businesses innovate?',
+      answer:
+        'By surfacing unmet customer needs, emerging mobility trends, and gaps in the competitive landscape, research gives product and strategy teams a data-driven foundation to prioritize the innovations most likely to succeed.',
+    },
+    {
+      question: 'How to conduct effective automotive market research?',
+      answer:
+        'Effective automotive research combines the right methodology — CATI, online surveys, IDIs, or FGDs — with a well-defined sample, clear objectives, and experienced analysts who understand the sector’s regulatory and technology landscape.',
+    },
+    {
+      question: 'What methodologies does Unimrkt Research use for automotive market research?',
+      answer:
+        'We use CATI Surveys, Online Surveys, In-Depth Interviews (IDIs), Focus Group Discussions (FGDs), and Telephonic Surveys — selecting the right mix based on your audience and research objectives.',
+    },
+    {
+      question: 'How can market research help automobile industry companies remain competitive?',
+      answer:
+        'Ongoing research keeps businesses ahead of pricing shifts, new product launches, and changing regulations, so decisions are grounded in current market reality rather than assumption.',
+    },
+    {
+      question: 'What are the key areas covered by Unimrkt Research in automotive market research?',
+      answer:
+        'We cover consumer behavior and preferences, competitive intelligence, product validation, EV and future mobility trends, and regulatory and market dynamics across the automotive ecosystem.',
+    },
+  ],
+  caseStudiesEyebrow: 'Case Studies',
+  caseStudiesHeading: 'Automotive Success Stories',
+  caseStudiesBody:
+    'Discover how our research empowers automotive brands with actionable insights, smarter decisions, and measurable business growth.',
+  caseStudiesCta: TALK_TO_EXPERTS,
+  caseStudies: [
+    { title: 'Vehicle Product Acceptance Study Through Car Clinics', imageFilename: 'case-vehicle-clinics.jpg' },
+    { title: 'Future Mobility & Car Design Preference Research', imageFilename: 'case-future-mobility.jpg' },
+  ],
+  aboutEyebrow: 'About Our Automotive Research',
+  aboutHeading: 'Driving Innovation with Automotive Market Intelligence',
+  aboutBody:
+    'The automotive industry is evolving rapidly with the rise of electric vehicles, connected mobility, autonomous technologies, and changing consumer expectations. At Unimrkt Research, we provide comprehensive automotive market research that helps manufacturers, OEMs, suppliers, dealerships, EV companies, and mobility providers make informed, data-driven decisions.\n\nLeveraging advanced research methodologies and deep industry expertise, we deliver actionable insights into consumer behavior, market trends, competitive landscapes, product innovation, and emerging opportunities. Our customized research solutions empower automotive businesses to reduce risk, accelerate innovation, and achieve sustainable growth in an increasingly competitive global market.',
+};
+
+/** Resolves every `*Filename` reference in an `IndustryDetailSeed` to an
+ * uploaded media ID via `uploadAsset()`, returning the flat attributes
+ * object ready to spread into the `upsertBySlug()` data payload. */
+async function resolveIndustryDetailSeed(strapi: any, detail: IndustryDetailSeed) {
+  const heroImage = await uploadAsset(strapi, detail.heroImageFilename);
+  const whatWeDoImage = await uploadAsset(strapi, detail.whatWeDoImageFilename);
+  const empowerImage = await uploadAsset(strapi, detail.empowerImageFilename);
+  const enquiryImage = await uploadAsset(strapi, detail.enquiryImageFilename);
+
+  const whyResearchCards = [];
+  for (const card of detail.whyResearchCards) {
+    whyResearchCards.push({ title: card.title, description: card.description, image: card.imageFilename ? await uploadAsset(strapi, card.imageFilename) : null });
+  }
+  const methodologies = [];
+  for (const item of detail.methodologies) {
+    methodologies.push({ title: item.title, accentColor: item.accentColor, image: await uploadAsset(strapi, item.imageFilename) });
+  }
+  const caseStudies = [];
+  for (const item of detail.caseStudies) {
+    caseStudies.push({ title: item.title, image: await uploadAsset(strapi, item.imageFilename) });
+  }
+
+  return {
+    heroEyebrow: detail.heroEyebrow,
+    heroHeading: detail.heroHeading,
+    heroSubheading: detail.heroSubheading,
+    heroImage,
+    heroActions: detail.heroActions,
+    trustHeading: detail.trustHeading,
+    trustLogos: detail.trustLogos,
+    whatWeDoEyebrow: detail.whatWeDoEyebrow,
+    whatWeDoHeading: detail.whatWeDoHeading,
+    whatWeDoBody: detail.whatWeDoBody,
+    whatWeDoCta: detail.whatWeDoCta,
+    whatWeDoImage,
+    whyResearchEyebrow: detail.whyResearchEyebrow,
+    whyResearchHeading: detail.whyResearchHeading,
+    whyResearchCards,
+    expertiseEyebrow: detail.expertiseEyebrow,
+    expertiseHeading: detail.expertiseHeading,
+    expertiseItems: detail.expertiseItems,
+    challengesEyebrow: detail.challengesEyebrow,
+    challengesHeading: detail.challengesHeading,
+    challengesBody: detail.challengesBody,
+    challengesCards: detail.challengesCards,
+    whoWeServeEyebrow: detail.whoWeServeEyebrow,
+    whoWeServeHeading: detail.whoWeServeHeading,
+    whoWeServeCards: detail.whoWeServeCards,
+    methodologiesEyebrow: detail.methodologiesEyebrow,
+    methodologiesHeading: detail.methodologiesHeading,
+    methodologiesBody: detail.methodologiesBody,
+    methodologies,
+    empowerEyebrow: detail.empowerEyebrow,
+    empowerHeading: detail.empowerHeading,
+    empowerBody: detail.empowerBody,
+    empowerCta: detail.empowerCta,
+    empowerImage,
+    enquiryEyebrow: detail.enquiryEyebrow,
+    enquiryHeading: detail.enquiryHeading,
+    enquiryBody: detail.enquiryBody,
+    enquiryImage,
+    faqItems: detail.faqItems,
+    caseStudiesEyebrow: detail.caseStudiesEyebrow,
+    caseStudiesHeading: detail.caseStudiesHeading,
+    caseStudiesBody: detail.caseStudiesBody,
+    caseStudiesCta: detail.caseStudiesCta,
+    caseStudies,
+    aboutEyebrow: detail.aboutEyebrow,
+    aboutHeading: detail.aboutHeading,
+    aboutBody: detail.aboutBody,
+  };
+}
+
+interface IndustrySeed {
   title: string;
   legacyUrl?: string;
   suggestedUrl: string;
+  summary: string;
+  metaDescription: string;
+  keywords: string;
+  /** Only "Automotives" carries this — the rich, node-384:6205-derived
+   * detail-page content. Every other industry stays base-fields-only, so
+   * every section below renders nothing on its page (rule: missing data
+   * -> null, never a hardcoded fallback). */
+  detail?: IndustryDetailSeed;
 }
 
 const INDUSTRIES_SEED: IndustrySeed[] = [
@@ -1341,27 +1910,14 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Automotives',
     suggestedUrl: 'https://www.unimrkt.com/industries/automotive-market-research.php',
     summary: 'Our Automotive research helps OEMs, dealers, and suppliers understand shifting buyer preferences — from EV adoption and connected-car features to dealership experience and total cost of ownership perceptions.',
-    overview: 'We combine buyer journey surveys, dealer mystery-shopping, and conjoint analysis on feature trade-offs to help automotive clients prioritize product and go-to-market decisions with confidence.',
-    stats: [['40+', 'OEM & supplier studies delivered'], ['15+', 'Markets covered'], ['EV & ICE', 'Powertrain segments researched'], ['Dealer & OEM', 'Stakeholder perspectives covered']],
-    useCases: 'Applied to new model launch research, EV adoption tracking, dealership experience audits, and connected-vehicle feature prioritization.',
-    ctaHeading: 'Planning your next automotive study?',
-    ctaBody: 'Talk to a specialist about buyer research for your model or market.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Studies typically combine quantitative buyer surveys with qualitative dealership visits, benchmarked against category norms we track continuously.',
     metaDescription: 'Automotive market research covering EV adoption, dealer experience, and connected-vehicle feature preferences.',
     keywords: 'automotive market research, EV research, dealer experience, automotive industry insights',
+    detail: AUTOMOTIVES_DETAIL,
   },
   {
     title: 'Chemicals',
     suggestedUrl: 'https://www.unimrkt.com/industries/chemicals-market-research.php',
     summary: 'Our Chemicals industry research supports B2B demand forecasting, customer satisfaction, and go-to-market decisions for specialty and commodity chemical producers navigating shifting regulation and end-market demand.',
-    overview: 'We interview technical buyers and procurement stakeholders directly, pairing primary data with market-sizing analysis to map demand across end-use segments and geographies.',
-    stats: [['B2B-focused', 'Respondent recruitment'], ['20+', 'End-use segments mapped'], ['Technical buyers', 'Direct access'], ['Global', 'Market coverage']],
-    useCases: 'Used for market sizing, customer satisfaction and loyalty studies, and new product/application demand assessment.',
-    ctaHeading: 'Size your chemicals market opportunity',
-    ctaBody: 'Talk to a specialist about demand research for your product line.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Engagements typically combine technical-buyer interviews with desk research on regulatory and end-market trends.',
     metaDescription: 'Chemicals industry market research — demand sizing, customer satisfaction, and go-to-market insight for B2B producers.',
     keywords: 'chemicals market research, B2B research, specialty chemicals, industrial research',
   },
@@ -1369,13 +1925,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Energy & Utilities',
     suggestedUrl: 'https://www.unimrkt.com/industries/energy-and-utilities-market-research.php',
     summary: 'Our Energy & Utilities research helps providers understand customer satisfaction, renewable-adoption attitudes, and regulatory-stakeholder perceptions across residential and commercial segments.',
-    overview: 'We field regulator-compliant customer satisfaction surveys, model renewable-energy adoption scenarios, and support rate-case research with defensible, methodologically sound data.',
-    stats: [['Residential & C&I', 'Segments covered'], ['Regulator-ready', 'Survey methodology'], ['Renewables tracking', 'Ongoing studies'], ['Multi-utility', 'Benchmark data available']],
-    useCases: 'Applied to customer satisfaction tracking, renewable adoption studies, and rate-case and regulatory stakeholder research.',
-    ctaHeading: 'Understand your customers better',
-    ctaBody: 'Talk to a specialist about satisfaction or adoption research for your utility.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Studies follow regulator-recognized survey methodologies where required, with benchmarking against our multi-utility norms database.',
     metaDescription: 'Energy and utilities market research — customer satisfaction, renewable adoption, and regulatory stakeholder studies.',
     keywords: 'energy market research, utilities research, renewable adoption research',
   },
@@ -1383,13 +1932,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Banking and Finance',
     suggestedUrl: 'https://www.unimrkt.com/industries/banking-and-finance-market-research.php',
     summary: 'Our Banking and Finance research covers digital banking adoption, customer satisfaction, and product concept testing for retail and commercial banks navigating fintech disruption.',
-    overview: 'We combine large-sample quantitative tracking with qualitative journey research to help banks understand where digital experience is winning or losing customer trust.',
-    stats: [['Retail & commercial', 'Banking segments covered'], ['Digital journeys', 'Mapped end-to-end'], ['NPS benchmarking', 'Available'], ['Multi-market', 'Fielding capability']],
-    useCases: 'Used for digital banking adoption studies, satisfaction and NPS tracking, and new product/feature concept testing.',
-    ctaHeading: 'Benchmark your banking experience',
-    ctaBody: 'Talk to a specialist about customer research for your institution.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Tracking studies are benchmarked against our ongoing banking-sector norms, with qualitative journey research layered in to explain the numbers.',
     metaDescription: 'Banking and finance market research — digital adoption, satisfaction tracking, and product concept testing.',
     keywords: 'banking market research, financial services research, digital banking research',
   },
@@ -1397,13 +1939,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Food & Beverage',
     suggestedUrl: 'https://www.unimrkt.com/industries/food-and-beverage-market-research.php',
     summary: 'Our Food & Beverage research supports product development, packaging testing, and concept validation for CPG brands navigating shifting consumer taste and health preferences.',
-    overview: 'We run central-location taste tests, in-home usage tests, and concept/packaging studies to de-risk product decisions before they reach shelf.',
-    stats: [['Blind taste tests', 'Standard offering'], ['iHUTs', 'Real-world usage testing'], ['Packaging studies', 'Shelf-impact tested'], ['Health & wellness', 'Trend tracking included']],
-    useCases: 'Applied to new product development, packaging and claims testing, and health/wellness trend tracking.',
-    ctaHeading: 'De-risk your next product launch',
-    ctaBody: 'Talk to a specialist about taste, packaging, or concept testing.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Product tests combine blind sensory evaluation with branded concept exposure to separate taste performance from brand halo effects.',
     metaDescription: 'Food and beverage market research — product testing, packaging studies, and consumer trend tracking for CPG brands.',
     keywords: 'food and beverage research, CPG research, product testing, taste testing',
   },
@@ -1411,13 +1946,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Life Sciences & Healthcare',
     suggestedUrl: 'https://www.unimrkt.com/industries/life-sciences-and-healthcare-market-research.php',
     summary: 'Our Life Sciences & Healthcare research supports pharma, medtech, and provider organizations with patient experience studies, physician research, and market access insight — conducted to strict compliance standards.',
-    overview: 'We recruit and interview physicians, patients, and payers under full compliance with healthcare research regulations, delivering insight that supports launch, access, and patient-experience decisions.',
-    stats: [['HCP & patient', 'Respondent access'], ['Compliance-first', 'Recruitment protocols'], ['Market access', 'Payer research included'], ['Global', 'Therapeutic area coverage']],
-    useCases: 'Used for product launch research, patient experience studies, physician attitude and prescribing research, and market access/payer studies.',
-    ctaHeading: 'Bring evidence to your next launch',
-    ctaBody: 'Talk to a specialist about compliant healthcare research design.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'All healthcare studies follow strict respondent-consent and data-privacy protocols, with recruitment validated against professional credentials where required.',
     metaDescription: 'Life sciences and healthcare market research — patient experience, physician insight, and market access studies.',
     keywords: 'healthcare market research, life sciences research, patient experience research, pharma research',
   },
@@ -1425,13 +1953,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'IT & Telecom',
     suggestedUrl: 'https://www.unimrkt.com/industries/it-and-telecome-market-research.php',
     summary: 'Our IT & Telecom research helps operators and technology vendors understand customer churn drivers, network experience perceptions, and enterprise buyer decision journeys.',
-    overview: 'We combine churn-driver analysis, network experience surveys, and B2B buyer interviews to help telecom and IT clients prioritize investment and retention strategy.',
-    stats: [['Churn modeling', 'Available'], ['B2B & consumer', 'Segments covered'], ['Network experience', 'Tracking studies'], ['Enterprise buyers', 'Direct access']],
-    useCases: 'Applied to churn and retention research, network/service experience tracking, and enterprise technology buyer studies.',
-    ctaHeading: 'Reduce churn with better data',
-    ctaBody: 'Talk to a specialist about churn or experience research for your business.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Churn studies combine survey data with behavioral segmentation to identify which experience factors most predict attrition.',
     metaDescription: 'IT and telecom market research — churn analysis, network experience tracking, and enterprise buyer research.',
     keywords: 'telecom market research, IT research, churn analysis, enterprise technology research',
   },
@@ -1441,13 +1962,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     legacyUrl: 'https://www.unimrkt.com/industries/media-and-entertainment.php',
     suggestedUrl: 'https://www.unimrkt.com/industries/media-and-entertainment-market-research.php',
     summary: 'Our Media & Entertainment research helps studios, platforms, and publishers understand content engagement, subscription behavior, and audience segmentation across a fragmenting media landscape.',
-    overview: 'We field concept and content testing, subscription/churn studies, and audience segmentation research to help media clients make sharper content and pricing decisions.',
-    stats: [['Content testing', 'Concept & pilot stage'], ['Churn & pricing', 'Subscription research studies'], ['Behavioral', 'Audience segmentation coverage'], ['Cross-platform', 'Coverage']],
-    useCases: 'Used for content concept testing, subscription pricing and churn research, and audience segmentation for targeting.',
-    ctaHeading: 'Understand your audience better',
-    ctaBody: 'Talk to a specialist about content or subscription research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Segmentation studies combine viewing/behavioral data (where available) with attitudinal survey data for a complete audience picture.',
     metaDescription: 'Media and entertainment market research — content testing, subscription research, and audience segmentation.',
     keywords: 'media research, entertainment market research, audience segmentation, content testing',
   },
@@ -1455,13 +1969,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Metals and Mining',
     suggestedUrl: 'https://www.unimrkt.com/industries/metals-and-mining-market-research.php',
     summary: 'Our Metals and Mining research supports demand forecasting, stakeholder engagement, and community-impact studies for producers navigating volatile commodity markets and rising ESG scrutiny.',
-    overview: 'We combine B2B demand-side interviews with community and stakeholder research to give mining and metals clients a complete view of market and social-license risk.',
-    stats: [['B2B demand studies', 'Core offering'], ['Community engagement', 'Research included'], ['ESG-focused', 'Stakeholder studies'], ['Global', 'Commodity coverage']],
-    useCases: 'Applied to demand forecasting, community/stakeholder engagement studies, and ESG perception research.',
-    ctaHeading: 'Understand your market and stakeholders',
-    ctaBody: 'Talk to a specialist about demand or community research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Community studies are designed with local research partners to ensure culturally appropriate engagement and data quality.',
     metaDescription: 'Metals and mining market research — demand forecasting, community engagement, and ESG stakeholder studies.',
     keywords: 'mining market research, metals industry research, ESG research, commodity research',
   },
@@ -1469,13 +1976,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Retail & CPG',
     suggestedUrl: 'https://www.unimrkt.com/industries/retail-and-cpg-market-research.php',
     summary: 'Our Retail & CPG research covers shopper behavior, planogram and pricing testing, and brand tracking for retailers and consumer goods manufacturers competing for shelf space and share of wallet.',
-    overview: 'We run shopper intercepts, in-store and online path-to-purchase studies, and pricing/promotion research to help retail and CPG clients optimize the full path from awareness to purchase.',
-    stats: [['Shopper intercepts', 'In-store and online'], ['Available', 'Pricing & promo testing'], ['Brand tracking', 'Ongoing studies'], ['Omnichannel', 'Path-to-purchase mapping']],
-    useCases: 'Used for shopper behavior studies, pricing and promotion testing, and brand health tracking.',
-    ctaHeading: 'Win the path to purchase',
-    ctaBody: 'Talk to a specialist about shopper or pricing research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Path-to-purchase studies combine in-the-moment intercepts with follow-up surveys to connect in-store behavior to purchase outcomes.',
     metaDescription: 'Retail and CPG market research — shopper behavior, pricing testing, and brand tracking studies.',
     keywords: 'retail market research, CPG research, shopper research, brand tracking',
   },
@@ -1483,13 +1983,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Transportation',
     suggestedUrl: 'https://www.unimrkt.com/industries/transportation-market-research.php',
     summary: 'Our Transportation research supports logistics providers, airlines, and public transit agencies with customer satisfaction, service-quality, and demand-forecasting studies.',
-    overview: 'We field rider/customer satisfaction tracking, service-quality benchmarking, and demand studies to help transportation clients prioritize operational investment.',
-    stats: [['Rider satisfaction', 'Tracking studies'], ['Service benchmarking', 'Vs. category norms'], ['Demand forecasting', 'Included'], ['Public & private', 'Sector coverage']],
-    useCases: 'Applied to customer/rider satisfaction tracking, service-quality benchmarking, and route/demand planning research.',
-    ctaHeading: 'Improve the customer journey',
-    ctaBody: 'Talk to a specialist about satisfaction or demand research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Satisfaction tracking is benchmarked against our transportation-sector norms database to contextualize scores.',
     metaDescription: 'Transportation industry market research — rider satisfaction, service benchmarking, and demand forecasting studies.',
     keywords: 'transportation market research, logistics research, transit research',
   },
@@ -1497,13 +1990,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Professional & Business Services',
     suggestedUrl: 'https://www.unimrkt.com/industries/professional-and-business-services-market-research.php',
     summary: 'Our Professional & Business Services research helps consulting, legal, and B2B service firms understand client satisfaction, win/loss dynamics, and brand perception among decision-makers.',
-    overview: 'We conduct client satisfaction interviews, win/loss analysis, and brand perception studies with senior B2B decision-makers to help service firms sharpen positioning and delivery.',
-    stats: [['Client satisfaction', 'Interview-based studies'], ['Win/loss analysis', 'Available'], ['Direct access', 'Senior decision-makers'], ['Brand perception', 'Tracking included']],
-    useCases: 'Used for client satisfaction and relationship health studies, win/loss analysis, and brand positioning research.',
-    ctaHeading: 'Understand why clients choose you',
-    ctaBody: 'Talk to a specialist about client or win/loss research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: "Win/loss interviews are conducted by a neutral third party to encourage candor that internal teams often can't get.",
     metaDescription: 'Professional and business services market research — client satisfaction, win/loss analysis, and brand perception studies.',
     keywords: 'professional services research, B2B research, win loss analysis, client satisfaction research',
   },
@@ -1511,13 +1997,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Education',
     suggestedUrl: 'https://www.unimrkt.com/industries/education.php',
     summary: 'Our Education research supports institutions and edtech providers with student experience studies, enrollment/demand research, and learning-outcome perception surveys.',
-    overview: 'We field student and parent satisfaction surveys, enrollment-journey research, and edtech usability studies to help education clients improve outcomes and retention.',
-    stats: [['Student & parent', 'Respondent access'], ['Enrollment research', 'Journey mapping included'], ['EdTech usability', 'Testing available'], ['K-12 & higher-ed', 'Segment coverage']],
-    useCases: 'Applied to student experience and satisfaction research, enrollment/demand studies, and edtech product testing.',
-    ctaHeading: 'Improve student outcomes and retention',
-    ctaBody: 'Talk to a specialist about student experience research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Studies combine survey data with qualitative student/parent interviews to explain the drivers behind satisfaction scores.',
     metaDescription: 'Education market research — student experience, enrollment research, and edtech usability studies.',
     keywords: 'education market research, edtech research, student experience research',
   },
@@ -1525,13 +2004,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Fintech',
     suggestedUrl: 'https://www.unimrkt.com/industries/fintech-market-research.php',
     summary: 'Our Fintech research helps digital-first financial products understand user onboarding friction, feature adoption, and trust perceptions in a category where switching costs are low and competition is high.',
-    overview: 'We combine usability testing, adoption funnel analysis, and trust/security perception research to help fintech clients reduce churn and accelerate feature adoption.',
-    stats: [['Onboarding funnel', 'Friction analysis'], ['Feature adoption', 'Tracking studies'], ['Trust & security', 'Perception research'], ['Digital-native', 'Respondent panels']],
-    useCases: 'Used for onboarding optimization research, feature adoption tracking, and trust/security perception studies.',
-    ctaHeading: 'Reduce onboarding drop-off',
-    ctaBody: 'Talk to a specialist about fintech user research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Onboarding research combines usability testing with funnel-drop-off survey data to pinpoint exactly where users disengage.',
     metaDescription: 'Fintech market research — onboarding, feature adoption, and trust perception studies for digital financial products.',
     keywords: 'fintech research, digital banking research, user onboarding research',
   },
@@ -1539,13 +2011,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Oil & Gas',
     suggestedUrl: 'https://www.unimrkt.com/industries/oil-and-gas-market-research.php',
     summary: 'Our Oil & Gas research supports upstream, midstream, and downstream players with market demand studies, stakeholder engagement, and workforce/safety-culture research.',
-    overview: 'We combine B2B demand analysis with stakeholder and community research to give oil and gas clients a complete view of market and social-license considerations.',
-    stats: [['Value-chain coverage', 'Upstream to downstream'], ['Studies included', 'Stakeholder engagement'], ['Safety culture', 'Workforce research available'], ['Global', 'Market coverage']],
-    useCases: 'Applied to demand forecasting, stakeholder/community engagement, and workforce safety-culture research.',
-    ctaHeading: 'Understand your market and workforce',
-    ctaBody: 'Talk to a specialist about demand or workforce research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: "Workforce safety-culture studies combine confidential employee surveys with qualitative interviews to surface issues staff won't raise through normal channels.",
     metaDescription: 'Oil and gas market research — demand forecasting, stakeholder engagement, and workforce safety-culture studies.',
     keywords: 'oil and gas market research, energy sector research, workforce research',
   },
@@ -1553,13 +2018,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Real Estate',
     suggestedUrl: 'https://www.unimrkt.com/industries/real-estate-market-research.php',
     summary: 'Our Real Estate research helps developers, brokerages, and property managers understand buyer/renter preferences, amenity valuation, and market demand across residential and commercial segments.',
-    overview: 'We field buyer/renter preference studies, amenity and feature trade-off research, and market demand analysis to help real estate clients prioritize development and leasing decisions.',
-    stats: [['Segments covered', 'Residential & commercial'], ['Amenity valuation', 'Trade-off studies'], ['Market demand', 'Sizing available'], ['Buyer & renter', 'Direct research']],
-    useCases: 'Used for development feasibility studies, amenity/feature prioritization, and market demand and pricing research.',
-    ctaHeading: 'Prioritize what buyers actually want',
-    ctaBody: 'Talk to a specialist about buyer or renter preference research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Amenity studies use trade-off analysis (conjoint) to quantify exactly how much each feature is worth to buyers, not just whether they like it.',
     metaDescription: 'Real estate market research — buyer and renter preferences, amenity valuation, and market demand studies.',
     keywords: 'real estate market research, property research, amenity research',
   },
@@ -1567,13 +2025,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Travel & Tourism',
     suggestedUrl: 'https://www.unimrkt.com/industries/travel-and-tourism-market-research.php',
     summary: 'Our Travel & Tourism research helps airlines, hotels, and destinations understand traveler decision journeys, satisfaction drivers, and destination perception in a highly seasonal, experience-driven category.',
-    overview: 'We field traveler journey research, satisfaction and NPS tracking, and destination brand perception studies to help travel and tourism clients improve experience and drive repeat visitation.',
-    stats: [['Traveler journey', 'Mapping studies'], ['NPS benchmarking', 'Satisfaction tracking'], ['Brand studies', 'Destination perception'], ['Seasonal', 'Fielding cadence available']],
-    useCases: 'Applied to guest/traveler satisfaction tracking, destination brand perception studies, and booking-journey research.',
-    ctaHeading: 'Improve the traveler experience',
-    ctaBody: 'Talk to a specialist about traveler or destination research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Journey research maps satisfaction at every touchpoint from booking through post-trip, identifying exactly where experience breaks down.',
     metaDescription: 'Travel and tourism market research — traveler journey, satisfaction tracking, and destination perception studies.',
     keywords: 'travel market research, tourism research, destination research, guest satisfaction research',
   },
@@ -1581,13 +2032,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Manufacturing',
     suggestedUrl: 'https://www.unimrkt.com/industries/manufacturing-market-research.php',
     summary: 'Our Manufacturing research supports industrial and consumer-goods manufacturers with B2B customer satisfaction, supply-chain stakeholder research, and product demand forecasting.',
-    overview: 'We conduct B2B buyer interviews, distributor/channel satisfaction studies, and demand forecasting to help manufacturing clients align production and go-to-market strategy with real demand signals.',
-    stats: [['B2B buyer research', 'Direct access'], ['Available', 'Channel/distributor studies'], ['Demand forecasting', 'Included'], ['Global', 'Manufacturing coverage']],
-    useCases: 'Used for B2B customer satisfaction studies, channel/distributor research, and demand forecasting for production planning.',
-    ctaHeading: 'Align production with real demand',
-    ctaBody: 'Talk to a specialist about B2B or demand research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Channel studies interview both direct B2B customers and distribution partners to give a complete view of the demand chain.',
     metaDescription: 'Manufacturing market research — B2B customer satisfaction, channel research, and demand forecasting studies.',
     keywords: 'manufacturing market research, industrial research, B2B demand research',
   },
@@ -1595,13 +2039,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Architecture & Construction',
     suggestedUrl: 'https://www.unimrkt.com/industries/architecture-and-construction-market-research.php',
     summary: 'Our Architecture & Construction research helps firms and material suppliers understand client satisfaction, specification decision drivers, and demand trends across residential and commercial building.',
-    overview: 'We interview architects, contractors, and property owners to understand what drives material and vendor specification decisions, supporting go-to-market and product development strategy.',
-    stats: [['Direct access', 'Architect & contractor'], ['Decision-driver', 'Specification research studies'], ['Segment coverage', 'Residential & commercial'], ['Material & vendor', 'Preference tracking']],
-    useCases: 'Applied to specification decision research, client satisfaction studies, and building-material demand tracking.',
-    ctaHeading: 'Understand specification decisions',
-    ctaBody: 'Talk to a specialist about architect or contractor research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Specification research combines interviews with architects and contractors at the actual decision point in a project, not after the fact.',
     metaDescription: 'Architecture and construction market research — specification research, client satisfaction, and demand studies.',
     keywords: 'construction market research, architecture research, building materials research',
   },
@@ -1609,13 +2046,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Sports',
     suggestedUrl: 'https://www.unimrkt.com/industries/sports-market-research.php',
     summary: 'Our Sports research helps leagues, teams, and sponsors understand fan engagement, sponsorship value, and viewership behavior across an increasingly fragmented media landscape.',
-    overview: 'We field fan engagement surveys, sponsorship value studies, and viewership/consumption research to help sports organizations and sponsors quantify and grow audience value.',
-    stats: [['Fan engagement', 'Tracking studies'], ['ROI research', 'Sponsorship valuation'], ['Viewership behavior', 'Cross-platform tracking'], ['Global', 'Fan base coverage']],
-    useCases: 'Used for fan engagement tracking, sponsorship value and ROI studies, and viewership/consumption behavior research.',
-    ctaHeading: 'Quantify your fan value',
-    ctaBody: 'Talk to a specialist about fan or sponsorship research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Sponsorship valuation combines brand-recall survey data with engagement metrics to quantify the actual value delivered to sponsors.',
     metaDescription: 'Sports market research — fan engagement, sponsorship valuation, and viewership behavior studies.',
     keywords: 'sports market research, fan engagement research, sponsorship research',
   },
@@ -1623,13 +2053,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'E-commerce & Online Marketplaces Research',
     suggestedUrl: 'https://www.unimrkt.com/industries/ecommerce-market-research.php',
     summary: 'Our E-commerce & Online Marketplaces research helps online retailers and platforms understand conversion funnel drop-off, seller/buyer trust dynamics, and competitive positioning in a fast-moving category.',
-    overview: 'We combine funnel analytics review with usability testing and buyer/seller satisfaction research to help e-commerce clients improve conversion and marketplace trust.',
-    stats: [['Funnel analysis', 'Drop-off diagnostics'], ['Buyer & seller', 'Satisfaction research'], ['Usability testing', 'Included'], ['Marketplace trust', 'Perception studies']],
-    useCases: 'Applied to conversion optimization research, marketplace trust and safety studies, and competitive benchmarking.',
-    ctaHeading: 'Improve conversion and trust',
-    ctaBody: 'Talk to a specialist about e-commerce or marketplace research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Funnel research pairs quantitative drop-off data with qualitative usability sessions to explain not just where but why users abandon.',
     metaDescription: 'E-commerce and online marketplace research — conversion optimization, trust studies, and competitive benchmarking.',
     keywords: 'e-commerce market research, online marketplace research, conversion research',
   },
@@ -1637,13 +2060,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Agriculture & Agritech Market Research',
     suggestedUrl: 'https://www.unimrkt.com/industries/agriculture-and-agritech-market-research.php',
     summary: 'Our Agriculture & Agritech research helps input suppliers, equipment makers, and agritech startups understand farmer decision-making, technology adoption barriers, and market demand across diverse farming segments.',
-    overview: 'We interview farmers and agribusiness stakeholders directly to understand what drives adoption of new inputs, equipment, and technology, supporting go-to-market strategy for agriculture clients.',
-    stats: [['Farmer interviews', 'Direct access'], ['Technology adoption', 'Barrier analysis'], ['Multi-crop', 'Segment coverage'], ['Global', 'Agricultural market reach']],
-    useCases: 'Used for technology/input adoption research, farmer segmentation studies, and market demand forecasting.',
-    ctaHeading: 'Understand farmer decision-making',
-    ctaBody: 'Talk to a specialist about agriculture or agritech research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Adoption studies combine farmer interviews with behavioral segmentation to identify which farmer types are ready to adopt new technology first.',
     metaDescription: 'Agriculture and agritech market research — farmer decision-making, technology adoption, and demand studies.',
     keywords: 'agriculture market research, agritech research, farmer research',
   },
@@ -1651,13 +2067,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Fashion & Textile Market Research',
     suggestedUrl: 'https://www.unimrkt.com/industries/fashion-and-textile-market-research.php',
     summary: 'Our Fashion & Textile research helps brands and manufacturers understand consumer style preferences, sustainability attitudes, and pricing sensitivity across a fast-cycling category.',
-    overview: 'We field concept and trend testing, sustainability perception studies, and pricing research to help fashion and textile clients make sharper product and merchandising decisions.',
-    stats: [['Trend testing', 'Concept validation'], ['Consumer attitudes', 'Sustainability research studies'], ['Pricing sensitivity', 'Analysis included'], ['Global', 'Fashion market coverage']],
-    useCases: 'Applied to trend and concept testing, sustainability perception research, and pricing/merchandising studies.',
-    ctaHeading: 'Validate your next collection',
-    ctaBody: 'Talk to a specialist about trend or concept testing.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Trend studies combine social listening with concept-testing surveys to validate which emerging styles have real commercial demand.',
     metaDescription: 'Fashion and textile market research — trend testing, sustainability attitudes, and pricing sensitivity studies.',
     keywords: 'fashion market research, textile research, trend testing, sustainability research',
   },
@@ -1665,13 +2074,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'AeroSpace and Defence Market Research',
     suggestedUrl: 'https://www.unimrkt.com/industries/aerospace-defence-market-research.php',
     summary: 'Our Aerospace and Defence research supports manufacturers and suppliers with stakeholder engagement, procurement decision research, and market demand analysis in a highly regulated, long-cycle industry.',
-    overview: 'We conduct interviews with procurement officials, technical evaluators, and end-users to understand decision criteria in complex, long-cycle aerospace and defence purchasing.',
-    stats: [['Procurement research', 'Decision-driver studies'], ['Long-cycle', 'Industry expertise'], ['Technical evaluators', 'Direct access'], ['Global', 'Defence market coverage']],
-    useCases: 'Used for procurement decision research, competitive positioning studies, and market demand forecasting.',
-    ctaHeading: 'Understand procurement decisions',
-    ctaBody: 'Talk to a specialist about aerospace or defence research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: "Procurement research is designed around your specific program's evaluation criteria and stakeholder structure, respecting confidentiality requirements throughout.",
     metaDescription: 'Aerospace and defence market research — procurement decisions, stakeholder engagement, and demand studies.',
     keywords: 'aerospace market research, defence industry research, procurement research',
   },
@@ -1679,13 +2081,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Insurance Market Research',
     suggestedUrl: 'https://www.unimrkt.com/industries/insurance-market-research.php',
     summary: 'Our Insurance research helps carriers and brokers understand policyholder satisfaction, claims-experience perception, and product demand across life, health, and property & casualty lines.',
-    overview: 'We field policyholder satisfaction tracking, claims-experience research, and product concept testing to help insurance clients improve retention and identify new product opportunities.',
-    stats: [['Tracking studies', 'Policyholder satisfaction'], ['Claims experience', 'Research included'], ['Life, health, P&C', 'Line coverage'], ['Available', 'Product concept testing']],
-    useCases: 'Applied to policyholder satisfaction and retention research, claims-experience studies, and new product concept testing.',
-    ctaHeading: 'Improve policyholder retention',
-    ctaBody: 'Talk to a specialist about satisfaction or claims research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Claims-experience research surveys policyholders immediately post-claim, when the experience is freshest and most actionable.',
     metaDescription: 'Insurance market research — policyholder satisfaction, claims experience, and product concept testing.',
     keywords: 'insurance market research, policyholder research, claims experience research',
   },
@@ -1693,13 +2088,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'Legal Services Market Research',
     suggestedUrl: 'https://www.unimrkt.com/industries/legal-services-market-research.php',
     summary: 'Our Legal Services research helps law firms and legal-tech providers understand client satisfaction, competitive positioning, and legal-tech adoption among corporate and individual clients.',
-    overview: 'We conduct client satisfaction interviews, win/loss analysis, and legal-tech usability research to help legal services clients sharpen positioning and improve client experience.',
-    stats: [['Client satisfaction', 'Interview-based studies'], ['Win/loss analysis', 'Available'], ['Legal-tech adoption', 'Usability research'], ['Client segments', 'Corporate & individual']],
-    useCases: 'Used for client satisfaction and relationship research, competitive win/loss analysis, and legal-tech product testing.',
-    ctaHeading: 'Understand your clients better',
-    ctaBody: 'Talk to a specialist about client or legal-tech research.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Client satisfaction interviews are conducted by a neutral third party to encourage the candor firms rarely get asking directly.',
     metaDescription: 'Legal services market research — client satisfaction, win/loss analysis, and legal-tech adoption studies.',
     keywords: 'legal services research, law firm research, legal tech research',
   },
@@ -1708,13 +2096,6 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
     title: 'FMCG Market Research',
     suggestedUrl: 'https://www.unimrkt.com/industries/fmcg-market-research.php',
     summary: 'Our FMCG research helps consumer packaged goods brands validate product concepts, test packaging, and track brand health in one of the most competitive, fast-cycling categories in consumer research.',
-    overview: 'We run concept and packaging testing, in-home usage tests, and brand tracking studies to help FMCG clients de-risk launches and defend market share against private label and new entrants.',
-    stats: [['Concept testing', 'Standard offering'], ['Packaging studies', 'Shelf-impact tested'], ['Brand tracking', 'Ongoing studies'], ['iHUTs', 'Real-world usage testing']],
-    useCases: 'Applied to new product launch research, packaging and claims testing, and ongoing brand health tracking.',
-    ctaHeading: 'De-risk your next FMCG launch',
-    ctaBody: 'Talk to a specialist about concept or packaging testing.',
-    ctaLabel: 'Consult Our Research Specialists',
-    methodology: 'Concept tests are benchmarked against our FMCG norms database, so results are judged against category standards, not in isolation.',
     metaDescription: 'FMCG market research — concept testing, packaging studies, and brand health tracking for consumer goods brands.',
     keywords: 'FMCG market research, consumer goods research, concept testing, brand tracking',
   },
@@ -1723,6 +2104,10 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
 async function upsertIndustries(strapi: any) {
   for (const industry of INDUSTRIES_SEED) {
     const slug = slugifyTitle(industry.title);
+    const detailData = industry.detail
+      ? // eslint-disable-next-line no-await-in-loop -- must resolve before the upsert below, one industry at a time for readable seed logs
+        await resolveIndustryDetailSeed(strapi, industry.detail)
+      : {};
     // eslint-disable-next-line no-await-in-loop -- each industry must fully commit before the next, for readable seed logs
     await upsertBySlug(
       strapi,
@@ -1734,15 +2119,19 @@ async function upsertIndustries(strapi: any) {
         legacyUrl: industry.legacyUrl ?? null,
         suggestedUrl: industry.suggestedUrl,
         summary: industry.summary,
-        blocks: buildResearchBlocks(industry.title, industry),
-        seo: buildResearchSeo(industry.title, industry),
+        seo: {
+          metaTitle: `${industry.title.length > 46 ? `${industry.title.slice(0, 45)}…` : industry.title} | Unimrkt Research`,
+          metaDescription: industry.metaDescription,
+          keywords: industry.keywords,
+        },
+        ...detailData,
       },
       true // published — fully content-enriched, per content-enrichment request
     );
   }
 
   strapi.log.info(
-    `[seed] Industries: ${INDUSTRIES_SEED.length} upserted and published, each with 5 content blocks + SEO. Corrected sheet typo: "FMCG Market Rsearch" -> "FMCG Market Research".`
+    `[seed] Industries: ${INDUSTRIES_SEED.length} upserted and published (1 with the full node-384:6205 detail-page content, ${INDUSTRIES_SEED.length - 1} base-fields-only). Corrected sheet typo: "FMCG Market Rsearch" -> "FMCG Market Research".`
   );
 }
 

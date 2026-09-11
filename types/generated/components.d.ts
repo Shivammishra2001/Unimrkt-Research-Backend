@@ -628,6 +628,71 @@ export interface BlocksWhyChooseUs extends Struct.ComponentSchema {
   };
 }
 
+export interface IndustriesDetailCard extends Struct.ComponentSchema {
+  collectionName: 'components_industries_detail_cards';
+  info: {
+    displayName: 'Industry Detail Card';
+    icon: 'grid';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 240;
+      }>;
+    icon: Schema.Attribute.Media<'images'>;
+    iconIdentifier: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    image: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+  };
+}
+
+export interface IndustriesTrustLogo extends Struct.ComponentSchema {
+  collectionName: 'components_industries_trust_logos';
+  info: {
+    displayName: 'Trust Logo';
+    icon: 'star';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+  };
+}
+
+export interface ServicesStatItem extends Struct.ComponentSchema {
+  collectionName: 'components_services_stat_items';
+  info: {
+    displayName: 'Service Stat Item';
+    icon: 'chart-pie';
+  };
+  attributes: {
+    iconIdentifier: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    label: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    value: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+  };
+}
+
 export interface SharedFooterColumn extends Struct.ComponentSchema {
   collectionName: 'components_shared_footer_columns';
   info: {
@@ -763,6 +828,9 @@ declare module '@strapi/strapi' {
       'blocks.stats-band': BlocksStatsBand;
       'blocks.testimonials': BlocksTestimonials;
       'blocks.why-choose-us': BlocksWhyChooseUs;
+      'industries.detail-card': IndustriesDetailCard;
+      'industries.trust-logo': IndustriesTrustLogo;
+      'services.stat-item': ServicesStatItem;
       'shared.footer-column': SharedFooterColumn;
       'shared.link': SharedLink;
       'shared.nav-child-item': SharedNavChildItem;
