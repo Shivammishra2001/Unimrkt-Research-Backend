@@ -29,14 +29,10 @@
       "maxLength": 240
     },
     "category": {
-      "type": "enumeration",
-      "enum": [
-        "Primary Research",
-        "Qualitative Research",
-        "Quantitative Research",
-        "Business Research",
-        "Research Support Functions"
-      ],
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "blogs",
       "required": true
     },
     "coverImage": {

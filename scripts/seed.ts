@@ -2324,6 +2324,49 @@ async function upsertGalleryItems(strapi: any) {
 }
 
 // ---------------------------------------------------------------------------
+// 10.4. Blog Categories — used to be a fixed 5-value enum directly on
+//       `api::blog.blog`. Now a real collection type
+//       (`api::category.category`) so an editor can create/edit/link
+//       categories from the Admin panel with no code change. The 5 names
+//       and their Figma-shown short filter-tab labels below are
+//       transcribed verbatim from the enum they replace (BlogGridSection
+//       used to hardcode this exact name -> short-label mapping — see
+//       that component's own comment for why "Qualitative Research" and
+//       "Quantitative Research" get a shorter tab label but every other
+//       category doesn't) — nothing here is a new/invented category.
+// ---------------------------------------------------------------------------
+
+const BLOG_CATEGORIES_SEED: Array<{ name: string; shortLabel?: string }> = [
+  { name: 'Primary Research' },
+  { name: 'Qualitative Research', shortLabel: 'Qualitative' },
+  { name: 'Quantitative Research', shortLabel: 'Quantitative' },
+  { name: 'Business Research' },
+  { name: 'Research Support Functions' },
+];
+
+/** Upserts every seed category by its natural key (`name`) and returns a
+ * `name -> documentId` map so upsertBlogs() can wire each post's
+ * `category` relation without a second lookup per post. */
+async function upsertCategories(strapi: any): Promise<Record<string, string>> {
+  const uid = 'api::category.category';
+  const idsByName: Record<string, string> = {};
+
+  for (const category of BLOG_CATEGORIES_SEED) {
+    const slug = slugifyTitle(category.name);
+    // eslint-disable-next-line no-await-in-loop -- each category must fully commit before the next, for readable seed logs
+    const doc = await upsertBySlug(strapi, uid, slug, {
+      name: category.name,
+      slug,
+      shortLabel: category.shortLabel ?? null,
+    });
+    idsByName[category.name] = doc.documentId;
+  }
+
+  strapi.log.info(`[seed] Blog categories: ${BLOG_CATEGORIES_SEED.length} upserted and published.`);
+  return idsByName;
+}
+
+// ---------------------------------------------------------------------------
 // 10.5. Blog posts (/blogs page, Figma node 522:4719) — 9 grid posts plus one
 //       extra ("Exploring Market Trends") exclusive to the large gradient
 //       "Latest Blogs" featured slot, which the design shows with no cover
@@ -2331,10 +2374,13 @@ async function upsertGalleryItems(strapi: any) {
 //       seeds with `coverImageKey: null`. The frontend's "Latest Blogs" strip
 //       picks its 3 small cards from whichever posts are next-most-recent
 //       after that one, straight out of this same pool — no separate
-//       "featured" flag or duplicate entries needed. Titles/excerpts/
-//       categories below are copied verbatim from the node (excerpts
-//       expanded past the card's truncated "..." for a real sentence; the
-//       card UI itself clamps to 2 lines).
+//       "featured" flag or duplicate entries needed. Titles/excerpts below
+//       are copied verbatim from the node (excerpts expanded past the
+//       card's truncated "..." for a real sentence; the card UI itself
+//       clamps to 2 lines). `category` here is still the literal string
+//       from the node/enum this replaces — upsertBlogs() resolves it to
+//       the matching Category's documentId via the map upsertCategories()
+//       returns, so this array itself never needs to know about relations.
 // ---------------------------------------------------------------------------
 
 // Strapi Blocks (structured rich text) node builders — kept minimal, just
@@ -2661,7 +2707,7 @@ const BLOG_POSTS_SEED: Array<{
   },
 ];
 
-async function upsertBlogs(strapi: any, images: Record<string, number | null>) {
+async function upsertBlogs(strapi: any, images: Record<string, number | null>, categoryIdsByName: Record<string, string>) {
   const uid = 'api::blog.blog';
   for (const post of BLOG_POSTS_SEED) {
     const slug = slugifyTitle(post.title);
@@ -2670,7 +2716,10 @@ async function upsertBlogs(strapi: any, images: Record<string, number | null>) {
       title: post.title,
       slug,
       excerpt: post.excerpt,
-      category: post.category,
+      // A documentId, not the raw string — same "pass the related
+      // document's documentId directly" convention the service hierarchy's
+      // `parent` relation already uses (see upsertServiceHierarchy()).
+      category: categoryIdsByName[post.category],
       coverImage: post.coverImageKey ? images[post.coverImageKey] : null,
       order: post.order,
       body: post.body,
@@ -3131,8 +3180,11 @@ async function main() {
     // 10. Gallery items (/gallery page migration off its static fixture).
     await upsertGalleryItems(app);
 
+    // 10.4. Blog categories — must exist before the posts that relate to them.
+    const categoryIdsByName = await upsertCategories(app);
+
     // 10.5. Blog posts (/blogs page, Figma node 522:4719).
-    await upsertBlogs(app, images);
+    await upsertBlogs(app, images, categoryIdsByName);
 
     // 11. Why Choose Us page (blocks.why-choose-us, Figma node 617:7561).
     await upsertWhyChooseUsPage(app);

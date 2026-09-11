@@ -58,6 +58,13 @@ const REQUIRED_PERMISSIONS: string[] = [
   'api::blog.blog.findOne',
   'api::blog.blog.findSlugs',
   'api::blog.blog.findBySlug',
+  // Category (dynamic replacement for blog's old fixed category enum) —
+  // plain list + core detail; the frontend's /blogs filter tabs and each
+  // post's category badge both read through the blog.category relation
+  // populate, but a standalone `GET /categories` (controllers/category.ts
+  // on the frontend) is what lets the tab list itself be dynamic.
+  'api::category.category.find',
+  'api::category.category.findOne',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

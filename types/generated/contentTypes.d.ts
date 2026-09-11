@@ -456,15 +456,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   };
   attributes: {
     body: Schema.Attribute.Blocks;
-    category: Schema.Attribute.Enumeration<
-      [
-        'Primary Research',
-        'Qualitative Research',
-        'Quantitative Research',
-        'Business Research',
-        'Research Support Functions',
-      ]
-    > &
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'> &
       Schema.Attribute.Required;
     coverImage: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
@@ -496,6 +488,50 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
+  collectionName: 'categories';
+  info: {
+    description: "A blog category \u2014 created, edited, and linked to any number of blog posts entirely from the Admin panel. Replaces the old fixed enum on api::blog.blog's `category` field.";
+    displayName: 'Category';
+    pluralName: 'categories';
+    singularName: 'category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    blogs: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 280;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    shortLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1757,6 +1793,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
+      'api::category.category': ApiCategoryCategory;
       'api::gallery-item.gallery-item': ApiGalleryItemGalleryItem;
       'api::global.global': ApiGlobalGlobal;
       'api::industry.industry': ApiIndustryIndustry;
