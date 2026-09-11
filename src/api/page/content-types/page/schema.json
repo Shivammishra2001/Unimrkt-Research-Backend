@@ -41,7 +41,9 @@
         "blocks.industry-grid",
         "blocks.media-gallery",
         "blocks.faq",
-        "blocks.blog-teaser"
+        "blocks.blog-teaser",
+        "blocks.why-choose-us",
+        "blocks.process-steps"
       ],
       "required": true,
       "min": 1

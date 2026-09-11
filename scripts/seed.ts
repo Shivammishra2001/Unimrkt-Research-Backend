@@ -288,7 +288,7 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
           { label: 'Intercept Interview', href: '/services' },
           { label: 'Country Research', href: '/services' },
           { label: 'Competitive Intelligence', href: '/services', isActive: true },
-          { label: 'Survey Programming', href: '/services' },
+          { label: 'Survey programming', href: '/services' },
           { label: 'In-Depth Interview', href: '/services' },
           { label: 'Telephonic Interview', href: '/services' },
         ],
@@ -400,10 +400,7 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
         heading: 'Moments of Excellence',
         subheading:
           'Showcasing the expertise, innovation, and dedication behind every research project and client success story.',
-        actions: [
-          { label: 'Browse Gallery', href: '/#gallery', isExternal: false, variant: 'secondary' },
-          { label: 'Browse Blogs', href: '/#blogs', isExternal: false, variant: 'secondary' },
-        ],
+        actions: [{ label: 'Browse Gallery', href: '/#gallery', isExternal: false, variant: 'secondary' }],
         // The two `large` items show the play-button overlay purely from
         // `size` — no `videoUrl` here on purpose. No real embedded video
         // exists anywhere in the source assets; shipping a fabricated
@@ -428,19 +425,22 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
             excerpt:
               'In a world where consumer behavior evolves faster than a trending topic, online market research has become essential.',
             image: images.blogPhoto,
-            href: '/#blogs',
+            // /#blogs was a placeholder anchor before /blogs existed as a
+            // real page (built earlier this session) — now a dead anchor,
+            // so these 3 posts link to the real page instead.
+            href: '/blogs',
           },
           {
             title: 'Why Field-Based Quantitative Market Research Remains Critical in 2026',
             excerpt: 'Over the past few years, the research landscape has shifted rapidly.',
             image: images.blogFieldResearch,
-            href: '/#blogs',
+            href: '/blogs',
           },
           {
             title: 'AI and the Workforce in 2026: Transformation, Disruption, or Both?',
             excerpt: 'In 2026, artificial intelligence is no longer an emerging tool.',
             image: images.blogAiWorkforce,
-            href: '/#blogs',
+            href: '/blogs',
           },
         ],
         theme: 'light',
@@ -449,9 +449,16 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
         __component: 'blocks.faq',
         heading: 'Frequently Asked Questions',
         background: images.faqWorldmap,
+        // Figma node 267:1274 — a standalone "Browse Blogs" gradient
+        // button directly above this heading (confirmed by y-coordinate;
+        // it does NOT belong to the media-gallery block above, despite
+        // both actions previously being grouped there).
+        cta: { label: 'Browse Blogs', href: '/blogs', isExternal: false, variant: 'primary' },
         // The accordion is collapsed by default on the source canvas, so
         // no answer copy was ever visible to extract — every answer
-        // below is authored, not pulled.
+        // below is authored, not pulled. The 2 questions confirmed
+        // against the actual Figma instances (267:1242/1243) match
+        // verbatim; the remaining 3 are authored the same way.
         items: [
           {
             question: 'What market research services does Unimrkt offer?',
@@ -1208,6 +1215,23 @@ function slugifyTitle(s: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+// /services listing redesign's photo category cards — reuses existing
+// seed-assets/figma images already uploaded for other pages (uploadAsset()
+// matches-and-skips by filename, so this adds no new files) rather than
+// sourcing 8 new photos. Fit is thematic, not literal, for a couple of
+// these (Research Support Functions, Social Media Intelligence) — there's
+// no closer existing asset for them.
+const PARENT_THUMBNAILS: Record<string, string> = {
+  'Primary Research': 'blog-field-research.jpg',
+  'Qualitative Research': 'moments-large.jpg',
+  'Quantitative Research': 'industry-banking.jpg',
+  'Business Research': 'services-earth.jpg',
+  'Research Support Functions': 'industry-cityscape.jpg',
+  'AI-Driven Analytics & Predictive Insights': 'blog-ai-workforce.jpg',
+  'Comprehensive CX & Customer Journey Research': 'moments-small.jpg',
+  'Social Media Intelligence & Sentiment Analysis': 'industry-retail.jpg',
+};
+
 async function upsertServiceHierarchy(strapi: any) {
   const seenSlugs = new Set<string>();
   let count = 0;
@@ -1215,6 +1239,10 @@ async function upsertServiceHierarchy(strapi: any) {
   for (const parentSeed of SERVICES_HIERARCHY) {
     const parentSlug = slugifyTitle(parentSeed.title);
     seenSlugs.add(parentSlug);
+
+    const thumbnailFilename = PARENT_THUMBNAILS[parentSeed.title];
+    // eslint-disable-next-line no-await-in-loop
+    const thumbnailId = thumbnailFilename ? await uploadAsset(strapi, thumbnailFilename) : null;
 
     const parentEntry = await upsertBySlug(
       strapi,
@@ -1227,6 +1255,7 @@ async function upsertServiceHierarchy(strapi: any) {
         // relying on that.
         slug: parentSlug,
         summary: parentSeed.summary,
+        thumbnail: thumbnailId,
         legacyUrl: parentSeed.legacyUrl ?? null,
         suggestedUrl: parentSeed.suggestedUrl ?? null,
         parent: null,
@@ -1855,12 +1884,768 @@ async function upsertAboutContactSubpages(strapi: any) {
   strapi.log.info(`[seed] About/Contact sub-pages: ${ABOUT_CONTACT_SUBPAGES.length} upserted and published, each with 5 content blocks + SEO.`);
 }
 
+// ---------------------------------------------------------------------------
+// 10. Gallery Items — /gallery page migration off its static
+//     Frontend/fixtures/gallery.json fixture. Natural key: `title` (no
+//     slug field on this content type — the frontend always fetches the
+//     whole collection in one request, so there's nothing a slug-based
+//     single-entry lookup would be for).
+// ---------------------------------------------------------------------------
+
+interface GalleryItemSeed {
+  title: string;
+  category: string;
+  imageFilename: string;
+  order: number;
+}
+
+const GALLERY_ITEMS_SEED: GalleryItemSeed[] = [
+  { title: 'Unimrkt Research team collaborating in the office', category: 'Team & Culture', imageFilename: 'gallery-item-01.jpg', order: 0 },
+  { title: 'Analysts reviewing survey data on screen', category: 'Research Process', imageFilename: 'gallery-item-02.jpg', order: 1 },
+  { title: 'Field researcher conducting an on-site interview', category: 'Field Work', imageFilename: 'gallery-item-03.jpg', order: 2 },
+  { title: 'Client meeting to discuss research findings', category: 'Client Interactions', imageFilename: 'gallery-item-04.jpg', order: 3 },
+  { title: 'Team members presenting at an industry conference', category: 'Events & Conferences', imageFilename: 'gallery-item-05.jpg', order: 4 },
+  { title: 'Researchers brainstorming around a whiteboard', category: 'Team & Culture', imageFilename: 'gallery-item-06.jpg', order: 5 },
+  { title: 'Data collection in the field with a tablet', category: 'Field Work', imageFilename: 'gallery-item-07.jpg', order: 6 },
+  { title: 'Client workshop reviewing market insights together', category: 'Client Interactions', imageFilename: 'gallery-item-08.jpg', order: 7 },
+  { title: 'Unimrkt Research booth at a research conference', category: 'Events & Conferences', imageFilename: 'gallery-item-09.jpg', order: 8 },
+];
+
+async function upsertGalleryItems(strapi: any) {
+  const uid = 'api::gallery-item.gallery-item';
+  for (const item of GALLERY_ITEMS_SEED) {
+    // eslint-disable-next-line no-await-in-loop
+    const imageId = await uploadAsset(strapi, item.imageFilename);
+    // eslint-disable-next-line no-await-in-loop
+    const existing = await strapi.documents(uid).findFirst({ filters: { title: item.title } });
+    const data = {
+      title: item.title,
+      category: item.category,
+      image: imageId,
+      order: item.order,
+    };
+    // eslint-disable-next-line no-await-in-loop
+    const doc = existing
+      ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+      : await strapi.documents(uid).create({ data });
+    // eslint-disable-next-line no-await-in-loop
+    await strapi.documents(uid).publish({ documentId: doc.documentId });
+  }
+  strapi.log.info(`[seed] Gallery items: ${GALLERY_ITEMS_SEED.length} upserted, published, and image-linked.`);
+}
+
+// ---------------------------------------------------------------------------
+// 10.5. Blog posts (/blogs page, Figma node 522:4719) — 9 grid posts plus one
+//       extra ("Exploring Market Trends") exclusive to the large gradient
+//       "Latest Blogs" featured slot, which the design shows with no cover
+//       photo at all (a decorative gradient + texture overlay only) — so it
+//       seeds with `coverImageKey: null`. The frontend's "Latest Blogs" strip
+//       picks its 3 small cards from whichever posts are next-most-recent
+//       after that one, straight out of this same pool — no separate
+//       "featured" flag or duplicate entries needed. Titles/excerpts/
+//       categories below are copied verbatim from the node (excerpts
+//       expanded past the card's truncated "..." for a real sentence; the
+//       card UI itself clamps to 2 lines).
+// ---------------------------------------------------------------------------
+
+// Strapi Blocks (structured rich text) node builders — kept minimal, just
+// the node shapes the /blogs/[slug] RichContent renderer (Figma node
+// 587:3338) actually handles: paragraph, heading, unordered list, quote.
+function p(text: string) {
+  return { type: 'paragraph', children: [{ type: 'text', text }] };
+}
+function h2(text: string) {
+  return { type: 'heading', level: 2, children: [{ type: 'text', text }] };
+}
+function ul(items: string[]) {
+  return {
+    type: 'list',
+    format: 'unordered',
+    children: items.map((text) => ({ type: 'list-item', children: [{ type: 'text', text }] })),
+  };
+}
+function quote(text: string) {
+  return { type: 'quote', children: [{ type: 'text', text }] };
+}
+
+const BLOG_POSTS_SEED: Array<{
+  title: string;
+  excerpt: string;
+  category: 'Primary Research' | 'Qualitative Research' | 'Quantitative Research' | 'Business Research' | 'Research Support Functions';
+  coverImageKey: keyof typeof IMAGE_FILENAMES | null;
+  // 0 = most recent ("Latest Blogs" featured slot), ascending from there —
+  // the same explicit-integer ordering `gallery-item.order` already uses,
+  // rather than sorting on `publishedAt` (every post here gets published
+  // in the same seed run, so real publish timestamps would land in upload
+  // order, not editorial order).
+  order: number;
+  body: unknown[];
+  faqItems: Array<{ question: string; answer: string }>;
+}> = [
+  {
+    title: 'Exploring Market Trends',
+    excerpt: 'Discover Emerging Market Trends That Shape Smarter Business Decisions.',
+    category: 'Business Research',
+    coverImageKey: null,
+    order: 0,
+    body: [
+      p('Markets move fast, and the businesses that stay ahead are the ones that treat market intelligence as an ongoing practice rather than a one-off project.'),
+      h2('What "Emerging" Really Means'),
+      p('An emerging trend is a signal, not yet a certainty — early adoption data, shifting search and purchase behavior, or a regulatory change still working its way through an industry.'),
+      ul([
+        'Track leading indicators, not just quarterly results',
+        'Compare regional adoption curves, not a single home market',
+        'Validate signals with primary research before betting on them',
+      ]),
+      quote('The businesses that win are rarely the first to spot a trend — they are the first to validate it properly.'),
+      p('Unimrkt Research helps organizations turn early signals into confident, evidence-backed decisions across every stage of the research lifecycle.'),
+    ],
+    faqItems: [
+      { question: 'How do you separate a real trend from noise?', answer: 'By triangulating multiple independent data sources — search/behavioral data, primary interviews, and industry benchmarks — before calling something a trend.' },
+      { question: 'How often should market trend tracking happen?', answer: 'Quarterly at minimum for fast-moving categories, with lightweight monthly signal checks in between.' },
+      { question: 'Can this be done for a niche/regional market?', answer: 'Yes — regional and niche-market tracking is one of the most common engagements we run.' },
+    ],
+  },
+  {
+    title: 'Key Trends Shaping the Future of the Automotive Industry',
+    excerpt:
+      'The automotive industry is undergoing one of the most significant transformations in its history, driven by electrification, autonomous technology, and shifting consumer expectations.',
+    category: 'Primary Research',
+    coverImageKey: 'blogGridBusiness',
+    order: 1,
+    // Verbatim off Figma node 587:3338's own sample article (the node's
+    // real body copy for this exact post) — every paragraph/heading/list
+    // below is copied, not paraphrased.
+    body: [
+      p('The automotive industry is undergoing one of the biggest transformations in its history. Electric vehicles, connected mobility, artificial intelligence, and sustainability initiatives are reshaping how vehicles are designed, manufactured, and used. As traditional automakers compete with emerging EV brands and technology companies, understanding these shifts has become critical. This article explores the key trends that are defining the future of the automotive industry and what they mean for businesses across the mobility ecosystem.'),
+      h2('Trend 1: Rapid Growth of Electric Vehicles (EVs)'),
+      p('Electrification remains the single biggest transformation within the automotive industry. According to an International Energy Agency (IEA) report, global electric car sales exceeded 20 million units in 2025, representing a 20% increase from 2024. EVs accounted for approximately 25% of total global car sales. This marked the fifth consecutive year in which annual EV sales increased by nearly 3.5 million vehicles annually. Key drivers behind EV growth include:'),
+      ul([
+        'Government subsidies and tax incentives',
+        'Stricter emission regulations',
+        'Expansion of charging infrastructure',
+        'Falling battery costs',
+        'Rising consumer demand for low-emission mobility',
+      ]),
+      p('The global automotive industry is also witnessing rapid battery innovation. Manufacturers are investing heavily in:'),
+      ul([
+        'Solid-state batteries',
+        'Lithium-sulfur battery technologies',
+        'Faster charging systems',
+        'Higher energy-density storage solutions',
+      ]),
+      p('Emerging markets are becoming increasingly important for EV adoption. According to an IEA report, several countries across Latin America, Asia Pacific, and the Middle East crossed a 10% electric car sales share in 2025, supported by the growing affordability of Chinese-made EVs. China alone accounted for more than half of the global increase in EV sales in 2025, further strengthening its position as a global EV leader. For automotive market research companies, tracking EV infrastructure, battery investments, and regional adoption trends has become a major focus area within automotive industry market research.'),
+      h2('Trend 2: Connected Vehicles and Smart Mobility'),
+      p('Connected vehicles are transforming how consumers interact with automobiles. Modern vehicles increasingly function as digital mobility ecosystems powered by:'),
+      ul(['IoT integration', 'Cloud connectivity', 'Real-time diagnostics', 'Vehicle-to-everything (V2X) communication', 'AI-enabled infotainment systems']),
+      p('According to Nielsen’s Gracenote automotive report, consumer expectations around in-car infotainment and connected experiences continue to evolve rapidly:'),
+      ul([
+        '67% of vehicle owners prefer infotainment systems that can organize content regardless of source',
+        '63% are interested in personalized content recommendations based on listening behavior',
+        '51% want real-time news updates, sports alerts, and live information inside vehicles',
+        '28% would like expanded access to talk radio and news content within their vehicles',
+      ]),
+      p('Automakers are responding by expanding software-defined vehicle (SDV) capabilities and connected ecosystems. For example, BYD recently integrated Samsung into its phone-to-car connectivity ecosystem, enabling compatible users to instantly transfer navigation addresses to vehicle infotainment systems. Other major connected mobility trends include:'),
+      ul(['Over-the-air software updates', 'Connected fleet management', 'AI-powered voice assistants', 'Smartphone-integrated mobility platforms']),
+      p('Automotive industry research increasingly focuses on how connected mobility impacts:'),
+      ul(['Consumer engagement', 'Brand loyalty', 'Digital user experiences', 'Subscription-based mobility services']),
+      h2('Trend 3: Artificial Intelligence Transforming the Automotive Industry'),
+      p('Artificial intelligence is rapidly becoming central to automotive innovation. AI is now being used across:'),
+      p('AI-powered Advanced Driver Assistance Systems (ADAS) help vehicles:'),
+      ul(['Detect obstacles', 'Monitor road conditions', 'Improve braking response', 'Support adaptive cruise control', 'Enhance lane management systems']),
+      p('Google recently announced that more than 250 million Android Auto-compatible vehicles are currently on the road globally. In addition, cars with Google built-in are now available across 100+ vehicle models from 16 automotive brands. The company is also expanding AI integration through Gemini-powered automotive experiences, highlighting how AI is reshaping in-car ecosystems. AI is also improving predictive vehicle maintenance. Real-time analytics can identify performance issues before breakdowns occur, helping reduce repair costs and improve operational efficiency. Within automotive manufacturing, AI-driven systems are improving:'),
+      ul(['Quality inspection', 'Supply chain forecasting', 'Inventory optimization', 'Production efficiency']),
+      p('From an automotive marketing research perspective, AI is helping manufacturers analyze:'),
+      ul(['Driving behavior', 'Consumer preferences', 'Digital engagement patterns', 'Mobility usage trends']),
+      p('As AI capabilities continue advancing, automotive industry research is expected to increasingly focus on intelligent mobility ecosystems and AI-powered transportation systems.'),
+      quote("Electrification isn't just changing vehicles—it's reshaping the entire automotive industry."),
+      h2('Why Automotive Market Research Matters Today'),
+      p('The automotive sector is becoming increasingly data-driven. Companies can no longer rely solely on traditional demand patterns or historical sales performance to make decisions. Today, automotive market research helps businesses:'),
+      ul([
+        'Understand changing consumer behavior',
+        'Track EV adoption trends',
+        'Monitor connected mobility developments',
+        'Evaluate regional investment opportunities',
+        'Analyze competitor strategies',
+        'Forecast future mobility demand',
+      ]),
+      p('Automobile market research is now critical for: OEMs, EV startups, Battery manufacturers, Mobility platforms, and Automotive technology providers. As competition intensifies, automotive market research firms and automotive marketing research services can help businesses make faster, more informed strategic decisions.'),
+      h2('Choose Unimrkt Research for Automotive Market Research Services'),
+      p('The automotive industry is evolving rapidly through electrification, connected mobility, AI integration, and sustainability-driven innovation. In such a dynamic environment, businesses need reliable automotive market research to make informed strategic decisions. With over 16 years of expertise in primary market research, Unimrkt Research helps organizations track industry trends, understand consumer behavior, evaluate regional opportunities, and monitor competitive developments across the automotive ecosystem. As one of the leading market research companies in India, Unimrkt Research delivers reliable, data-driven insights backed by ISO 20252 and ISO 27001 certified processes for quality and data security. From EV adoption and autonomous mobility to digital retail and connected vehicle technologies, our automotive industry research solutions help businesses navigate change with confidence and make smarter long-term decisions. Ready to gain access to structured market data? Contact Unimrkt Research at +91-124-424-5210, email at sales@unimrkt.com, or fill out our contact form to discuss your research requirements.'),
+    ],
+    faqItems: [
+      { question: 'What topics does the Unimrkt Research Blog cover?', answer: 'Market research methodologies, industry trends, consumer behavior, business strategy, and emerging market opportunities across the sectors we serve.' },
+      { question: 'How does automotive marketing research help manufacturers?', answer: 'It helps manufacturers track EV adoption, connected-mobility usage, and AI-driven engagement patterns so product and marketing decisions are grounded in real consumer behavior rather than assumption.' },
+      { question: 'How often is new content published?', answer: 'New articles are published regularly, drawing on ongoing research engagements and industry developments as they happen.' },
+      { question: 'Are the blog articles based on industry expertise?', answer: 'Yes — every article is written or reviewed by researchers and analysts who work directly on the studies and engagements the content is based on.' },
+    ],
+  },
+  {
+    title: 'How Market Research Strengthens Scenario Planning and Strategic Decision-Making',
+    excerpt:
+      'Economic cycles, competitive pressure, regulatory shifts, and evolving customer expectations all place unpredictable demands on modern businesses.',
+    category: 'Qualitative Research',
+    coverImageKey: 'blogGridScenario',
+    order: 2,
+    body: [
+      p('Economic cycles, competitive pressure, regulatory shifts, and evolving customer expectations all place unpredictable demands on modern businesses. Scenario planning is how well-run organizations turn that uncertainty into a manageable set of decisions.'),
+      h2('Building Scenarios on Real Evidence, Not Assumption'),
+      p('A scenario is only as useful as the evidence behind it. Market research supplies the demand signals, competitive intelligence, and customer sentiment data that separate a plausible scenario from a guess.'),
+      ul([
+        'Demand-side signals: purchase intent, willingness to pay, category switching',
+        'Supply-side signals: competitor moves, channel shifts, regulatory change',
+        'Sentiment signals: brand perception and unmet-need tracking over time',
+      ]),
+      p('Organizations that pair qualitative depth (why customers behave the way they do) with quantitative breadth (how many, how often) build scenarios that hold up under real market pressure — and make faster, more confident calls when conditions shift.'),
+    ],
+    faqItems: [
+      { question: 'How many scenarios should a business plan for?', answer: 'Typically three to four — a base case plus two or three plausible deviations — enough to stress-test a strategy without diluting focus.' },
+      { question: 'How is this different from a standard market forecast?', answer: 'A forecast projects one likely future; scenario planning deliberately explores several, so the business has a pre-built response ready whichever one occurs.' },
+      { question: 'What research inputs matter most for scenario planning?', answer: 'A mix of primary qualitative interviews (to understand the "why") and quantitative tracking data (to understand the "how many/how often").' },
+    ],
+  },
+  {
+    title: 'What Does a Business Research Company Do? Role, Services, and Impact',
+    excerpt:
+      'Whether it is a startup validating a new business model or an enterprise entering a new market, structured research plays a decisive role.',
+    category: 'Quantitative Research',
+    coverImageKey: 'blogGridLifecycle',
+    order: 3,
+    body: [
+      p('Whether it is a startup validating a new business model or an enterprise entering a new market, structured research plays a decisive role in whether that decision succeeds. A business research company exists to supply exactly that: structured, evidence-based answers to the questions that matter before money and reputation are committed.'),
+      h2('What a Business Research Company Actually Does'),
+      p('Beyond running surveys, a business research partner designs the right method for the question at hand, recruits the right respondents, and turns raw data into a decision-ready recommendation. In practice, that work spans:'),
+      ul([
+        'Market sizing and opportunity assessment',
+        'Competitive benchmarking and positioning studies',
+        'Customer satisfaction and loyalty (CSAT/NPS) tracking',
+        'New product/concept testing before launch',
+        'Pricing and willingness-to-pay research',
+        'Brand health and perception tracking over time',
+      ]),
+      h2('Who Actually Uses These Services'),
+      p('The demand spans company stage and sector: founders validating a first product, growth-stage teams entering a new geography, and enterprises defending share against new entrants all rely on the same discipline — replacing internal assumption with external evidence.'),
+      quote('The cost of research is always smaller than the cost of a decision made without it.'),
+      h2('Choosing the Right Research Partner'),
+      p('The right business research company brings methodological rigor (proper sampling, validated instruments, unbiased analysis), sector-specific experience, and — critically — a recommendation, not just a data dump. With over a decade of primary research experience, Unimrkt Research helps organizations turn market uncertainty into a clear, evidence-backed next step. Contact us at sales@unimrkt.com to discuss your research requirements.'),
+    ],
+    faqItems: [
+      { question: 'What is the difference between a business research company and a market research company?', answer: '"Business research" is often used as the broader umbrella — covering market, customer, competitor, and internal-operations research — while "market research" typically focuses specifically on the market/customer side.' },
+      { question: 'How long does a typical business research engagement take?', answer: 'A focused study (e.g. concept testing or a CSAT wave) usually runs 3–6 weeks; a full market-entry assessment can run 8–12 weeks depending on geography and sample size.' },
+      { question: 'Do I need a business research company if I already have internal data?', answer: 'Internal data tells you what your existing customers did; external research tells you why, and what the wider market (including non-customers) thinks — both are usually needed for a confident decision.' },
+    ],
+  },
+  {
+    title: 'How the Selection of Quantitative Research Method Shapes the Quality of Business Insights',
+    excerpt:
+      'Most businesses today have access to more data than ever before, yet the quality of the insight depends entirely on the method used to gather it.',
+    category: 'Quantitative Research',
+    coverImageKey: 'blogGridQuant2',
+    order: 4,
+    body: [
+      p('Most businesses today have access to more data than ever before, yet the quality of the insight depends entirely on the method used to gather it. The wrong method can produce a large, precise-looking dataset that still answers the wrong question.'),
+      h2('Matching Method to Question'),
+      p('Quantitative research spans several distinct methods, each suited to a different kind of question and each with its own trade-offs in cost, speed, and precision.'),
+      ul([
+        'Online surveys — fast, scalable, best for broad attitudinal and behavioral tracking',
+        'Telephonic surveys — higher engagement for harder-to-reach or older demographics',
+        'CAPI/in-person interviews — richer context, better for low-literacy or rural samples',
+        'Panel-based tracking — best for measuring change over time against a consistent baseline',
+      ]),
+      p('Sampling design matters as much as the method itself: a statistically representative sample, correct quota structure, and appropriate weighting are what turn raw responses into a number a business can actually act on.'),
+    ],
+    faqItems: [
+      { question: 'How do I know which quantitative method is right for my study?', answer: 'It depends on your target respondent, required sample size, timeline, and budget — a research partner should recommend the method based on those constraints, not default to one method for every project.' },
+      { question: 'What sample size is considered statistically reliable?', answer: 'It depends on the population size and desired confidence level, but most B2C studies target at least 300–400 completes per key segment to keep the margin of error manageable.' },
+    ],
+  },
+  {
+    title: "The Anatomy of a High-Converting Survey: Mapping Questions to the Buyer's Journey",
+    excerpt: 'Survey-driven decision-making remains a foundational tool for understanding customer sentiment and predicting behavior.',
+    category: 'Qualitative Research',
+    coverImageKey: 'blogGridSurvey',
+    order: 5,
+    body: [
+      p("Survey-driven decision-making remains a foundational tool for understanding customer sentiment and predicting behavior — but only when the questions themselves are mapped to where a customer actually sits in their buying journey."),
+      h2('Awareness, Consideration, Decision — Different Questions for Each Stage'),
+      p('A single generic questionnaire rarely serves every stage well. Effective surveys vary structure and question type by journey stage:'),
+      ul([
+        'Awareness stage: open-ended, unaided-recall questions to capture true top-of-mind perception',
+        'Consideration stage: comparative and trade-off questions (e.g. MaxDiff, ranking) between real alternatives',
+        'Decision stage: intent, willingness-to-pay, and barrier-to-purchase questions',
+      ]),
+      p('Question order and length matter too: front-loading the highest-value questions and keeping the instrument under 10–12 minutes materially improves both completion rates and data quality.'),
+    ],
+    faqItems: [
+      { question: 'How long should a customer survey be?', answer: 'Under 10–12 minutes for most B2C studies — completion and data-quality both drop noticeably past that point.' },
+      { question: 'Should the same survey be used across all customer segments?', answer: 'Generally no — question emphasis should shift by journey stage and, where segments behave very differently, by segment as well.' },
+    ],
+  },
+  {
+    title: 'Where Market Research Fits Across the Entire Business Lifecycle',
+    excerpt: 'Most businesses do not fail due to a lack of effort, but due to decisions made without the right information at the right time.',
+    category: 'Business Research',
+    coverImageKey: 'blogGridSupport1',
+    order: 6,
+    body: [
+      p('Most businesses do not fail due to a lack of effort, but due to decisions made without the right information at the right time. Market research has a distinct, useful role at every stage of a business’s life — not just at launch.'),
+      h2('Research at Every Stage'),
+      ul([
+        'Ideation: concept and demand testing before a product exists',
+        'Launch: pricing, packaging, and go-to-market message testing',
+        'Growth: customer satisfaction, churn drivers, and expansion opportunity sizing',
+        'Maturity: brand health tracking and competitive defense',
+        'Renewal: repositioning and new-segment opportunity assessment',
+      ]),
+      p('Treating research as a one-time launch activity, rather than a capability revisited at each stage, is one of the most common (and avoidable) strategic blind spots we see.'),
+    ],
+    faqItems: [
+      { question: 'Is market research only useful before launching a product?', answer: 'No — it is equally valuable at growth, maturity, and renewal stages, just answering different questions at each one.' },
+      { question: 'How often should an established business revisit its research?', answer: 'At minimum annually for brand/competitive tracking, and ahead of any major strategic decision (new market, new segment, repositioning).' },
+    ],
+  },
+  {
+    title: 'From Gut Health to Functional Foods: Why Fiber is the Next Big Trend in Consumer Products',
+    excerpt: 'The global shift toward preventive health and wellness has placed gut health and functional nutrition at the center of consumer demand.',
+    category: 'Primary Research',
+    coverImageKey: 'blogGridQualitative2',
+    order: 7,
+    body: [
+      p('The global shift toward preventive health and wellness has placed gut health and functional nutrition at the center of consumer demand, and fiber — long an overlooked nutrient — is emerging as a genuine growth category.'),
+      h2('What Is Driving the Shift'),
+      ul([
+        'Rising consumer awareness of the gut-immune-health connection',
+        'Growth of functional-food and fortified-product categories',
+        'Demand for "clean label" ingredients consumers already recognize',
+        'Increased willingness to pay a premium for preventive-health products',
+      ]),
+      p('For brands and manufacturers, the opportunity is real but narrow: research consistently shows consumers reward genuine formulation transparency and penalize products that market a health claim without substantiating it.'),
+    ],
+    faqItems: [
+      { question: 'Is the fiber/gut-health trend consistent across markets?', answer: 'Directionally yes, but adoption speed and price sensitivity vary meaningfully by region — worth validating locally before a launch.' },
+      { question: 'How can a brand validate a functional-food claim before launch?', answer: 'Concept and claims testing with the target consumer segment, ideally alongside a competitive claims audit, before formulation is finalized.' },
+    ],
+  },
+  {
+    title: 'Qualitative Market Research and Customer Journey Mapping for Sales',
+    excerpt: 'Customer decision-making is not a linear affair; it moves across touchpoints, emotions, and moments of hesitation before a purchase is made.',
+    category: 'Research Support Functions',
+    coverImageKey: 'blogFieldResearch',
+    order: 8,
+    body: [
+      p('Customer decision-making is not a linear affair; it moves across touchpoints, emotions, and moments of hesitation before a purchase is made — and qualitative research is how that path actually gets seen.'),
+      h2('Mapping the Moments That Matter'),
+      p('In-depth interviews and moderated discussions surface the specific moments — a confusing checkout step, an unanswered objection, a competitor comparison — that quantitative funnel data alone can flag but not explain.'),
+      ul([
+        'Identify emotional high/low points across the journey, not just drop-off rates',
+        'Surface the language customers actually use to describe a problem',
+        'Reveal unmet needs a structured survey would never think to ask about',
+      ]),
+      p('Sales teams that receive this kind of mapping — not just a funnel chart — consistently report better objection-handling and higher close rates, because the friction points are now named, not guessed at.'),
+    ],
+    faqItems: [
+      { question: 'How is qualitative journey mapping different from analytics-based funnel analysis?', answer: 'Funnel analytics show where customers drop off; qualitative research explains why, in the customer’s own words.' },
+      { question: 'How many interviews are needed for a reliable journey map?', answer: 'Most B2C studies reach thematic saturation around 12–15 in-depth interviews per key segment; B2B studies with more distinct buyer roles may need more.' },
+    ],
+  },
+  {
+    title: 'All You Need to Know About Online Market Research',
+    excerpt: 'In a world where consumer behavior evolves faster than a trending topic, online market research has become the fastest way to keep pace.',
+    category: 'Business Research',
+    coverImageKey: 'blogAiWorkforce',
+    order: 9,
+    body: [
+      p('In a world where consumer behavior evolves faster than a trending topic, online market research has become the fastest way for businesses to keep pace with what customers actually want.'),
+      h2('What Online Market Research Covers'),
+      ul([
+        'Online surveys — broad, fast attitudinal and behavioral data collection',
+        'Online focus groups and communities — ongoing qualitative dialogue with a recruited panel',
+        'Social listening — unprompted sentiment at scale',
+        'A/B and concept testing — real reaction to specific creative or product variants',
+      ]),
+      p('The trade-off businesses should plan for is representativeness: online panels skew toward more digitally engaged respondents, so studies targeting a broader population still need careful quota design — or a blended online/offline approach — to stay reliable.'),
+    ],
+    faqItems: [
+      { question: 'Is online research reliable for every market?', answer: 'It is highly reliable for digitally engaged populations; markets with lower internet penetration usually need a blended online/offline sample to stay representative.' },
+      { question: 'How fast can an online research study be completed?', answer: 'A straightforward online survey can field and report within 1–2 weeks; more complex studies with multiple segments typically take 3–4 weeks.' },
+    ],
+  },
+];
+
+async function upsertBlogs(strapi: any, images: Record<string, number | null>) {
+  const uid = 'api::blog.blog';
+  for (const post of BLOG_POSTS_SEED) {
+    const slug = slugifyTitle(post.title);
+    // eslint-disable-next-line no-await-in-loop -- each post must fully commit before the next, for readable seed logs
+    await upsertBySlug(strapi, uid, slug, {
+      title: post.title,
+      slug,
+      excerpt: post.excerpt,
+      category: post.category,
+      coverImage: post.coverImageKey ? images[post.coverImageKey] : null,
+      order: post.order,
+      body: post.body,
+      faqItems: post.faqItems,
+    });
+  }
+  strapi.log.info(`[seed] Blog posts: ${BLOG_POSTS_SEED.length} upserted, published, and image-linked.`);
+}
+
+// ---------------------------------------------------------------------------
+// 11. "Why Choose Us" page — the full multi-section "Our Company" page at
+//     Figma node 617:7561, walked top to bottom and mapped onto this
+//     project's existing block vocabulary wherever one already fits
+//     (hero, stats-band, content, cta), plus one new block
+//     (blocks.process-steps) for the one section nothing already
+//     modeled. Real copy/stats/steps below are all taken directly off
+//     that node — see each block's own comment for the section it came
+//     from. Every visual value (the why-choose-us gradient band, the
+//     process-step card's shadow/border/faint-numeral treatment) was
+//     confirmed against an actual rendered screenshot crop of the node,
+//     not just its raw layer metadata, after an earlier pass got the
+//     why-choose-us section's background/card-count wrong going off
+//     metadata alone.
+// ---------------------------------------------------------------------------
+
+const WHY_CHOOSE_US_ITEMS = [
+  {
+    title: 'Global Reach',
+    description: 'Access diverse markets across continents.',
+    iconIdentifier: 'global',
+    order: 0,
+  },
+  {
+    title: 'Deep Expertise',
+    description: 'Experienced researchers across industries.',
+    iconIdentifier: 'profile-2user',
+    order: 1,
+  },
+  {
+    title: 'Faster Decisions',
+    description: 'Clear insights delivered when they matter.',
+    iconIdentifier: 'timer',
+    order: 2,
+  },
+  {
+    title: 'Reliable Quality',
+    description: 'Research built on rigorous standards.',
+    iconIdentifier: 'shield-tick',
+    order: 3,
+  },
+];
+
+// "Our Research Ecosystem" / "From Question to Business Decision" — 4
+// numbered steps (635:9633/9657/9666/9710). Icon 3 ("Decode") is a deep
+// multi-layer masked illustration with no single exportable asset —
+// iconIdentifier-only fallback for that one, real uploaded icons for
+// the other 3 (process-inspection/discovery/timing.svg).
+const PROCESS_STEPS_ITEMS = [
+  {
+    stepNumber: '01',
+    title: 'Define',
+    description: 'We define business challenges and research goals to uncover clear opportunities for growth.',
+    iconIdentifier: 'inspection',
+    imageFilename: 'process-inspection.svg',
+    order: 0,
+  },
+  {
+    stepNumber: '02',
+    title: 'Discover',
+    description: 'We discover insights, trends, and opportunities that help businesses make smarter decisions and grow.',
+    iconIdentifier: 'discovery',
+    imageFilename: 'process-discovery.svg',
+    order: 1,
+  },
+  {
+    stepNumber: '03',
+    title: 'Decode',
+    description: 'We decode complex data into clear insights that reveal meaning, direction, and opportunities for business growth.',
+    iconIdentifier: 'decode',
+    imageFilename: null,
+    order: 2,
+  },
+  {
+    stepNumber: '04',
+    title: 'Deliver',
+    description: 'We deliver actionable insights that empower businesses to make confident decisions and achieve sustainable growth.',
+    iconIdentifier: 'timing',
+    imageFilename: 'process-timing.svg',
+    order: 3,
+  },
+];
+
+async function upsertWhyChooseUsPage(strapi: any) {
+  const slug = 'why-choose-us';
+
+  const heroImageId = await uploadAsset(strapi, 'hero-photo.jpg');
+  const aboutImageId = await uploadAsset(strapi, 'services-earth.jpg');
+  const stepImageIds: Record<string, number | null> = {};
+  for (const step of PROCESS_STEPS_ITEMS) {
+    // eslint-disable-next-line no-await-in-loop
+    stepImageIds[step.stepNumber] = step.imageFilename ? await uploadAsset(strapi, step.imageFilename) : null;
+  }
+
+  await upsertBySlug(strapi, 'api::page.page', slug, {
+    title: 'Why Choose Us',
+    slug,
+    blocks: [
+      // 1. Hero Banner (617:7680/7688/7689/7735) — "Research That Moves
+      //    Business Forward".
+      {
+        __component: 'blocks.hero',
+        heading: 'Research That Moves Business Forward',
+        subheading:
+          'Introduce Unimrkt as a global market research partner helping organisations understand people, markets, and opportunities.',
+        media: heroImageId,
+        mediaAlignment: 'background',
+        actions: [{ label: 'Explore Our Capabilities', href: '/contact', isExternal: false, variant: 'primary' }],
+      },
+      // 2. Core Value Proposition / Stats Highlight Band (827:10081) —
+      //    the same 4 figures as the site-wide "90+ Countries" strip.
+      {
+        __component: 'blocks.stats-band',
+        heading: 'Research Without Borders',
+        items: [
+          { value: '90+', label: 'Countries' },
+          { value: '22+', label: 'Languages' },
+          { value: '450+', label: 'CATI Stations' },
+          { value: '16+', label: 'Years of Experience' },
+        ],
+      },
+      // 3. Global Reach / Quality Standards / Certifications (620:8135-8140,
+      //    "We Turn Questions Into Clarity") — the ESOMAR/ISO 20252/ISO
+      //    27001 certification copy lives in this paragraph verbatim.
+      {
+        __component: 'blocks.content',
+        heading: 'We Turn Questions Into Clarity',
+        body:
+          'Founded on 6 December 2009, Unimrkt Research has evolved into a trusted global market research partner, conducting multi-industry research across 90 countries and four continents — the Americas, Europe, Asia Pacific, and Africa. With expertise spanning 22+ foreign languages, we connect businesses with diverse audiences and deliver culturally relevant, actionable insights across markets. Our commitment to quality, security, and research integrity is reflected in our adherence to ESOMAR principles and our ISO 20252 and ISO 27001 certifications. Combining global reach, deep industry expertise, robust methodologies, and advanced data collection capabilities, Unimrkt Research helps organizations better understand their markets, customers, and opportunities to make confident, data-driven decisions.',
+        media: aboutImageId,
+        mediaAlignment: 'right',
+      },
+      // 4. "Why Choose Us" Feature / Differentiator Grid (620:8295-8302 +
+      //    635:9832/9846/9859/9869) — full-bleed brand-gradient band, 4
+      //    cards, confirmed against a rendered screenshot.
+      {
+        __component: 'blocks.why-choose-us',
+        eyebrow: 'Why Businesses Choose Unimrkt',
+        heading: 'Insights That Move Businesses Forward',
+        subheading:
+          'Transforming complex data into clear, actionable insights that help businesses make smarter decisions and unlock new opportunities.',
+        theme: 'accent',
+        items: WHY_CHOOSE_US_ITEMS,
+      },
+      // 5. Process / Methodology (620:8145-8147 + 635:9633/9657/9666/9710)
+      //    — "Our Research Ecosystem" / "From Question to Business
+      //    Decision", 4 numbered steps.
+      {
+        __component: 'blocks.process-steps',
+        eyebrow: 'Our Research Ecosystem',
+        heading: 'From Question to Business Decision',
+        subheading: 'A highly visual interactive journey:',
+        steps: PROCESS_STEPS_ITEMS.map((step) => ({
+          stepNumber: step.stepNumber,
+          title: step.title,
+          description: step.description,
+          iconIdentifier: step.iconIdentifier,
+          icon: stepImageIds[step.stepNumber],
+          order: step.order,
+        })),
+      },
+      // 6. Bottom CTA (617:7611-7621) — "Start Your Research Journey".
+      {
+        __component: 'blocks.cta',
+        heading: 'Start Your Research Journey',
+        body: 'Partner with Unimrkt Research to uncover actionable market intelligence, understand your industry, and make confident business decisions.',
+        actions: [{ label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' }],
+        theme: 'accent',
+      },
+    ],
+    seo: {
+      metaTitle: 'Why Choose Us | Unimrkt Research',
+      metaDescription:
+        'Transforming complex data into clear, actionable insights that help businesses make smarter decisions and unlock new opportunities.',
+      keywords: 'why choose unimrkt, market research differentiators, global research partner',
+    },
+  });
+  strapi.log.info('[seed] Why Choose Us page: upserted and published with 6 blocks (hero, stats-band, content, why-choose-us, process-steps, cta).');
+}
+
+// ---------------------------------------------------------------------------
+// 12. Services Page settings (singleType) — every hardcoded string in
+//     Frontend/views/services/ServiceListingView.tsx and its child
+//     components, moved into Strapi. The category grid itself stays
+//     sourced from the `service` hierarchy (getServiceTree()), not this
+//     single type — there's nothing to duplicate there.
+// ---------------------------------------------------------------------------
+
+const SERVICES_PAGE_VALUE_PROPS = [
+  { title: 'Research Excellence', description: '', iconIdentifier: 'trophy', statValue: '16+ Years', statLabel: 'of Research Excellence', order: 0 },
+  { title: 'Countries Covered', description: '', iconIdentifier: 'global', statValue: '90+ Countries', statLabel: 'Covered', order: 1 },
+  { title: 'Languages Supported', description: '', iconIdentifier: 'languages', statValue: '22+ Languages', statLabel: 'Supported', order: 2 },
+  { title: 'Research Professionals', description: '', iconIdentifier: 'users', statValue: 'Experienced', statLabel: 'Research Professionals', order: 3 },
+  { title: 'Research Solutions', description: '', iconIdentifier: 'box', statValue: 'Customized', statLabel: 'Research Solutions', order: 4 },
+  { title: 'Actionable Insights', description: '', iconIdentifier: 'shield-check', statValue: 'Accurate', statLabel: '& Actionable Insights', order: 5 },
+];
+
+const SERVICES_PAGE_WORKFLOW_STEPS = [
+  {
+    stepNumber: '01',
+    title: 'Discover Your Objectives',
+    description: 'Aligning research goals, target audience, and business context to establish clear project milestones.',
+    iconIdentifier: 'inspection',
+    imageFilename: 'process-clipboard-tick.svg',
+    order: 0,
+  },
+  {
+    stepNumber: '02',
+    title: 'Design the Research',
+    description: 'Carefully designing research methodologies to deliver reliable, actionable, and impactful results.',
+    iconIdentifier: 'discovery',
+    imageFilename: 'process-brush.svg',
+    order: 1,
+  },
+  {
+    stepNumber: '03',
+    title: 'Collect Quality Data',
+    description: 'Gathering accurate, reliable data from trusted sources for meaningful business insights.',
+    iconIdentifier: 'decode',
+    imageFilename: 'process-presentation-chart.svg',
+    order: 2,
+  },
+  {
+    stepNumber: '04',
+    title: 'Analyze & Validate',
+    description: 'Transforming raw data into accurate, validated insights for confident business decisions.',
+    iconIdentifier: 'timing',
+    imageFilename: 'process-chart.svg',
+    order: 3,
+  },
+];
+
+const SERVICES_PAGE_FAQ_ITEMS = [
+  {
+    question: 'What services does Unimrkt Research provide?',
+    answer:
+      'Unimrkt Research provides comprehensive qualitative and quantitative research, secondary research, CATI, CAWI, and online global panel services across B2B and B2C sectors.',
+  },
+  {
+    question: 'How do I choose the right research service for my project?',
+    answer:
+      'Our team collaborates directly with you to understand your objectives, timelines, and budget, designing a bespoke methodology tailored to your market.',
+  },
+  {
+    question: 'Can Unimrkt Research handle global and multi-country research projects?',
+    answer:
+      'Yes, we possess on-the-ground reach and vetted panel infrastructure across 110+ markets in North America, Europe, APAC, LATAM, and the Middle East.',
+  },
+  {
+    question: 'Which industries do you serve?',
+    answer: 'We serve Healthcare & Life Sciences, Technology, BFSI, Automotive, Consumer Goods (FMCG), and Industrial Manufacturing.',
+  },
+  {
+    question: 'Why choose Unimrkt Research as your research partner?',
+    answer:
+      'With 16+ years of operational excellence, ISO-compliant quality checks, and proprietary panel verification, we ensure clean, decision-ready data.',
+  },
+];
+
+async function upsertServicesPageSettings(strapi: any) {
+  const uid = 'api::services-page.services-page';
+
+  const heroImageId = await uploadAsset(strapi, 'hero-photo.jpg');
+  const valuePropsBackgroundId = await uploadAsset(strapi, 'industry-cityscape.jpg');
+  const faqBackgroundId = await uploadAsset(strapi, 'worldmap-mask.svg');
+  const ctaBackgroundId = await uploadAsset(strapi, 'blog-photo.jpg');
+
+  const valueProps = [];
+  for (const prop of SERVICES_PAGE_VALUE_PROPS) {
+    valueProps.push({
+      title: prop.title,
+      description: prop.description,
+      iconIdentifier: prop.iconIdentifier,
+      statValue: prop.statValue,
+      statLabel: prop.statLabel,
+      order: prop.order,
+    });
+  }
+
+  const workflowSteps = [];
+  for (const step of SERVICES_PAGE_WORKFLOW_STEPS) {
+    // eslint-disable-next-line no-await-in-loop
+    const iconId = await uploadAsset(strapi, step.imageFilename);
+    workflowSteps.push({
+      stepNumber: step.stepNumber,
+      title: step.title,
+      description: step.description,
+      iconIdentifier: step.iconIdentifier,
+      icon: iconId,
+      order: step.order,
+    });
+  }
+
+  const data = {
+    hero: {
+      eyebrow: 'OUR SERVICES',
+      heading: 'Research Solutions That Drive Business Growth',
+      subheading:
+        'Helping organizations transform data into actionable insights through comprehensive market research and business intelligence.',
+      media: heroImageId,
+      mediaAlignment: 'background',
+      actions: [
+        { label: 'Get a Free Quote', href: '/contact', isExternal: false, variant: 'primary' },
+        { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' },
+      ],
+    },
+    introEyebrow: 'ABOUT OUR SERVICES',
+    introHeading: 'Comprehensive Research Solutions For Smarter Business Decisions',
+    introParagraph1:
+      'At Unimrkt Research, we provide end-to-end market research services that empower businesses with accurate data, actionable insights, and strategic intelligence. From primary data collection and qualitative research to quantitative studies, business research, and research support functions, our tailored solutions help organizations understand markets, customers, and emerging opportunities.',
+    introParagraph2:
+      "Backed by experienced researchers, advanced methodologies, and global capabilities, we deliver reliable research solutions across diverse industries. Whether you're launching a new product, evaluating market opportunities, or strengthening your competitive position, Unimrkt Research provides the insights you need to make confident, data-driven decisions and achieve sustainable growth.",
+    valuePropsHeading: 'Why Choose Unimrkt?',
+    valuePropsBody:
+      'With 16+ years of expertise, global research capabilities, advanced methodologies, and trusted data quality, Unimrkt delivers accurate insights that empower smarter business decisions and sustainable growth.',
+    valuePropsBackground: valuePropsBackgroundId,
+    valueProps,
+    workflow: {
+      eyebrow: 'WORKFLOW',
+      heading: 'Research Process',
+      subheading:
+        'Our proven research process combines strategic planning, precise data collection, rigorous analysis, and actionable reporting to deliver reliable insights that support confident business decisions and measurable growth.',
+      steps: workflowSteps,
+    },
+    faq: {
+      heading: 'Frequently Asked Questions',
+      background: faqBackgroundId,
+      items: SERVICES_PAGE_FAQ_ITEMS,
+    },
+    cta: {
+      heading: 'Start Your Research Journey',
+      body: 'Partner with Unimrkt Research to uncover actionable market intelligence, understand your industry, and make confident business decisions.',
+      actions: [{ label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' }],
+      background: ctaBackgroundId,
+    },
+  };
+
+  const existing = await strapi.documents(uid).findFirst({});
+  const doc = existing
+    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+    : await strapi.documents(uid).create({ data });
+  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  strapi.log.info('[seed] Services page settings: upserted and published (hero, intro, 6 value props, 4 workflow steps, 5 FAQ items, CTA).');
+  return doc;
+}
+
 async function resetContent(strapi: any) {
   strapi.log.info('[seed] --reset: truncating content tables');
   await strapi.db.query('api::testimonial.testimonial').deleteMany({});
   await strapi.db.query('api::page.page').deleteMany({});
   await strapi.db.query('api::service.service').deleteMany({});
   await strapi.db.query('api::industry.industry').deleteMany({});
+  await strapi.db.query('api::gallery-item.gallery-item').deleteMany({});
+  await strapi.db.query('api::blog.blog').deleteMany({});
+  await strapi.db.query('api::services-page.services-page').deleteMany({});
   await strapi.db.query('api::global.global').deleteMany({});
 }
 
@@ -1899,6 +2684,16 @@ const IMAGE_FILENAMES = {
   gallerySmall2: 'gallery-small-2.jpg',
   gallerySmall3: 'gallery-small-3.jpg',
   gallerySmall4: 'gallery-small-4.jpg',
+  // /blogs page (Figma node 522:4719) — 7 additional card photos exported
+  // straight from that node's grid, re-encoded the same way as every other
+  // photographic asset above (see the comment on `heroPhoto`).
+  blogGridQuant2: 'blog-grid-quant2.jpg',
+  blogGridSupport1: 'blog-grid-support1.jpg',
+  blogGridScenario: 'blog-grid-scenario.jpg',
+  blogGridSurvey: 'blog-grid-survey.jpg',
+  blogGridQualitative2: 'blog-grid-qualitative2.jpg',
+  blogGridBusiness: 'blog-grid-business.jpg',
+  blogGridLifecycle: 'blog-grid-lifecycle.jpg',
 } as const;
 
 async function main() {
@@ -1943,6 +2738,18 @@ async function main() {
 
     // 9. About US / Contact US sub-pages (Google Sheet IA migration).
     await upsertAboutContactSubpages(app);
+
+    // 10. Gallery items (/gallery page migration off its static fixture).
+    await upsertGalleryItems(app);
+
+    // 10.5. Blog posts (/blogs page, Figma node 522:4719).
+    await upsertBlogs(app, images);
+
+    // 11. Why Choose Us page (blocks.why-choose-us, Figma node 617:7561).
+    await upsertWhyChooseUsPage(app);
+
+    // 12. Services page settings (/services hero/intro/value-props/workflow/FAQ/CTA).
+    await upsertServicesPageSettings(app);
 
     app.log.info('[seed] Done.');
   } finally {

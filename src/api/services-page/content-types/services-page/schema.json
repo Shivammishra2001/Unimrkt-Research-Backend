@@ -1,0 +1,74 @@
+{
+  "kind": "singleType",
+  "collectionName": "services_pages",
+  "info": {
+    "singularName": "services-page",
+    "pluralName": "services-pages",
+    "displayName": "Services Page",
+    "description": "All editable content on /services (hero, intro, value props, research process, FAQ, CTA) — the category grid itself stays sourced from the `service` hierarchy, not this single type."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "component": "blocks.hero",
+      "repeatable": false
+    },
+    "introEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "introHeading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "introParagraph1": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "introParagraph2": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "valuePropsHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "valuePropsBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "valuePropsBackground": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "valueProps": {
+      "type": "component",
+      "component": "blocks.feature-item",
+      "repeatable": true,
+      "min": 1,
+      "max": 8
+    },
+    "workflow": {
+      "type": "component",
+      "component": "blocks.process-steps",
+      "repeatable": false
+    },
+    "faq": {
+      "type": "component",
+      "component": "blocks.faq",
+      "repeatable": false
+    },
+    "cta": {
+      "type": "component",
+      "component": "blocks.cta",
+      "repeatable": false
+    }
+  }
+}

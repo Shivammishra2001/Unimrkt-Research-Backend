@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_blocks_process_step_items",
+  "info": {
+    "displayName": "Process Step Item",
+    "icon": "list"
+  },
+  "attributes": {
+    "stepNumber": {
+      "type": "string",
+      "maxLength": 4
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 240
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "iconIdentifier": {
+      "type": "string",
+      "required": false,
+      "maxLength": 60
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

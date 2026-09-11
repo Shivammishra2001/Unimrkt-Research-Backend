@@ -443,6 +443,111 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
+  collectionName: 'blogs';
+  info: {
+    description: 'A single blog post \u2014 listed at /blogs, detailed at /blogs/:slug';
+    displayName: 'Blog';
+    pluralName: 'blogs';
+    singularName: 'blog';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    body: Schema.Attribute.Blocks;
+    category: Schema.Attribute.Enumeration<
+      [
+        'Primary Research',
+        'Qualitative Research',
+        'Quantitative Research',
+        'Business Research',
+        'Research Support Functions',
+      ]
+    > &
+      Schema.Attribute.Required;
+    coverImage: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    excerpt: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 240;
+      }>;
+    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'> &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGalleryItemGalleryItem extends Struct.CollectionTypeSchema {
+  collectionName: 'gallery_items';
+  info: {
+    description: "A single photo in the /gallery page's grid, editable from the CMS instead of the static fixture it replaces.";
+    displayName: 'Gallery Item';
+    pluralName: 'gallery-items';
+    singularName: 'gallery-item';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    caption: Schema.Attribute.Text;
+    category: Schema.Attribute.Enumeration<
+      [
+        'Team & Culture',
+        'Research Process',
+        'Field Work',
+        'Client Interactions',
+        'Events & Conferences',
+      ]
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::gallery-item.gallery-item'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -524,6 +629,8 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
         'blocks.testimonials',
         'blocks.cta',
         'blocks.stats-band',
+        'blocks.why-choose-us',
+        'blocks.process-steps',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;
@@ -583,6 +690,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'blocks.media-gallery',
         'blocks.faq',
         'blocks.blog-teaser',
+        'blocks.why-choose-us',
+        'blocks.process-steps',
       ]
     > &
       Schema.Attribute.Required &
@@ -638,6 +747,8 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         'blocks.testimonials',
         'blocks.cta',
         'blocks.stats-band',
+        'blocks.why-choose-us',
+        'blocks.process-steps',
       ]
     >;
     children: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
@@ -679,6 +790,72 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiServicesPageServicesPage extends Struct.SingleTypeSchema {
+  collectionName: 'services_pages';
+  info: {
+    description: 'All editable content on /services (hero, intro, value props, research process, FAQ, CTA) \u2014 the category grid itself stays sourced from the `service` hierarchy, not this single type.';
+    displayName: 'Services Page';
+    pluralName: 'services-pages';
+    singularName: 'services-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta: Schema.Attribute.Component<'blocks.cta', false>;
+    faq: Schema.Attribute.Component<'blocks.faq', false>;
+    hero: Schema.Attribute.Component<'blocks.hero', false>;
+    introEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    introHeading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    introParagraph1: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    introParagraph2: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::services-page.services-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    valueProps: Schema.Attribute.Component<'blocks.feature-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+          min: 1;
+        },
+        number
+      >;
+    valuePropsBackground: Schema.Attribute.Media<'images'>;
+    valuePropsBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    valuePropsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    workflow: Schema.Attribute.Component<'blocks.process-steps', false>;
   };
 }
 
@@ -1250,10 +1427,13 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::blog.blog': ApiBlogBlog;
+      'api::gallery-item.gallery-item': ApiGalleryItemGalleryItem;
       'api::global.global': ApiGlobalGlobal;
       'api::industry.industry': ApiIndustryIndustry;
       'api::page.page': ApiPagePage;
       'api::service.service': ApiServiceService;
+      'api::services-page.services-page': ApiServicesPageServicesPage;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

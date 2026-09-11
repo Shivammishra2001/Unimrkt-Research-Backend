@@ -1,0 +1,67 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blogs",
+  "info": {
+    "singularName": "blog",
+    "pluralName": "blogs",
+    "displayName": "Blog",
+    "description": "A single blog post — listed at /blogs, detailed at /blogs/:slug"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "unique": true
+    },
+    "excerpt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 240
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Primary Research",
+        "Qualitative Research",
+        "Quantitative Research",
+        "Business Research",
+        "Research Support Functions"
+      ],
+      "required": true
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "body": {
+      "type": "blocks"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "faqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 10
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

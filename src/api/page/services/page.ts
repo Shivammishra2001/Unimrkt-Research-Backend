@@ -25,10 +25,14 @@ export function buildPagePopulate() {
         'blocks.media-gallery': {
           populate: { actions: true, items: { populate: { media: true } } },
         },
-        'blocks.faq': { populate: { background: true, items: true } },
+        'blocks.faq': { populate: { background: true, items: true, cta: true } },
         'blocks.blog-teaser': {
           populate: { actions: true, posts: { populate: { image: true } } },
         },
+        // items reuse blocks.feature-item (same icon+link populate as
+        // blocks.feature-grid's items above).
+        'blocks.why-choose-us': { populate: { items: { populate: { icon: true, link: true } } } },
+        'blocks.process-steps': { populate: { steps: { populate: { icon: true } } } },
       },
     },
   };

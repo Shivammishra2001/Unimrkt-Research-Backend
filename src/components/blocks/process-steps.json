@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_blocks_process_steps",
+  "info": {
+    "displayName": "Process Steps",
+    "icon": "arrow-right",
+    "description": "Numbered methodology/journey steps — Figma node 617:7561's \"Our Research Ecosystem\" / \"From Question to Business Decision\" section."
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "subheading": {
+      "type": "string",
+      "maxLength": 320
+    },
+    "steps": {
+      "type": "component",
+      "component": "blocks.process-step-item",
+      "repeatable": true,
+      "required": true,
+      "min": 2,
+      "max": 8
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "accent"],
+      "default": "light"
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}

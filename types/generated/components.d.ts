@@ -135,6 +135,7 @@ export interface BlocksFaq extends Struct.ComponentSchema {
   attributes: {
     anchorId: Schema.Attribute.String;
     background: Schema.Attribute.Media<'images'>;
+    cta: Schema.Attribute.Component<'shared.link', false>;
     heading: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -218,7 +219,20 @@ export interface BlocksFeatureItem extends Struct.ComponentSchema {
         maxLength: 240;
       }>;
     icon: Schema.Attribute.Media<'images'>;
+    iconIdentifier: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
     link: Schema.Attribute.Component<'shared.link', false>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    statLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    statValue: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+      }>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -383,6 +397,72 @@ export interface BlocksMediaItem extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksProcessStepItem extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_process_step_items';
+  info: {
+    displayName: 'Process Step Item';
+    icon: 'list';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 240;
+      }>;
+    icon: Schema.Attribute.Media<'images'>;
+    iconIdentifier: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    stepNumber: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 4;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
+export interface BlocksProcessSteps extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_process_steps';
+  info: {
+    description: 'Numbered methodology/journey steps \u2014 Figma node 617:7561\'s "Our Research Ecosystem" / "From Question to Business Decision" section.';
+    displayName: 'Process Steps';
+    icon: 'arrow-right';
+  };
+  attributes: {
+    anchorId: Schema.Attribute.String;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    steps: Schema.Attribute.Component<'blocks.process-step-item', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+          min: 2;
+        },
+        number
+      >;
+    subheading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    theme: Schema.Attribute.Enumeration<['light', 'dark', 'accent']> &
+      Schema.Attribute.DefaultTo<'light'>;
+  };
+}
+
 export interface BlocksServiceBand extends Struct.ComponentSchema {
   collectionName: 'components_blocks_service_bands';
   info: {
@@ -504,6 +584,46 @@ export interface BlocksTestimonials extends Struct.ComponentSchema {
       'api::testimonial.testimonial'
     >;
     theme: Schema.Attribute.Enumeration<['light', 'dark']> &
+      Schema.Attribute.DefaultTo<'light'>;
+  };
+}
+
+export interface BlocksWhyChooseUs extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_why_choose_us';
+  info: {
+    description: 'Differentiator cards with an optional stat \u2014 Figma node 617:7561. Cards reuse blocks.feature-item (extended with statValue/statLabel/order) rather than a duplicate component.';
+    displayName: 'Why Choose Us';
+    icon: 'star';
+  };
+  attributes: {
+    anchorId: Schema.Attribute.String;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    items: Schema.Attribute.Component<'blocks.feature-item', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 12;
+          min: 2;
+        },
+        number
+      >;
+    subheading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    theme: Schema.Attribute.Enumeration<['light', 'dark', 'accent']> &
       Schema.Attribute.DefaultTo<'light'>;
   };
 }
@@ -635,11 +755,14 @@ declare module '@strapi/strapi' {
       'blocks.industry-item': BlocksIndustryItem;
       'blocks.media-gallery': BlocksMediaGallery;
       'blocks.media-item': BlocksMediaItem;
+      'blocks.process-step-item': BlocksProcessStepItem;
+      'blocks.process-steps': BlocksProcessSteps;
       'blocks.service-band': BlocksServiceBand;
       'blocks.service-band-item': BlocksServiceBandItem;
       'blocks.stat-item': BlocksStatItem;
       'blocks.stats-band': BlocksStatsBand;
       'blocks.testimonials': BlocksTestimonials;
+      'blocks.why-choose-us': BlocksWhyChooseUs;
       'shared.footer-column': SharedFooterColumn;
       'shared.link': SharedLink;
       'shared.nav-child-item': SharedNavChildItem;

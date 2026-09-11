@@ -62,6 +62,10 @@ export default factories.createCoreController('api::service.service', ({ strapi 
    * `find` always forces the thumbnail-only list populate for the plain
    * /services archive, so the nav/category-tree shape needs its own route
    * rather than overloading that contract with a query flag.
+   *
+   * `thumbnail` was added here for the /services listing redesign's photo
+   * category cards — every other consumer (the nav dropdown) just ignores
+   * the extra field.
    */
   async findTree(ctx) {
     const isDraft = ctx.query.status === 'draft';
@@ -71,7 +75,10 @@ export default factories.createCoreController('api::service.service', ({ strapi 
       filters: { parent: { id: { $null: true } } },
       status,
       sort: 'title:asc',
-      populate: { children: { fields: ['title', 'slug', 'summary'], sort: 'title:asc' } },
+      populate: {
+        thumbnail: true,
+        children: { fields: ['title', 'slug', 'summary'], sort: 'title:asc' },
+      },
     });
 
     const sanitized = await strapi.contentAPI.sanitize.output(

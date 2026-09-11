@@ -22,6 +22,10 @@ export const BLOCK_POPULATE = {
   },
   'blocks.cta': { populate: { actions: true, background: true } },
   'blocks.stats-band': { populate: { items: true } },
+  // items reuse blocks.feature-item (icon + link populated the same way
+  // blocks.feature-grid's items already are above).
+  'blocks.why-choose-us': { populate: { items: { populate: { icon: true, link: true } } } },
+  'blocks.process-steps': { populate: { steps: { populate: { icon: true } } } },
 };
 
 export function buildServiceListPopulate() {

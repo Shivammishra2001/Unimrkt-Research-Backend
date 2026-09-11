@@ -49,7 +49,9 @@
         "blocks.feature-grid",
         "blocks.testimonials",
         "blocks.cta",
-        "blocks.stats-band"
+        "blocks.stats-band",
+        "blocks.why-choose-us",
+        "blocks.process-steps"
       ]
     },
     "seo": {

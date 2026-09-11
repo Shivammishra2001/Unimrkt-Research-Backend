@@ -42,6 +42,22 @@ const REQUIRED_PERMISSIONS: string[] = [
   'api::industry.industry.findOne',
   'api::industry.industry.findSlugs',
   'api::industry.industry.findBySlug',
+  // Gallery Item (Strapi migration of the /gallery page's static
+  // fixture) — plain list + core detail, no slug-based lookups since
+  // the frontend always fetches the whole collection in one request.
+  'api::gallery-item.gallery-item.find',
+  'api::gallery-item.gallery-item.findOne',
+  // Services Page (singleType) — /services' hero/intro/value-props/
+  // workflow/FAQ/CTA copy, migrated off hardcoded JSX. Single types only
+  // ever expose `find` (there's exactly one record, no list/detail split).
+  'api::services-page.services-page.find',
+  // Blog (/blogs page, Figma node 522:4719) — plain find (populate=* per
+  // the frontend's controllers/blog.ts), findOne (core detail, harmless
+  // to leave on), plus the custom slug-based lookups the frontend calls.
+  'api::blog.blog.find',
+  'api::blog.blog.findOne',
+  'api::blog.blog.findSlugs',
+  'api::blog.blog.findBySlug',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

@@ -25,6 +25,25 @@
       "type": "component",
       "component": "shared.link",
       "repeatable": false
+    },
+    "iconIdentifier": {
+      "type": "string",
+      "required": false,
+      "maxLength": 60
+    },
+    "statValue": {
+      "type": "string",
+      "required": false,
+      "maxLength": 20
+    },
+    "statLabel": {
+      "type": "string",
+      "required": false,
+      "maxLength": 60
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

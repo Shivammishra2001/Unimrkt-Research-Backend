@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_blocks_why_choose_us",
+  "info": {
+    "displayName": "Why Choose Us",
+    "icon": "star",
+    "description": "Differentiator cards with an optional stat — Figma node 617:7561. Cards reuse blocks.feature-item (extended with statValue/statLabel/order) rather than a duplicate component."
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "subheading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "items": {
+      "type": "component",
+      "component": "blocks.feature-item",
+      "repeatable": true,
+      "required": true,
+      "min": 2,
+      "max": 12
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "accent"],
+      "default": "light"
+    },
+    "anchorId": {
+      "type": "string",
+      "regex": "^[a-z0-9-]+$"
+    }
+  }
+}
