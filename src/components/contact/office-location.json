@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_contact_office_locations",
+  "info": {
+    "displayName": "Office Location",
+    "icon": "pinMap"
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "address": {
+      "type": "text",
+      "required": true,
+      "maxLength": 240
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "phone": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "phoneLabel": {
+      "type": "string",
+      "required": false,
+      "maxLength": 60
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

@@ -3228,6 +3228,121 @@ async function deleteStaleOurCompanyGenericPage(strapi: any) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// 14. Contact page (/contact, Figma node 637:10433, file
+//     foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType. Every string
+//     below is transcribed verbatim from the node's own text layers.
+//     One disclosed exception: the 5 FAQ items' QUESTIONS are the node's
+//     own real, distinct text (confirmed via Dev Mode, not the stale
+//     auto-generated layer names get_metadata alone would suggest) —
+//     only the ANSWERS are authored, same "accordion is collapsed on
+//     canvas, only questions are visible" convention as every other FAQ
+//     section in this file.
+// ---------------------------------------------------------------------------
+
+const CONTACT_OFFICES = [
+  {
+    name: 'India Office',
+    address: '5th floor, Nimai Tower, 412-415, Udyog Vihar, Phase IV, Gurugram, Haryana-122015',
+    email: 'sales@unimrkt.com',
+    phoneLabel: 'Sales & Business Queries:',
+    phone: '+91 124 424 5210, +91 9870 377 557',
+    featured: true,
+    imageFilename: 'contact-india-gate.jpg',
+  },
+  {
+    name: 'United States of America',
+    address: '98 Cuttermill Road Suite 466, Great Neck, NY 11021, USA',
+    email: 'sales@unimrkt.com',
+    phoneLabel: null,
+    phone: '+1.646.712.9302',
+    featured: false,
+    imageFilename: null,
+  },
+  {
+    name: 'United Kingdom',
+    address: 'The Old Dairy, 12 Stephen Road, Headington, Oxford, Oxfordshire, United Kingdom OX3 9AY',
+    email: 'sales@unimrkt.com',
+    phoneLabel: null,
+    phone: '+1.646.712.9302',
+    featured: false,
+    imageFilename: null,
+  },
+];
+
+const CONTACT_FAQ_ITEMS = [
+  { question: 'How can I contact Unimrkt Research for market research services?', answer: 'You can reach us through the contact form on this page, by emailing sales@unimrkt.com, or by calling any of our regional offices listed above — our team typically responds within one business day.' },
+  { question: 'What types of market research services does Unimrkt offer?', answer: 'We offer primary research, qualitative research, quantitative research, business research, and research support functions, spanning 90+ countries and 22+ languages.' },
+  { question: 'Can I discuss a customized research requirement with your team?', answer: 'Absolutely — share a few details in the contact form and a research consultant will follow up to scope a study tailored to your specific requirement.' },
+  { question: 'Where are Unimrkt Research offices located?', answer: 'We have offices in India (Gurugram), the United States (Great Neck, NY), and the United Kingdom (Oxford), with research capabilities extending across 90+ countries.' },
+  { question: 'How can I work with Unimrkt Research?', answer: "Whether you're looking to commission research or join our team, use the contact form above for client inquiries, or see the Work With Unimrkt section below for career opportunities." },
+];
+
+async function upsertContactPageSettings(strapi: any) {
+  const uid = 'api::contact-page.contact-page';
+
+  const heroImageId = await uploadAsset(strapi, 'contact-hero-bg.jpg');
+  const formImageId = await uploadAsset(strapi, 'contact-form-bg.jpg');
+  const workWithUsImageId = await uploadAsset(strapi, 'contact-work-with-us-bg.jpg');
+
+  const offices = [];
+  for (const office of CONTACT_OFFICES) {
+    // eslint-disable-next-line no-await-in-loop -- readable seed logs, matches every other image-upload loop in this file
+    const imageId = office.imageFilename ? await uploadAsset(strapi, office.imageFilename) : null;
+    offices.push({
+      name: office.name,
+      address: office.address,
+      email: office.email,
+      phone: office.phone,
+      phoneLabel: office.phoneLabel,
+      featured: office.featured,
+      image: imageId,
+    });
+  }
+
+  const data = {
+    heroEyebrow: 'Contact Us',
+    heroHeading: 'Let’s Turn Your Business Questions Into Clear Answers',
+    heroSubheading: 'Tell us what you’re trying to understand. Our research experts will help you find the right path forward.',
+    heroImage: heroImageId,
+    // In-page anchor to the form section below — this button is already
+    // on /contact, so linking to that same route would be circular.
+    heroCta: { label: 'Start a Conversation', href: '#contact-form', isExternal: false, variant: 'primary' },
+    statsHeading: 'Research at a Global Scale',
+    stats: [
+      { value: '90+', label: 'Countries', iconIdentifier: 'global' },
+      { value: '22+', label: 'Languages', iconIdentifier: 'language-circle' },
+      { value: '450+', label: 'CATI Stations', iconIdentifier: 'call' },
+      { value: '16+', label: 'Years of Experience', iconIdentifier: 'medal-star' },
+    ],
+    officeEyebrow: 'Office Address',
+    officeHeading: 'Our Presence',
+    offices,
+    formEyebrow: 'Contact Form',
+    formHeading: 'Let’s Team Up!',
+    formSubheading: 'Interested in high-end, extensive market research for your brand?',
+    formImage: formImageId,
+    faqItems: CONTACT_FAQ_ITEMS,
+    workWithUsHeading: 'Work With unimrkt',
+    workWithUsBody: 'We offer the best infrastructure for our employees to learn and grow with us.',
+    // A real existing page — see ABOUT_CONTACT_SUBPAGES's 'work-with-us' entry.
+    workWithUsCta: { label: 'Apply Now', href: '/work-with-us', isExternal: false, variant: 'primary' },
+    workWithUsImage: workWithUsImageId,
+    seo: {
+      metaTitle: 'Contact Us — Unimrkt Research',
+      metaDescription: 'Get in touch with Unimrkt Research — tell us what you’re trying to understand and our research experts will help you find the right path forward.',
+    },
+  };
+
+  const existing = await strapi.documents(uid).findFirst({});
+  const doc = existing
+    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+    : await strapi.documents(uid).create({ data });
+  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  strapi.log.info('[seed] Contact page: upserted and published (hero, stats, 3 offices, form, 5 FAQ items, Work With Unimrkt CTA).');
+  return doc;
+}
+
 async function resetContent(strapi: any) {
   strapi.log.info('[seed] --reset: truncating content tables');
   await strapi.db.query('api::testimonial.testimonial').deleteMany({});
@@ -3351,6 +3466,9 @@ async function main() {
     //     to live at this slug.
     await deleteStaleOurCompanyGenericPage(app);
     await upsertOurCompanyPageSettings(app);
+
+    // 14. Contact page (/contact, Figma node 637:10433).
+    await upsertContactPageSettings(app);
 
     app.log.info('[seed] Done.');
   } finally {

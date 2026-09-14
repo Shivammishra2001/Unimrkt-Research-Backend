@@ -1,0 +1,111 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_pages",
+  "info": {
+    "singularName": "contact-page",
+    "pluralName": "contact-pages",
+    "displayName": "Contact Page",
+    "description": "All editable content on /contact (Figma node 637:10433, file foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType, not a `page` dynamiczone entry. The form's own fields (Name/Email/Phone/Company) are fixed UI chrome, never CMS content, same convention as every other lead form on this site."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heroHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "heroCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "statsHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "stats": {
+      "type": "component",
+      "component": "services.stat-item",
+      "repeatable": true,
+      "max": 4
+    },
+    "officeEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "officeHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "offices": {
+      "type": "component",
+      "component": "contact.office-location",
+      "repeatable": true,
+      "max": 6
+    },
+    "formEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "formHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "formSubheading": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "formImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "faqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 10
+    },
+    "workWithUsHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "workWithUsBody": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "workWithUsCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "workWithUsImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

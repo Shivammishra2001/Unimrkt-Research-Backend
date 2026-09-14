@@ -69,6 +69,16 @@ const REQUIRED_PERMISSIONS: string[] = [
   // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType, not a `page`
   // dynamiczone entry. Single types only ever expose `find`.
   'api::our-company-page.our-company-page.find',
+  // Contact Page (/contact, Figma node 637:10433, file
+  // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType.
+  'api::contact-page.contact-page.find',
+  // Contact Submission — the /contact form's lead-capture write target.
+  // `create` only (see that content type's own routes.ts: find/findOne/
+  // update/delete are never registered at all, so granting them here
+  // would be a no-op even if it weren't already the wrong call) — a
+  // visitor can submit a lead but never read, list, or tamper with
+  // anyone else's.
+  'api::contact-submission.contact-submission.create',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

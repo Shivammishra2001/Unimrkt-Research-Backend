@@ -538,6 +538,149 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
+  collectionName: 'contact_pages';
+  info: {
+    description: "All editable content on /contact (Figma node 637:10433, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated singleType, not a `page` dynamiczone entry. The form's own fields (Name/Email/Phone/Company) are fixed UI chrome, never CMS content, same convention as every other lead form on this site.";
+    displayName: 'Contact Page';
+    pluralName: 'contact-pages';
+    singularName: 'contact-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    formEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    formHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    formImage: Schema.Attribute.Media<'images'>;
+    formSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    heroCta: Schema.Attribute.Component<'shared.link', false>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heroHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contact-page.contact-page'
+    > &
+      Schema.Attribute.Private;
+    officeEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    officeHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    offices: Schema.Attribute.Component<'contact.office-location', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    stats: Schema.Attribute.Component<'services.stat-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+        },
+        number
+      >;
+    statsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    workWithUsBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    workWithUsCta: Schema.Attribute.Component<'shared.link', false>;
+    workWithUsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    workWithUsImage: Schema.Attribute.Media<'images'>;
+  };
+}
+
+export interface ApiContactSubmissionContactSubmission
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'contact_submissions';
+  info: {
+    description: "A lead captured from the /contact page form (Name/Email/Phone/Company \u2014 the exact fields drawn in Figma node 637:10433, nothing else). Public API grants `create` only \u2014 no public find/findOne/update/delete \u2014 so a visitor can submit a lead but never read, list, or tamper with anyone else's.";
+    displayName: 'Contact Submission';
+    pluralName: 'contact-submissions';
+    singularName: 'contact-submission';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    company: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contact-submission.contact-submission'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGalleryItemGalleryItem extends Struct.CollectionTypeSchema {
   collectionName: 'gallery_items';
   info: {
@@ -1960,6 +2103,8 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
       'api::category.category': ApiCategoryCategory;
+      'api::contact-page.contact-page': ApiContactPageContactPage;
+      'api::contact-submission.contact-submission': ApiContactSubmissionContactSubmission;
       'api::gallery-item.gallery-item': ApiGalleryItemGalleryItem;
       'api::global.global': ApiGlobalGlobal;
       'api::industry.industry': ApiIndustryIndustry;

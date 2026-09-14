@@ -628,6 +628,42 @@ export interface BlocksWhyChooseUs extends Struct.ComponentSchema {
   };
 }
 
+export interface ContactOfficeLocation extends Struct.ComponentSchema {
+  collectionName: 'components_contact_office_locations';
+  info: {
+    displayName: 'Office Location';
+    icon: 'pinMap';
+  };
+  attributes: {
+    address: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 240;
+      }>;
+    email: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    image: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    phoneLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
 export interface IndustriesDetailCard extends Struct.ComponentSchema {
   collectionName: 'components_industries_detail_cards';
   info: {
@@ -828,6 +864,7 @@ declare module '@strapi/strapi' {
       'blocks.stats-band': BlocksStatsBand;
       'blocks.testimonials': BlocksTestimonials;
       'blocks.why-choose-us': BlocksWhyChooseUs;
+      'contact.office-location': ContactOfficeLocation;
       'industries.detail-card': IndustriesDetailCard;
       'industries.trust-logo': IndustriesTrustLogo;
       'services.stat-item': ServicesStatItem;

@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contact_submissions",
+  "info": {
+    "singularName": "contact-submission",
+    "pluralName": "contact-submissions",
+    "displayName": "Contact Submission",
+    "description": "A lead captured from the /contact page form (Name/Email/Phone/Company — the exact fields drawn in Figma node 637:10433, nothing else). Public API grants `create` only — no public find/findOne/update/delete — so a visitor can submit a lead but never read, list, or tamper with anyone else's."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": false,
+      "maxLength": 40
+    },
+    "company": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    }
+  }
+}
