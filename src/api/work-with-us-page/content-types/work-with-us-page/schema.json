@@ -1,0 +1,160 @@
+{
+  "kind": "singleType",
+  "collectionName": "work_with_us_pages",
+  "info": {
+    "singularName": "work-with-us-page",
+    "pluralName": "work-with-us-pages",
+    "displayName": "Work With Us Page",
+    "description": "All editable content on /work-with-us (Figma node 924:23216, file foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType. The bottom CTA reuses the same sitewide 'Start Your Research Journey' copy every other page reuses, so it has no fields here."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heroHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "heroCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "valuesEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "valuesHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "valuesBody": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "valuesCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 8
+    },
+    "benefitsEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "benefitsHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "benefitsBody": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "benefitsLabel": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "benefitsImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "benefits": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 8
+    },
+    "jobsEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "jobsHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "jobsBody": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "jobs": {
+      "type": "component",
+      "component": "work-with-us.job-listing",
+      "repeatable": true,
+      "max": 20
+    },
+    "journeyEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "journeyHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "journeyBody": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "journeySteps": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 6
+    },
+    "joinUsHeading": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "joinUsBody": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "disclaimerHeading": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "disclaimerBody": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "faqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 10
+    },
+    "aboutCareersEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "aboutCareersHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "aboutCareersBody": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

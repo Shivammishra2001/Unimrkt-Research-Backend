@@ -79,6 +79,9 @@ const REQUIRED_PERMISSIONS: string[] = [
   // visitor can submit a lead but never read, list, or tamper with
   // anyone else's.
   'api::contact-submission.contact-submission.create',
+  // Work With Us Page (/work-with-us, Figma node 924:23216, file
+  // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType.
+  'api::work-with-us-page.work-with-us-page.find',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

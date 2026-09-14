@@ -840,6 +840,41 @@ export interface SharedSeo extends Struct.ComponentSchema {
   };
 }
 
+export interface WorkWithUsJobListing extends Struct.ComponentSchema {
+  collectionName: 'components_work_with_us_job_listings';
+  info: {
+    displayName: 'Job Listing';
+    icon: 'briefcase';
+  };
+  attributes: {
+    department: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    jobType: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    location: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    postedDate: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
@@ -873,6 +908,7 @@ declare module '@strapi/strapi' {
       'shared.nav-child-item': SharedNavChildItem;
       'shared.nav-item': SharedNavItem;
       'shared.seo': SharedSeo;
+      'work-with-us.job-listing': WorkWithUsJobListing;
     }
   }
 }

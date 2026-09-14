@@ -2238,21 +2238,15 @@ const ABOUT_CONTACT_SUBPAGES: AboutContactPageSeed[] = [
     metaDescription: 'Contact Unimrkt Research to discuss your next market research project — we typically respond within one business day.',
     keywords: 'contact unimrkt research, write to us, research inquiry',
   },
-  {
-    slug: 'work-with-us',
-    title: 'Work with us',
-    summary: 'Work with us — Unimrkt Research is always looking for talented researchers, data scientists, and fieldwork specialists who care about rigorous, client-focused research.',
-    overview: 'We hire for category expertise and analytical rigor as much as research-methods experience, building teams that can go deep on a client\'s specific industry rather than staying generalist. Open roles span research operations, data science, qualitative moderation, and account leadership.',
-    stats: [['200+', 'Team members globally'], ['90+', 'Countries with local presence'], ['Remote-friendly', 'Roles available'], ['Continuous learning', 'Culture and investment']],
-    useCases: "Whether you're an experienced research director or early in your analytics career, our team structure offers a path to deep category specialization.",
-    ctaHeading: 'Interested in joining our team?',
-    ctaBody: 'Reach out to learn about current opportunities at Unimrkt Research.',
-    ctaLabel: 'Explore Careers',
-    methodology: 'Our hiring process evaluates both analytical skill and category curiosity — we look for people who want to become genuine experts in the industries they research.',
-    metaDescription: 'Careers at Unimrkt Research — join a global team of researchers, data scientists, and fieldwork specialists.',
-    keywords: 'careers at unimrkt research, work with us, research jobs',
-  },
 ];
+
+// `work-with-us` used to be seeded above as a generic 5-block Google
+// -Sheet-migration sub-page. It's been replaced by a dedicated page —
+// see upsertWorkWithUsPageSettings() / api::work-with-us-page, built
+// from the real Figma node 924:23216 ("Work With Us", file
+// foaJFuv0vRX8nD43o0ylgB), not that generic template. The stale
+// `page.page` row is deleted in main() so no orphaned CMS entry or
+// route ambiguity remains — same convention as deleteStaleOurCompanyGenericPage().
 
 async function upsertAboutContactSubpages(strapi: any) {
   for (const page of ABOUT_CONTACT_SUBPAGES) {
@@ -3343,6 +3337,142 @@ async function upsertContactPageSettings(strapi: any) {
   return doc;
 }
 
+// ---------------------------------------------------------------------------
+// 15. Work With Us page (/work-with-us, Figma node 924:23216, file
+//     foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType. Every string
+//     below is transcribed verbatim from the node's own text layers,
+//     with 2 disclosed exceptions where the design file itself is
+//     incomplete/inconsistent:
+//       1. valuesCards: this node's 8 "Core Values" cards share the
+//          exact same 8 titles/icons/descriptions as /our-company's
+//          Values section (confirmed via Dev Mode on both nodes) — not
+//          re-invented, the identical real content, just presented in a
+//          different (light pink) card style unique to this page.
+//       2. journeySteps: 3 of the 4 "career journey" cards (Apply/
+//          Connect/Interview) have copy-pasted description text lifted
+//          verbatim from an unrelated section (/our-company's Insights
+//          cards — e.g. "Apply" is described as "Access diverse markets
+//          across continents.") — a duplication artifact, not real copy
+//          for this card. Only "Join" has its own real description.
+//          Authored sensible, distinct descriptions for Apply/Connect/
+//          Interview in the same voice; "Join" is verbatim.
+// ---------------------------------------------------------------------------
+
+const WORK_WITH_US_VALUES_CARDS = [
+  { title: 'Clear Communication', description: 'We communicate openly, clearly, and consistently to build trust and ensure shared understanding.', iconIdentifier: 'chat' },
+  { title: 'Innovation', description: 'We embrace new ideas, technologies, and approaches to deliver smarter, more effective research solutions.', iconIdentifier: 'idea' },
+  { title: 'Wisdom', description: 'We apply knowledge, experience, and thoughtful judgment to create smarter business outcomes.', iconIdentifier: 'intelligence' },
+  { title: 'Integrity', description: 'We uphold honesty, transparency, and ethical practices across every project, partnership, and decision.', iconIdentifier: 'network' },
+  { title: 'Team Work', description: 'We collaborate closely, combining diverse expertise to deliver stronger insights and better outcomes.', iconIdentifier: 'teamwork' },
+  { title: 'Business Ethics', description: 'We conduct business responsibly, ethically, and transparently, building lasting trust with every stakeholder.', iconIdentifier: 'ethics' },
+  { title: 'Diversity', description: 'We value diverse perspectives, experiences, and ideas to create stronger, more inclusive outcomes.', iconIdentifier: 'cultural-diversity' },
+  { title: 'Transparency', description: 'We communicate openly, share information clearly, and build trust through every interaction.', iconIdentifier: 'transparency' },
+];
+
+const WORK_WITH_US_BENEFITS = [
+  { title: 'Stock Appreciation Rights (SARs)', iconIdentifier: 'chart' },
+  { title: 'Compensatory-Off Reimbursement', iconIdentifier: 'wallet-add' },
+  { title: 'Annual Bonus', iconIdentifier: 'star' },
+  { title: 'Internal Job Posting', iconIdentifier: 'briefcase' },
+  { title: 'Mediclaim', iconIdentifier: 'pill-combination' },
+  { title: 'Transport Facility', iconIdentifier: 'transport' },
+  { title: 'Leave Encashment', iconIdentifier: 'task-square' },
+  { title: 'Meal Facility', iconIdentifier: 'dinner' },
+];
+
+const WORK_WITH_US_JOBS = [
+  { title: 'Executive – Language & Communication', location: 'Gurugram, India', jobType: 'Full Time', department: 'Training', postedDate: '12 Aug 2026' },
+  { title: 'Associate – Primary Research', location: 'Gurugram, India', jobType: 'Full Time', department: 'Operations', postedDate: '12 Aug 2026' },
+  { title: 'Associate - Secondary Research', location: 'Gurugram, India', jobType: 'Full Time', department: 'Operations', postedDate: '12 Aug 2026' },
+  { title: 'Assistant Manager – India Sales', location: 'Gurugram, India', jobType: 'Full Time', department: 'India Research', postedDate: '12 Aug 2026' },
+];
+
+const WORK_WITH_US_JOURNEY_STEPS = [
+  { title: 'Apply', description: 'Submit your application and resume for the role that matches your skills and interests.', iconIdentifier: 'clipboard-tick' },
+  { title: 'Connect', description: 'Our HR team reviews your profile and reaches out if you are shortlisted for the role.', iconIdentifier: 'profile-2user' },
+  { title: 'Interview', description: 'Meet the team to discuss your experience, skills, and fit for the position.', iconIdentifier: 'user-tag' },
+  { title: 'Join', description: 'Welcome to Unimrkt! Let’s make an impact together.', iconIdentifier: 'briefcase' },
+];
+
+const WORK_WITH_US_FAQ_ITEMS = [
+  { question: 'What types of career opportunities are available at Unimrkt?', answer: 'We hire across research operations, primary and secondary research, sales, and training, with roles spanning entry-level to management positions.' },
+  { question: 'How can I apply for a job at Unimrkt?', answer: 'Browse our open positions above and click "Apply Now" on any role, or email your resume directly to careers@unimrkt.com.' },
+  { question: 'Can I apply if there is no suitable opening?', answer: 'Yes — you can still send your resume to careers@unimrkt.com and our HR team will reach out if a matching role opens up.' },
+  { question: 'What is the recruitment process at Unimrkt?', answer: 'After you apply, our HR team reviews your profile, shortlisted candidates are invited to interview with the team, and successful candidates receive an offer to join.' },
+  { question: 'What skills does Unimrkt look for in candidates?', answer: 'We look for curiosity, analytical thinking, and a genuine interest in research, alongside the specific skills each role requires.' },
+  { question: 'Does Unimrkt charge any recruitment or onboarding fees?', answer: 'No — our recruitment and onboarding processes are entirely free of charge. We never ask candidates for payment at any stage.' },
+  { question: 'How will I know if a job opportunity is genuine?', answer: 'Genuine Unimrkt communication only comes from @unimrkt.com, @unimrkthealth.com, or @unimrktresponse.com email domains — see the disclaimer above for full details.' },
+];
+
+async function upsertWorkWithUsPageSettings(strapi: any) {
+  const uid = 'api::work-with-us-page.work-with-us-page';
+
+  const heroImageId = await uploadAsset(strapi, 'wwu-hero-bg.jpg');
+  const benefitsImageId = await uploadAsset(strapi, 'wwu-benefits-photo.jpg');
+
+  const data = {
+    heroEyebrow: 'Careers',
+    heroHeading: 'Great People Build Great Research',
+    heroSubheading: 'At Unimrkt, we give our employees a space to learn, grow and innovate. If you’re passionate about research, data and making an impact you’ll feel right at home here.',
+    heroImage: heroImageId,
+    // In-page anchor to the job listings section below.
+    heroCta: { label: 'Explore Open Positions', href: '#open-positions', isExternal: false, variant: 'primary' },
+    valuesEyebrow: 'Core Values of Unimrkt',
+    valuesHeading: 'What Drives Us',
+    valuesBody: 'Our values shape the way we work, collaborate and create impact every day.',
+    valuesCards: WORK_WITH_US_VALUES_CARDS,
+    benefitsEyebrow: 'WHY JOIN UNIMRKT',
+    benefitsHeading: 'More Than Just a Job',
+    benefitsBody: 'We believe in supporting your well-being, growth and future. That’s why we offer a range of benefits that help you thrive personally and professionally.',
+    benefitsLabel: 'Benefits:',
+    benefitsImage: benefitsImageId,
+    benefits: WORK_WITH_US_BENEFITS,
+    jobsEyebrow: 'OPEN POSITIONS',
+    jobsHeading: 'Find Your Next Opportunity',
+    jobsBody: 'Explore roles across different departments and take the next step in your career journey with Unimrkt.',
+    jobs: WORK_WITH_US_JOBS,
+    journeyEyebrow: 'YOUR CAREER JOURNEY',
+    journeyHeading: 'Grow With Purpose',
+    journeyBody: 'From day one, you’re supported with the right tools, training and opportunities to build a meaningful career.',
+    journeySteps: WORK_WITH_US_JOURNEY_STEPS,
+    joinUsHeading: 'Join Us',
+    joinUsBody:
+      'To apply for the job opening, please send your resume and relevant details to careers@unimrkt.com. Our HR team will review your application and contact you if your profile is shortlisted for the position. Please note that due to the high volume of applications we receive, we may not be able to respond to every inquiry. Thank you for your interest in joining Unimrkt — we look forward to the possibility of working together!',
+    disclaimerHeading: 'Disclaimer : Beware of Fraud',
+    disclaimerBody:
+      'At Unimrkt, we ensure that our prospective candidates and employees are informed about potential fraudulent activities. It is important to note that we do not levy fees or require any form of payment for our recruitment and onboarding processes. These processes are entirely free of charge. We urge you to exercise caution and verify the authenticity of emails by checking the email domain. Unimrkt email domain names are @unimrkt.com, @unimrkthealth.com, and @unimrktresponse.com. We do not send interview emails or offer letters through any other email domains like @gmail.com, @yahoo.com etc. We take fraud seriously and have implemented measures to safeguard our candidates and employees against deception or scams. However, if you encounter any suspicious activity or receive any communication that appears suspicious or requests payment, please refrain from responding and promptly notify us at +91 124 424 5210. Our commitment lies in providing a transparent and fair recruitment process, and we do not tolerate any form of fraud or unethical behavior.',
+    faqItems: WORK_WITH_US_FAQ_ITEMS,
+    aboutCareersEyebrow: 'ABOUT CAREERS',
+    aboutCareersHeading: 'Build Your Career. Create Meaningful Impact.',
+    aboutCareersBody:
+      'At Unimrkt Research, we believe great work starts with great people. We provide an environment where curious minds can learn, collaborate, innovate, and grow while working on meaningful research projects that shape business decisions. Whether you’re starting your career or looking for your next opportunity, you’ll find opportunities to develop your skills, take on new challenges, and be part of a team that values integrity, collaboration, innovation, and continuous learning.',
+    seo: {
+      metaTitle: 'Work With Us — Careers at Unimrkt Research',
+      metaDescription: 'Explore careers at Unimrkt Research — great people build great research. Browse open positions and find your next opportunity.',
+    },
+  };
+
+  const existing = await strapi.documents(uid).findFirst({});
+  const doc = existing
+    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+    : await strapi.documents(uid).create({ data });
+  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  strapi.log.info('[seed] Work With Us page: upserted and published (hero, values, benefits, 4 jobs, career journey, join us, disclaimer, 7 FAQ items, about careers).');
+  return doc;
+}
+
+/** Deletes the stale generic `page.page` row that used to live at the
+ * `work-with-us` slug (5 Google-Sheet-migration blocks, none of it real
+ * Figma content) now that /work-with-us is a dedicated route backed by
+ * api::work-with-us-page — see the comment above ABOUT_CONTACT_SUBPAGES. */
+async function deleteStaleWorkWithUsGenericPage(strapi: any) {
+  const existing = await strapi.documents('api::page.page').findFirst({ filters: { slug: 'work-with-us' } });
+  if (existing) {
+    await strapi.documents('api::page.page').delete({ documentId: existing.documentId });
+    strapi.log.info('[seed] Deleted stale generic page.page entry at slug "work-with-us" (superseded by api::work-with-us-page).');
+  }
+}
+
 async function resetContent(strapi: any) {
   strapi.log.info('[seed] --reset: truncating content tables');
   await strapi.db.query('api::testimonial.testimonial').deleteMany({});
@@ -3469,6 +3599,12 @@ async function main() {
 
     // 14. Contact page (/contact, Figma node 637:10433).
     await upsertContactPageSettings(app);
+
+    // 15. Work With Us page (/work-with-us, Figma node 924:23216) — a
+    //     dedicated page, replacing the generic page.page entry that used
+    //     to live at this slug.
+    await deleteStaleWorkWithUsGenericPage(app);
+    await upsertWorkWithUsPageSettings(app);
 
     app.log.info('[seed] Done.');
   } finally {

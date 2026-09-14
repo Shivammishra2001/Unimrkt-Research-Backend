@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_work_with_us_job_listings",
+  "info": {
+    "displayName": "Job Listing",
+    "icon": "briefcase"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "location": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "jobType": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "department": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "postedDate": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    }
+  }
+}
