@@ -65,6 +65,10 @@ const REQUIRED_PERMISSIONS: string[] = [
   // on the frontend) is what lets the tab list itself be dynamic.
   'api::category.category.find',
   'api::category.category.findOne',
+  // Our Company Page (/our-company, Figma node 617:7561, file
+  // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType, not a `page`
+  // dynamiczone entry. Single types only ever expose `find`.
+  'api::our-company-page.our-company-page.find',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

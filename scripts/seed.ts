@@ -2159,21 +2159,15 @@ interface AboutContactPageSeed extends ResearchContent {
   title: string;
 }
 
+// `our-company` used to be seeded here as a generic 5-block
+// Google-Sheet-migration sub-page (hero/stats/content/cta/methodology,
+// none of it from Figma). It's been replaced by a dedicated page —
+// see upsertOurCompanyPageSettings() / api::our-company-page, built
+// from the real Figma node 617:7561 ("Our Company", file
+// foaJFuv0vRX8nD43o0ylgB), not this generic template. The stale
+// `page.page` row is deleted in main() so no orphaned CMS entry or
+// route ambiguity remains.
 const ABOUT_CONTACT_SUBPAGES: AboutContactPageSeed[] = [
-  {
-    slug: 'our-company',
-    title: 'Our Company',
-    summary: 'Unimrkt Research is a global market research and consulting firm founded to help organizations make evidence-based decisions through rigorous data collection, analysis, and strategic insight.',
-    overview: 'Founded with a mission to bring methodological rigor and genuine client partnership to market research, Unimrkt Research has grown into a full-service research firm spanning primary and secondary research, data analytics, and strategic consulting. Our teams combine deep category expertise with a global fieldwork network spanning 90+ countries.',
-    stats: [['16+', 'Years in business'], ['90+', 'Countries served'], ['500+', 'Clients served'], ['200+', 'Research professionals']],
-    useCases: 'Our multidisciplinary teams support clients across consumer, B2B, healthcare, and public-sector research — from single ad-hoc studies to ongoing tracking programs and embedded research partnerships.',
-    ctaHeading: 'Want to know more about our company?',
-    ctaBody: 'Get in touch to learn how we can support your next research initiative.',
-    ctaLabel: 'Contact Our Team',
-    methodology: 'Every project is led by a named research director with category expertise, supported by dedicated operations, analytics, and quality-assurance teams working to a documented methodology at every stage.',
-    metaDescription: 'Learn about Unimrkt Research — a global market research and consulting firm delivering evidence-based insight across 90+ countries.',
-    keywords: 'about unimrkt research, market research company, research firm',
-  },
   {
     slug: 'why-choose-us',
     title: 'Why Choose Us',
@@ -3075,6 +3069,165 @@ async function upsertServicesPageSettings(strapi: any) {
   return doc;
 }
 
+// ---------------------------------------------------------------------------
+// 13. Our Company page (/our-company, Figma node 617:7561, file
+//     foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType, not a `page`
+//     dynamiczone entry (see the plan's own architecture note). Every
+//     string below is transcribed verbatim from the node's own text
+//     layers, with 3 disclosed exceptions where the design file itself
+//     is incomplete/inconsistent rather than merely "not yet filled in":
+//       1. valuesBody: the node's own text node (627:8708) is a real,
+//          literal sentence fragment that stops mid-clause — "...with
+//          our focus on" — not a metadata-truncation artifact (confirmed
+//          via a direct Dev Mode read of that exact node). Completed
+//          naturally rather than shipping a broken sentence.
+//       2. ecosystemCards' step numbers: the 4 process cards are numbered
+//          01/01/01/04 in the file (a duplication artifact — three
+//          duplicated frames were never renumbered to 02/03). The
+//          frontend derives the number from the card's array position
+//          instead of storing this broken sequence.
+//       3. faqItems: all 5 FAQ accordion rows in the node share the
+//          exact same placeholder question text verbatim
+//          ("What market research services does Unimrkt offer?") — an
+//          unfinished Figma placeholder, not 5 distinct real questions.
+//          Authored 5 distinct questions about the company in the same
+//          voice as this project's other FAQ sections, same convention
+//          already applied to every hidden/placeholder FAQ answer
+//          elsewhere in this file.
+// ---------------------------------------------------------------------------
+
+const OUR_COMPANY_INSIGHTS_CARDS = [
+  { title: 'Global Reach', description: 'Access diverse markets across continents.', iconIdentifier: 'global' },
+  { title: 'Deep Expertise', description: 'Experienced researchers across industries.', iconIdentifier: 'profile-2user' },
+  { title: 'Faster Decisions', description: 'Clear insights delivered when they matter.', iconIdentifier: 'timer' },
+  { title: 'Reliable Quality', description: 'Research built on rigorous standards.', iconIdentifier: 'shield-tick' },
+];
+
+const OUR_COMPANY_ECOSYSTEM_CARDS = [
+  { title: 'Define', description: 'We define business challenges and research goals to uncover clear opportunities for growth.', iconIdentifier: 'inspection' },
+  { title: 'Discover', description: 'We discover insights, trends, and opportunities that help businesses make smarter decisions and grow.', iconIdentifier: 'discovery' },
+  { title: 'Decode', description: 'We decode complex data into clear insights that reveal meaning, direction, and opportunities for business growth.', iconIdentifier: 'decode' },
+  { title: 'Deliver', description: 'We deliver actionable insights that empower businesses to make confident decisions and achieve sustainable growth.', iconIdentifier: 'timing' },
+];
+
+const OUR_COMPANY_VALUES_CARDS = [
+  { title: 'Clear Communication', description: 'We communicate openly, clearly, and consistently to build trust and ensure shared understanding.', iconIdentifier: 'chat' },
+  { title: 'Innovation', description: 'We embrace new ideas, technologies, and approaches to deliver smarter, more effective research solutions.', iconIdentifier: 'idea' },
+  { title: 'Team Work', description: 'We collaborate closely, combining diverse expertise to deliver stronger insights and better outcomes.', iconIdentifier: 'teamwork' },
+  { title: 'Integrity', description: 'We uphold honesty, transparency, and ethical practices across every project, partnership, and decision.', iconIdentifier: 'network' },
+  { title: 'Business Ethics', description: 'We conduct business responsibly, ethically, and transparently, building lasting trust with every stakeholder.', iconIdentifier: 'ethics' },
+  { title: 'Transparency', description: 'We communicate openly, share information clearly, and build trust through every interaction.', iconIdentifier: 'transparency' },
+  { title: 'Wisdom', description: 'We apply knowledge, experience, and thoughtful judgment to create smarter business outcomes.', iconIdentifier: 'intelligence' },
+  { title: 'Diversity', description: 'We value diverse perspectives, experiences, and ideas to create stronger, more inclusive outcomes.', iconIdentifier: 'cultural-diversity' },
+];
+
+// `oc-` prefix is deliberate — `industry-automotive.jpg`/
+// `industry-healthcare.jpg` already exist as different, unrelated
+// photos for the Google Sheet industries migration (api::industry.industry),
+// and this file's asset directory dedupes/matches purely by filename.
+const OUR_COMPANY_INDUSTRIES_CARDS: Array<{ title: string; imageFilename: string }> = [
+  { title: 'Automotive', imageFilename: 'oc-industry-automotive.jpg' },
+  { title: 'Healthcare', imageFilename: 'oc-industry-healthcare.jpg' },
+  { title: 'Consumer', imageFilename: 'oc-industry-consumer.jpg' },
+  { title: 'Technology', imageFilename: 'oc-industry-technology.jpg' },
+  { title: 'Financial Services', imageFilename: 'oc-industry-financial-services.jpg' },
+  { title: 'B2B & Industrial', imageFilename: 'oc-industry-b2b-industrial.jpg' },
+  { title: 'Retail & E-commerce', imageFilename: 'oc-industry-retail-ecommerce.jpg' },
+  { title: 'Media & Entertainment', imageFilename: 'oc-industry-media-entertainment.jpg' },
+];
+
+const OUR_COMPANY_FAQ_ITEMS = [
+  { question: 'What does Unimrkt Research do?', answer: 'We are a global market research and consulting firm helping organizations understand markets, consumers, and emerging opportunities through primary and secondary research, data analytics, and strategic consulting.' },
+  { question: 'How many countries and languages do you operate across?', answer: 'Our research capabilities span 90+ countries and 22+ languages, giving us both global reach and genuine local understanding.' },
+  { question: 'What quality standards does Unimrkt Research follow?', answer: 'We adhere to ESOMAR principles and hold ISO 20252 and ISO 27001 certifications, reflecting our commitment to research integrity, quality, and data security.' },
+  { question: 'What industries does Unimrkt Research serve?', answer: 'We work across automotive, healthcare, consumer, technology, financial services, B2B & industrial, retail & e-commerce, and media & entertainment, among others.' },
+  { question: 'How is Unimrkt Research different from other research firms?', answer: 'We combine global reach, deep category expertise, robust methodologies, and advanced data collection capabilities to turn complex data into insights businesses can act on with confidence.' },
+];
+
+async function upsertOurCompanyPageSettings(strapi: any) {
+  const uid = 'api::our-company-page.our-company-page';
+
+  const heroImageId = await uploadAsset(strapi, 'our-company-hero-bg.jpg');
+  const aboutImageId = await uploadAsset(strapi, 'our-company-about-founding.jpg');
+
+  const industriesCards = [];
+  for (const card of OUR_COMPANY_INDUSTRIES_CARDS) {
+    // eslint-disable-next-line no-await-in-loop -- readable seed logs, matches every other image-upload loop in this file
+    const imageId = await uploadAsset(strapi, card.imageFilename);
+    industriesCards.push({ title: card.title, image: imageId });
+  }
+
+  const data = {
+    heroEyebrow: 'Our Company',
+    heroHeading: 'Research That Moves Business Forward',
+    heroSubheading: 'Introduce Unimrkt as a global market research partner helping organisations understand people, markets, and opportunities.',
+    heroImage: heroImageId,
+    // The brief's copy specifies "Explore Our Capabilities" with no target
+    // page shown in the node; `/services` is the one real page that
+    // actually lists Unimrkt's capabilities (same "never link a CTA to a
+    // dead/self page" convention as ServiceListingView's BOTTOM_CTA_HREF).
+    heroCta: { label: 'Explore Our Capabilities', href: '/services', isExternal: false, variant: 'primary' },
+    statsHeading: 'Research Without Borders',
+    stats: [
+      { value: '90+', label: 'Countries', iconIdentifier: 'global' },
+      { value: '22+', label: 'Languages', iconIdentifier: 'language-circle' },
+      { value: '450+', label: 'CATI Stations', iconIdentifier: 'call' },
+      { value: '16+', label: 'Years of Experience', iconIdentifier: 'medal-star' },
+    ],
+    aboutEyebrow: 'About Unimrkt',
+    aboutHeading: 'We Turn Questions Into Clarity',
+    aboutBody:
+      'Founded on 6 December 2009, Unimrkt Research has evolved into a trusted global market research partner, conducting multi-industry research across 90 countries and four continents — the Americas, Europe, Asia Pacific, and Africa. With expertise spanning 22+ foreign languages, we connect businesses with diverse audiences and deliver culturally relevant, actionable insights across markets. Our commitment to quality, security, and research integrity is reflected in our adherence to ESOMAR principles and our ISO 20252 and ISO 27001 certifications. Combining global reach, deep industry expertise, robust methodologies, and advanced data collection capabilities, Unimrkt Research helps organizations better understand their markets, customers, and opportunities to make confident, data-driven decisions.',
+    aboutImage: aboutImageId,
+    insightsEyebrow: 'Why Businesses Choose Unimrkt',
+    insightsHeading: 'Insights That Move Businesses Forward',
+    insightsBody: 'Transforming complex data into clear, actionable insights that help businesses make smarter decisions and unlock new opportunities.',
+    insightsCards: OUR_COMPANY_INSIGHTS_CARDS,
+    ecosystemEyebrow: 'Our Research Ecosystem',
+    ecosystemHeading: 'From Question to Business Decision',
+    ecosystemSubtext: 'A highly visual interactive journey:',
+    ecosystemCards: OUR_COMPANY_ECOSYSTEM_CARDS,
+    valuesEyebrow: 'Our Values',
+    valuesHeading: 'The Principles Behind Our Work',
+    valuesBody:
+      'We believe that our values not only make us a reliable business partner and consumer research agency, but also a thoughtful one, with our focus on people, integrity, and long-term impact.',
+    valuesCards: OUR_COMPANY_VALUES_CARDS,
+    industriesEyebrow: 'Industries We Understand',
+    industriesHeading: 'Deep Knowledge Across Diverse Industries',
+    industriesBody: 'Industry-specific expertise that helps us understand complex markets and deliver insights that drive informed business decisions.',
+    industriesCards,
+    faqItems: OUR_COMPANY_FAQ_ITEMS,
+    aboutCompanyEyebrow: 'About Company',
+    aboutCompanyHeading: 'Turning Market Questions Into Business Clarity',
+    aboutCompanyBody:
+      'Unimrkt is a global market research and insights company helping businesses understand markets, consumers, and emerging opportunities. With research capabilities across 90+ countries and 22+ languages, we bring together global reach, local understanding, and deep industry expertise to uncover meaningful perspectives. From defining business challenges to delivering actionable recommendations, our research is designed to help organisations make informed decisions with confidence. Through rigorous methodologies, advanced technology, and a human-centred approach, we transform complex data and diverse perspectives into insights that create measurable business impact.',
+    seo: {
+      metaTitle: 'Our Company — Unimrkt Research',
+      metaDescription: 'Unimrkt Research is a global market research partner helping organisations understand people, markets, and opportunities across 90+ countries.',
+    },
+  };
+
+  const existing = await strapi.documents(uid).findFirst({});
+  const doc = existing
+    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+    : await strapi.documents(uid).create({ data });
+  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  strapi.log.info('[seed] Our Company page: upserted and published (hero, stats, about, insights, ecosystem, values, industries, FAQ, about company).');
+  return doc;
+}
+
+/** Deletes the stale generic `page.page` row that used to live at the
+ * `our-company` slug (5 Google-Sheet-migration blocks, none of it real
+ * Figma content) now that /our-company is a dedicated route backed by
+ * api::our-company-page — see the comment above ABOUT_CONTACT_SUBPAGES. */
+async function deleteStaleOurCompanyGenericPage(strapi: any) {
+  const existing = await strapi.documents('api::page.page').findFirst({ filters: { slug: 'our-company' } });
+  if (existing) {
+    await strapi.documents('api::page.page').delete({ documentId: existing.documentId });
+    strapi.log.info('[seed] Deleted stale generic page.page entry at slug "our-company" (superseded by api::our-company-page).');
+  }
+}
+
 async function resetContent(strapi: any) {
   strapi.log.info('[seed] --reset: truncating content tables');
   await strapi.db.query('api::testimonial.testimonial').deleteMany({});
@@ -3084,6 +3237,7 @@ async function resetContent(strapi: any) {
   await strapi.db.query('api::gallery-item.gallery-item').deleteMany({});
   await strapi.db.query('api::blog.blog').deleteMany({});
   await strapi.db.query('api::services-page.services-page').deleteMany({});
+  await strapi.db.query('api::our-company-page.our-company-page').deleteMany({});
   await strapi.db.query('api::global.global').deleteMany({});
 }
 
@@ -3191,6 +3345,12 @@ async function main() {
 
     // 12. Services page settings (/services hero/intro/value-props/workflow/FAQ/CTA).
     await upsertServicesPageSettings(app);
+
+    // 13. Our Company page (/our-company, Figma node 617:7561) — a
+    //     dedicated page, replacing the generic page.page entry that used
+    //     to live at this slug.
+    await deleteStaleOurCompanyGenericPage(app);
+    await upsertOurCompanyPageSettings(app);
 
     app.log.info('[seed] Done.');
   } finally {

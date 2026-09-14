@@ -1,0 +1,162 @@
+{
+  "kind": "singleType",
+  "collectionName": "our_company_pages",
+  "info": {
+    "singularName": "our-company-page",
+    "pluralName": "our-company-pages",
+    "displayName": "Our Company Page",
+    "description": "All editable content on /our-company (Figma node 617:7561, file foaJFuv0vRX8nD43o0ylgB) — a dedicated page, not the generic `page` dynamiczone. Latest Blogs, FAQ, and the bottom CTA reuse existing global content (blog posts, this singleType's own faqItems, and the site's shared bottom-CTA copy) rather than duplicating fields here."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heroHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "heroCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "statsHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "stats": {
+      "type": "component",
+      "component": "services.stat-item",
+      "repeatable": true,
+      "max": 4
+    },
+    "aboutEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "aboutHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "aboutBody": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "aboutImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "insightsEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "insightsHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "insightsBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "insightsCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 4
+    },
+    "ecosystemEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "ecosystemHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "ecosystemSubtext": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "ecosystemCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 4
+    },
+    "valuesEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "valuesHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "valuesBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "valuesCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 8
+    },
+    "industriesEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "industriesHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "industriesBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "industriesCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 8
+    },
+    "faqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 10
+    },
+    "aboutCompanyEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "aboutCompanyHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "aboutCompanyBody": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}
