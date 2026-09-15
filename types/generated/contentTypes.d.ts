@@ -1035,6 +1035,62 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiJobApplicationJobApplication
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'job_applications';
+  info: {
+    description: "An application captured from /work-with-us's \"Apply Now\" modal (Figma node 924:23856) \u2014 exactly the fields drawn there (Full Name, Email Address, Phone Number, Experience (in Years), Current Location, Resume/CV, Additional Message) plus a plain string field recording which job's title the applicant applied for (node 924:23508's \"Apply Now\" always opens this same form for whichever job card it was launched from \u2014 there's no relation target since job listings live as a repeatable component on api::work-with-us-page, not a standalone collection type). Disclosed exception: Figma draws the Experience field as a dropdown (chevron) but shows it closed with no option list anywhere in the file \u2014 user-approved fallback is standard year-range buckets (fresher/1-3/3-5/5-10/10+ years); enum values use identifier-safe keys (Strapi rejects enum members starting with a digit) with human labels rendered client-side. Public API grants `create` only \u2014 no public find/findOne/update/delete \u2014 so a visitor can submit an application but never read, list, or tamper with anyone else's.";
+    displayName: 'Job Application';
+    pluralName: 'job-applications';
+    singularName: 'job-application';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    experience: Schema.Attribute.Enumeration<
+      ['fresher', 'yrs_1_3', 'yrs_3_5', 'yrs_5_10', 'yrs_10_plus']
+    > &
+      Schema.Attribute.Required;
+    jobTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::job-application.job-application'
+    > &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    message: Schema.Attribute.Text;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    resume: Schema.Attribute.Media<'files'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiOurCompanyPageOurCompanyPage
   extends Struct.SingleTypeSchema {
   collectionName: 'our_company_pages';
@@ -2268,6 +2324,7 @@ declare module '@strapi/strapi' {
       'api::gallery-item.gallery-item': ApiGalleryItemGalleryItem;
       'api::global.global': ApiGlobalGlobal;
       'api::industry.industry': ApiIndustryIndustry;
+      'api::job-application.job-application': ApiJobApplicationJobApplication;
       'api::our-company-page.our-company-page': ApiOurCompanyPageOurCompanyPage;
       'api::page.page': ApiPagePage;
       'api::service.service': ApiServiceService;

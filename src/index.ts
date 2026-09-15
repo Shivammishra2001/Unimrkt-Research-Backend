@@ -82,6 +82,9 @@ const REQUIRED_PERMISSIONS: string[] = [
   // Work With Us Page (/work-with-us, Figma node 924:23216, file
   // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType.
   'api::work-with-us-page.work-with-us-page.find',
+  // Job Application — the "Apply Now" modal's write target (Figma node
+  // 924:23856). `create` only, same reasoning as Contact Submission.
+  'api::job-application.job-application.create',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

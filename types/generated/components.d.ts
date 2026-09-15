@@ -852,6 +852,7 @@ export interface WorkWithUsJobListing extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
+    descriptionItems: Schema.Attribute.JSON;
     jobType: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -867,6 +868,8 @@ export interface WorkWithUsJobListing extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 40;
       }>;
+    qualificationsItems: Schema.Attribute.JSON;
+    skillsItems: Schema.Attribute.JSON;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

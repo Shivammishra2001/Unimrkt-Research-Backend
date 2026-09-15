@@ -3380,8 +3380,56 @@ const WORK_WITH_US_BENEFITS = [
   { title: 'Meal Facility', iconIdentifier: 'dinner' },
 ];
 
+// The "Executive – Language & Communication" job description/skills/
+// qualifications below are the exact, verbatim content of Figma node
+// 924:23508 (the "View Details" modal) — the node's own named example.
+// No other job has an equivalent detail-modal drawn anywhere in the
+// file, so the other 3 jobs are seeded with these 3 fields left
+// undefined; JobDetailsModal.tsx omits a section entirely rather than
+// inventing filler when it has no content.
 const WORK_WITH_US_JOBS = [
-  { title: 'Executive – Language & Communication', location: 'Gurugram, India', jobType: 'Full Time', department: 'Training', postedDate: '12 Aug 2026' },
+  {
+    title: 'Executive – Language & Communication',
+    location: 'Gurugram, India',
+    jobType: 'Full Time',
+    department: 'Training',
+    postedDate: '12 Aug 2026',
+    descriptionItems: [
+      { text: 'Monitor live/recorded operational calls of Research Associates for language assessment and guidance' },
+      {
+        text: 'Identify opportunities for improvement in –',
+        subItems: [
+          'Accent neutralization',
+          'Pronunciation',
+          'Grammar',
+          'Telephone etiquette/call hygiene',
+          'Voice modulation, clarity, pace',
+          'Active listening/selective listening',
+          'Overall fluency',
+        ],
+      },
+      {
+        text: 'Provide constructive feedback on the areas of improvement to the associates on their spoken English based on the areas derived from the recordings',
+      },
+      { text: 'Share best practices from other call recordings and own experience for effective learning' },
+      { text: 'Prepare, maintain, and circulate monitoring reports regularly' },
+      { text: 'Evaluate Research Associates on overall behaviour, including attendance and punctuality for feedback sessions' },
+    ],
+    skillsItems: [
+      'Excellent command over spoken and written English with a strong grasp of intermediate grammar (clear understanding of English pronunciation, phonetics and common grammar errors)',
+      'Ability to identify and correct regional accent influence',
+      'Ability to share feedback in a non-judgemental and supportive manner',
+      'Strong interpersonal skills; able to connect effectively within the team and other teams as well',
+      'Problem-solving aptitude; able to handle unexpected issues quickly and efficiently',
+      'Ability to work professionally both in a team and independently to ensure timely completion of tasks',
+    ],
+    qualificationsItems: [
+      'Post-graduate freshers with strong communication skills are encouraged to apply',
+      'Graduate/Post-Graduate candidates in any stream with minimum 6 months of experience in language coaching, communication monitoring, or quality evaluation roles may apply',
+      'Educational background in English, Communications, Linguistics, or related fields will be preferred',
+      'Prior experience in corporate training, soft skills development, or professional development programs is a plus',
+    ],
+  },
   { title: 'Associate – Primary Research', location: 'Gurugram, India', jobType: 'Full Time', department: 'Operations', postedDate: '12 Aug 2026' },
   { title: 'Associate - Secondary Research', location: 'Gurugram, India', jobType: 'Full Time', department: 'Operations', postedDate: '12 Aug 2026' },
   { title: 'Assistant Manager – India Sales', location: 'Gurugram, India', jobType: 'Full Time', department: 'India Research', postedDate: '12 Aug 2026' },

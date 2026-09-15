@@ -29,6 +29,18 @@
       "type": "string",
       "required": true,
       "maxLength": 40
+    },
+    "descriptionItems": {
+      "type": "json",
+      "required": false
+    },
+    "skillsItems": {
+      "type": "json",
+      "required": false
+    },
+    "qualificationsItems": {
+      "type": "json",
+      "required": false
     }
   }
 }
