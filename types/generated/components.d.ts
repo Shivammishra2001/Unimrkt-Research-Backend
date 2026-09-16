@@ -735,6 +735,41 @@ export interface IndustriesTrustLogo extends Struct.ComponentSchema {
   };
 }
 
+export interface PrivacyPolicyListItem extends Struct.ComponentSchema {
+  collectionName: 'components_privacy_policy_list_items';
+  info: {
+    displayName: 'Privacy Policy List Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    text: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+  };
+}
+
+export interface PrivacyPolicyTocItem extends Struct.ComponentSchema {
+  collectionName: 'components_privacy_policy_toc_items';
+  info: {
+    displayName: 'Privacy Policy TOC Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    anchor: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
 export interface ServicesStatItem extends Struct.ComponentSchema {
   collectionName: 'components_services_stat_items';
   info: {
@@ -936,6 +971,8 @@ declare module '@strapi/strapi' {
       'contact.office-location': ContactOfficeLocation;
       'industries.detail-card': IndustriesDetailCard;
       'industries.trust-logo': IndustriesTrustLogo;
+      'privacy-policy.list-item': PrivacyPolicyListItem;
+      'privacy-policy.toc-item': PrivacyPolicyTocItem;
       'services.stat-item': ServicesStatItem;
       'shared.footer-column': SharedFooterColumn;
       'shared.link': SharedLink;

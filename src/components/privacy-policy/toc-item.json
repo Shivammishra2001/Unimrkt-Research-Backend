@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_privacy_policy_toc_items",
+  "info": {
+    "displayName": "Privacy Policy TOC Item",
+    "icon": "bulletList"
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "anchor": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    }
+  }
+}

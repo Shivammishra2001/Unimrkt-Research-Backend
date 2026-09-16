@@ -99,6 +99,10 @@ const REQUIRED_PERMISSIONS: string[] = [
   // Study"/bottom-CTA chrome). Read-only, same as every other *-page
   // singleType.
   'api::case-study-page.case-study-page.find',
+  // Privacy Policy Page (/privacy-policy, Figma node 1114:50556, file
+  // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType. Read-only, same as
+  // every other *-page singleType.
+  'api::privacy-policy-page.privacy-policy-page.find',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;
