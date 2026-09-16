@@ -4010,14 +4010,23 @@ async function upsertPrivacyPolicyPageSettings(strapi: any) {
 }
 
 // ---------------------------------------------------------------------------
-// Team Member — /our-team (Figma node 1126:54624, file
-// foaJFuv0vRX8nD43o0ylgB). 19 cards, verbatim name/role/photo, in the
-// node's own exact top-to-bottom, left-to-right grid reading order
-// (`order` below matches that sequence 1-19). Natural key: `name` (no
-// slug field — no member detail page is drawn on this node, so there's
-// nothing a slug-based single-entry lookup would be for; the card's own
-// "View Profile" button is decorative, same as the case-study grid's
-// arrow-right CTA).
+// Team Member — /our-team card grid (Figma node 1126:54624) + its "View
+// Profile" modal (Figma node 1126:55196 -> the actual modal card is
+// 1126:56704, file foaJFuv0vRX8nD43o0ylgB). 19 cards, verbatim
+// name/role/photo, in the node's own exact top-to-bottom, left-to-right
+// grid reading order (`order` below matches that sequence 1-19).
+// Natural key: `name` (no slug field — no member detail page is drawn
+// on this node, so there's nothing a slug-based single-entry lookup
+// would be for; the modal is opened client-side from the already-loaded
+// list).
+//
+// `bio`: node 1126:56704 draws exactly ONE worked example — Anurag
+// Magoo's own bio paragraph, copied verbatim below. No other member has
+// bio text drawn anywhere in the Figma file, so every other entry's
+// `bio` is left undefined (empty) rather than inventing filler copy;
+// the modal itself (TeamProfileModal.tsx) omits the bio paragraph
+// entirely when it's empty, same "only render what the node actually
+// gives content for" precedent as JobDetailsModal.tsx.
 // ---------------------------------------------------------------------------
 
 interface TeamMemberSeed {
@@ -4025,10 +4034,17 @@ interface TeamMemberSeed {
   role: string;
   photoFilename: string;
   order: number;
+  bio?: string;
 }
 
 const TEAM_MEMBERS_SEED: TeamMemberSeed[] = [
-  { name: 'Anurag Magoo', role: 'Co-Founder', photoFilename: 'team-anurag-magoo.jpg', order: 1 },
+  {
+    name: 'Anurag Magoo',
+    role: 'Co-Founder',
+    photoFilename: 'team-anurag-magoo.jpg',
+    order: 1,
+    bio: 'Anurag Magoo is the Co-Founder of Unimrkt Research, with specializations in Key Account Management, Research Analysis, Strategy Planning & Execution, and Process Reengineering. He has a post-graduate diploma in Global Sales and Marketing and is also a qualified Six Sigma Green Belt executive. In addition, he has also been an internal auditor for ISO 20252 & ISO 9001. With over 26+ years of industry experience, he developed his early career with American Express and was the Head of Research Operations at Exevo for more than 9 years. Before joining Unimrkt, he was the Executive Director of Cimigo India.',
+  },
   { name: 'Sandeep Kumar', role: 'Co-Founder', photoFilename: 'team-sandeep-kumar.jpg', order: 2 },
   { name: 'Kanishk Sheel', role: 'Co-Founder & Managing Director', photoFilename: 'team-kanishk-sheel.jpg', order: 3 },
   { name: 'James West', role: 'Managing Director - North America', photoFilename: 'team-james-west.jpg', order: 4 },
@@ -4056,7 +4072,7 @@ async function upsertTeamMembers(strapi: any) {
     const photoId = await uploadAsset(strapi, member.photoFilename);
     // eslint-disable-next-line no-await-in-loop
     const existing = await strapi.documents(uid).findFirst({ filters: { name: member.name } });
-    const data = { name: member.name, role: member.role, photo: photoId, order: member.order };
+    const data = { name: member.name, role: member.role, photo: photoId, order: member.order, bio: member.bio ?? null };
     // eslint-disable-next-line no-await-in-loop
     const doc = existing
       ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
@@ -4064,7 +4080,7 @@ async function upsertTeamMembers(strapi: any) {
     // eslint-disable-next-line no-await-in-loop
     await strapi.documents(uid).publish({ documentId: doc.documentId });
   }
-  strapi.log.info(`[seed] Team members: ${TEAM_MEMBERS_SEED.length} upserted, published, and photo-linked.`);
+  strapi.log.info(`[seed] Team members: ${TEAM_MEMBERS_SEED.length} upserted, published, and photo-linked (1 with the full node-1126:56704 modal bio, 18 base-fields-only).`);
 }
 
 async function upsertOurTeamPageSettings(strapi: any) {

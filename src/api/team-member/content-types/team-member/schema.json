@@ -5,7 +5,7 @@
     "singularName": "team-member",
     "pluralName": "team-members",
     "displayName": "Team Member",
-    "description": "A single member card on /our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Only the fields the node actually draws on every card — name, role/designation, photo — nothing else (no bio, no social links, no department: none of those are drawn on this node's cards, per the zero-invention rule)."
+    "description": "A single member card on /our-team (Figma node 1126:54624) and its 'View Profile' modal (Figma node 1126:55196, both file foaJFuv0vRX8nD43o0ylgB). Card fields: name, role/designation, photo — nothing else (no social links, no department: none of those are drawn on any card). Modal fields: `bio` — the modal (node 1126:56704) only ever shows ONE worked example (Anurag Magoo's own bio paragraph); no other member has bio text drawn anywhere in the Figma file, so `bio` is optional and left empty for every other member rather than inventing filler copy — see seed.ts's own comment on this content type."
   },
   "options": {
     "draftAndPublish": true
@@ -31,6 +31,10 @@
     "order": {
       "type": "integer",
       "default": 0
+    },
+    "bio": {
+      "type": "text",
+      "maxLength": 2000
     }
   }
 }

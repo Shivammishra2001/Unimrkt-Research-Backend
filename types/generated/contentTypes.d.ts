@@ -2107,7 +2107,7 @@ export interface ApiServicesPageServicesPage extends Struct.SingleTypeSchema {
 export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
   collectionName: 'team_members';
   info: {
-    description: "A single member card on /our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Only the fields the node actually draws on every card \u2014 name, role/designation, photo \u2014 nothing else (no bio, no social links, no department: none of those are drawn on this node's cards, per the zero-invention rule).";
+    description: "A single member card on /our-team (Figma node 1126:54624) and its 'View Profile' modal (Figma node 1126:55196, both file foaJFuv0vRX8nD43o0ylgB). Card fields: name, role/designation, photo \u2014 nothing else (no social links, no department: none of those are drawn on any card). Modal fields: `bio` \u2014 the modal (node 1126:56704) only ever shows ONE worked example (Anurag Magoo's own bio paragraph); no other member has bio text drawn anywhere in the Figma file, so `bio` is optional and left empty for every other member rather than inventing filler copy \u2014 see seed.ts's own comment on this content type.";
     displayName: 'Team Member';
     pluralName: 'team-members';
     singularName: 'team-member';
@@ -2116,6 +2116,10 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    bio: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
