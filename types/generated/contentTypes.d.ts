@@ -497,7 +497,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
 export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
   collectionName: 'case_studies';
   info: {
-    description: "One card in the /case-study page's grid (Figma node 1023:45614, 'Case Study Explorer' section, Component 1055-1060) \u2014 exactly the 4 fields drawn on every card: category badge, title, short description, and cover photo. No slug/detail-page field: this node only draws the listing grid, no case-study detail page exists yet, so each card's arrow-right CTA is presentational only (matches the node's own static mockup, which has no drawn destination).";
+    description: "One case study \u2014 both the listing grid card (Figma node 1023:45614, 'Case Study Explorer', Component 1055-1060: category/title/excerpt/coverImage) and, when its detail fields below are populated, the full /case-study/[slug] detail page (Figma node 1107:49842). `slug` is required and unique for by-slug lookup. Every detail field is optional: only the node's own named example ('Understanding Customer Expectations in a Changing Financial Market') has real detail content seeded \u2014 every other case study leaves these empty, and the detail page falls back to node 1107:49842's own verbatim copy when they are, per that page's own CMS-first/fallback directive. No un-drawn fields: section eyebrows ('THE CHALLENGE', 'THE RESEARCH QUESTION', etc.), the FAQ heading, the 'Related Case Study' panel copy, and the bottom CTA are template-level chrome identical across every case study, not per-entry content, so they live in the frontend template, not here.";
     displayName: 'Case Study';
     pluralName: 'case-studies';
     singularName: 'case-study';
@@ -506,11 +506,40 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    approachBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    approachHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    approachSteps: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
     category: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
+    challengeBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    challengeBullets: Schema.Attribute.JSON;
+    challengeClosing: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    challengeHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    challengePhoto: Schema.Attribute.Media<'images'>;
     coverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -520,6 +549,34 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 320;
       }>;
+    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    impactBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    impactHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    impactImage: Schema.Attribute.Media<'images'>;
+    impactItems: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+        },
+        number
+      >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -527,11 +584,55 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    researchQuestionBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    researchQuestionHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    researchQuestionItems: Schema.Attribute.Component<
+      'industries.detail-card',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+        },
+        number
+      >;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
+    trustLogos: Schema.Attribute.Component<'industries.trust-logo', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    uncoveredBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    uncoveredHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    uncoveredPanels: Schema.Attribute.Component<
+      'industries.detail-card',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+        },
+        number
+      >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

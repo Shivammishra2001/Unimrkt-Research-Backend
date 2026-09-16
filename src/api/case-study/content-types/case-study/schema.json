@@ -5,7 +5,7 @@
     "singularName": "case-study",
     "pluralName": "case-studies",
     "displayName": "Case Study",
-    "description": "One card in the /case-study page's grid (Figma node 1023:45614, 'Case Study Explorer' section, Component 1055-1060) — exactly the 4 fields drawn on every card: category badge, title, short description, and cover photo. No slug/detail-page field: this node only draws the listing grid, no case-study detail page exists yet, so each card's arrow-right CTA is presentational only (matches the node's own static mockup, which has no drawn destination)."
+    "description": "One case study — both the listing grid card (Figma node 1023:45614, 'Case Study Explorer', Component 1055-1060: category/title/excerpt/coverImage) and, when its detail fields below are populated, the full /case-study/[slug] detail page (Figma node 1107:49842). `slug` is required and unique for by-slug lookup. Every detail field is optional: only the node's own named example ('Understanding Customer Expectations in a Changing Financial Market') has real detail content seeded — every other case study leaves these empty, and the detail page falls back to node 1107:49842's own verbatim copy when they are, per that page's own CMS-first/fallback directive. No un-drawn fields: section eyebrows ('THE CHALLENGE', 'THE RESEARCH QUESTION', etc.), the FAQ heading, the 'Related Case Study' panel copy, and the bottom CTA are template-level chrome identical across every case study, not per-entry content, so they live in the frontend template, not here."
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +16,11 @@
       "type": "string",
       "required": true,
       "maxLength": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
     },
     "excerpt": {
       "type": "text",
@@ -32,6 +37,108 @@
       "multiple": false,
       "required": true,
       "allowedTypes": ["images"]
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "trustLogos": {
+      "type": "component",
+      "component": "industries.trust-logo",
+      "repeatable": true,
+      "max": 10
+    },
+    "challengeHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "challengeBody": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "challengeBullets": {
+      "type": "json"
+    },
+    "challengeClosing": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "challengePhoto": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "researchQuestionHeading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "researchQuestionBody": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "researchQuestionItems": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 5
+    },
+    "approachHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "approachBody": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "approachSteps": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 6
+    },
+    "uncoveredHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "uncoveredBody": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "uncoveredPanels": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 5
+    },
+    "impactHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "impactBody": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "impactImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "impactItems": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 5
+    },
+    "faqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 10
     }
   }
 }

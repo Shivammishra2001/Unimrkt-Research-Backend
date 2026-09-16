@@ -3522,13 +3522,158 @@ async function deleteStaleWorkWithUsGenericPage(strapi: any) {
 }
 
 // ---------------------------------------------------------------------------
-// Case Study (/case-study, Figma node 1023:45614) — the "Case Study
-// Explorer" grid's 6 cards (Component 1055-1060). Each card's own 4
-// drawn fields only: category badge, title, short description, cover
-// photo. No slug/detail-page field — this node only draws the listing
-// grid, no case-study detail page exists yet (confirmed with the user:
-// the card's arrow-right CTA is presentational only, no link target).
+// Case Study (/case-study listing, Figma node 1023:45614 — the "Case
+// Study Explorer" grid's 6 cards, Component 1055-1060) and
+// /case-study/[slug] detail (Figma node 1107:49842). `slug` is a real,
+// deterministic kebab-case identifier derived from each card's own
+// title (not invented content). Only the node's own named example
+// ("Understanding Customer Expectations in a Changing Financial
+// Market") has detail-page content — see CASE_STUDY_DETAIL_BANKING
+// below; the other 5 leave every detail field empty, and the detail
+// page falls back to node 1107:49842's own verbatim copy when they
+// are (per that page's own CMS-first/fallback directive), matching
+// this session's established "one real example, base fields only for
+// the rest" convention (Primary Research service, Automotive
+// industry, Executive job listing).
 // ---------------------------------------------------------------------------
+
+const CASE_STUDY_DETAIL_BANKING = {
+  slug: 'understanding-customer-expectations-in-a-changing-financial-market',
+  heroSubheading:
+    'How research uncovered evolving customer needs, digital expectations, and decision-making drivers to help a financial services organization strengthen its customer strategy.',
+  heroImage: 'csd-hero-photo.jpg',
+  trustLogos: [
+    { name: 'Suzuki', image: 'csd-logo-suzuki.png' },
+    { name: 'Coca-Cola', image: 'csd-logo-cocacola.png' },
+    { name: 'HDFC Bank', image: 'csd-logo-hdfc.png' },
+    { name: 'Amazon', image: 'csd-logo-amazon.png' },
+    { name: 'Airtel', image: 'csd-logo-airtel.png' },
+  ],
+  challengeHeading: 'Financial Expectations Were Changing Faster Than Ever',
+  challengeBody:
+    'As financial services become increasingly digital, customers expect more than competitive products. They want simplicity, transparency, personalization, speed, and seamless experiences across every interaction.',
+  challengeBullets: [
+    'What customers truly value when choosing financial services',
+    'How expectations differ across customer segments',
+    'What drives trust, consideration, and loyalty',
+    'How digital experiences influence financial decisions',
+    'Where existing customer journeys create friction',
+    'Which service improvements could create stronger engagement',
+  ],
+  challengeClosing:
+    'The challenge was to move beyond basic satisfaction scores and uncover the real motivations behind customer expectations.',
+  challengePhoto: 'csd-challenge-photo.jpg',
+  researchQuestionHeading: 'What Do Customers Really Expect From Their Financial Providers?',
+  researchQuestionBody:
+    'We explored the complete customer perspective — from awareness and consideration to selection, usage, and ongoing engagement.',
+  researchQuestionItems: [
+    { title: 'Trust', description: 'What makes customers feel confident about a financial provider?', icon: 'csd-icon-trust.png' },
+    { title: 'Convenience', description: 'How important are speed, accessibility, and ease of use?', icon: 'csd-icon-convenience.png' },
+    {
+      title: 'Digital Experience',
+      description: 'What do customers expect from websites, apps, and digital services?',
+      icon: 'csd-icon-digital-experience.png',
+    },
+    {
+      title: 'Value',
+      description: 'Which product features, pricing factors, and benefits influence decisions?',
+      icon: 'csd-icon-value.png',
+    },
+    {
+      title: 'Relationship',
+      description: 'What makes customers stay, engage, and recommend a financial brand?',
+      icon: 'csd-icon-relationship.png',
+    },
+  ],
+  approachHeading: 'Turning customer conversations into actionable intelligence',
+  approachBody:
+    'Unimrkt designed a structured research approach combining quantitative measurement with qualitative exploration to understand both what customers think and why they think it. This reflects Unimrkt’s BFSI capabilities across surveys, CATI, interviews, focus groups, and other research methodologies.',
+  approachSteps: [
+    { title: 'Define', description: 'Established research objectives, customer segments and key business questions.', icon: 'csd-icon-define.png' },
+    {
+      title: 'Discover',
+      description: 'Conducted qualitative conversations to uncover motivations, pain points and unmet expectations.',
+      icon: 'csd-icon-discover.png',
+    },
+    {
+      title: 'Measure',
+      description: 'Used structured surveys to quantify customer preferences and identify meaningful patterns.',
+      icon: 'csd-icon-measure.png',
+    },
+    {
+      title: 'Segment',
+      description: 'Compared responses across customer profiles, needs and behavioural characteristics.',
+      icon: 'csd-icon-segment.png',
+    },
+    {
+      title: 'Analyse',
+      description: 'Identified the strongest drivers of consideration, satisfaction and loyalty.',
+      icon: 'csd-icon-analyse.png',
+    },
+    {
+      title: 'Activate',
+      description: 'Translated findings into practical recommendations for customer experience and service strategy.',
+      icon: 'csd-icon-activate.png',
+    },
+  ],
+  uncoveredHeading: 'Customers Wanted More Than Financial Products',
+  uncoveredBody:
+    'The research revealed that customers increasingly evaluate financial providers based on the overall experience, not simply the product itself.',
+  uncoveredPanels: [
+    { title: 'Simplicity builds confidence', image: 'csd-uncovered-1-confidence.jpg' },
+    { title: 'Digital convenience is now an expectation', image: 'csd-uncovered-2-digital.jpg' },
+    { title: 'Trust remains the foundation', image: 'csd-uncovered-3-trust.jpg' },
+    { title: 'Personalisation creates relevance', image: 'csd-uncovered-4-personalisation.jpg' },
+    { title: 'Service experience influences loyalty', image: 'csd-uncovered-5-loyalty.jpg' },
+  ],
+  impactHeading: 'From Customer Understanding To Confident Decision-Making',
+  impactBody:
+    'The research provided the client with a clearer view of what customers value, what drives their financial decisions, and where their experiences fall short. These insights helped transform customer feedback into practical opportunities for improving products, experiences and future strategies.',
+  impactImage: 'csd-impact-bg.jpg',
+  impactItems: [
+    { title: 'Sharper Customer Understanding', icon: 'csd-icon-understanding.png' },
+    { title: 'Identified Experience Gaps', icon: 'csd-icon-gaps.svg' },
+    { title: 'Stronger Customer Segmentation', icon: 'csd-icon-segmentation.png' },
+    { title: 'More Relevant Product Strategy', icon: 'csd-icon-strategy.png' },
+    { title: 'Confident, Data Driven Decisions', icon: 'csd-icon-decisions.png' },
+  ],
+  // FAQ questions verified via get_design_context on each accordion
+  // instance; accordion is collapsed on canvas so answers are
+  // authored in the same voice as every other FAQ section this
+  // session, specific to this case study's BFSI subject matter.
+  faqItems: [
+    {
+      question: 'How can customer research help financial services companies?',
+      answer:
+        'It reveals what customers actually value — beyond product features — so financial providers can prioritize the experiences, channels, and services that build trust and loyalty.',
+    },
+    {
+      question: 'What areas can Unimrkt research in Banking & Finance?',
+      answer:
+        'We research customer expectations, digital adoption, product and pricing perception, service experience, and the factors driving trust and retention across banking, insurance, and financial services.',
+    },
+    {
+      question: 'What research methods can be used for financial services research?',
+      answer: 'We combine structured surveys, CATI, in-depth interviews, and focus groups to capture both the scale of quantitative data and the depth of qualitative insight.',
+    },
+    {
+      question: 'How does research identify customer experience gaps?',
+      answer: 'By comparing what customers expect at each stage of their journey against what they actually experience, surfacing the specific moments where friction or disappointment occurs.',
+    },
+    {
+      question: 'Can research help financial companies segment their customers?',
+      answer: 'Yes — comparing responses across customer profiles, needs, and behaviours reveals distinct segments with different expectations, priorities, and value drivers.',
+    },
+    {
+      question: 'How can research insights support product strategy?',
+      answer: 'Insights highlight which product features, pricing factors, and service qualities actually influence decisions, helping teams prioritize what to build or improve next.',
+    },
+    {
+      question: 'How does Unimrkt turn research into actionable insights?',
+      answer: 'We translate findings into clear, practical recommendations mapped directly to business decisions — not just data, but a defined path to improving experience and strategy.',
+    },
+  ],
+};
 
 const CASE_STUDIES = [
   {
@@ -3536,45 +3681,102 @@ const CASE_STUDIES = [
     excerpt: 'Uncover evolving customer needs and expectations shaping today’s financial landscape.',
     category: 'BANKING & FINANCE',
     image: 'cs-story-banking-finance.jpg',
+    detail: CASE_STUDY_DETAIL_BANKING,
   },
   {
     title: 'Mapping Patient Needs Across the Healthcare Journey',
     excerpt: 'Understand patient needs across every healthcare touchpoint.',
     category: 'HEALTHCARE',
     image: 'cs-story-healthcare.jpg',
+    slug: 'mapping-patient-needs-across-the-healthcare-journey',
   },
   {
     title: 'Understanding the Future of Mobility',
     excerpt: 'Explore evolving mobility trends, behaviours, and consumer expectations.',
     category: 'AUTOMOTIVE',
     image: 'cs-story-automotive.jpg',
+    slug: 'understanding-the-future-of-mobility',
   },
   {
     title: 'Finding the Next Consumer Growth Opportunity',
     excerpt: 'Identify emerging consumer trends and opportunities driving sustainable growth.',
     category: 'FMCG',
     image: 'cs-story-fmcg.jpg',
+    slug: 'finding-the-next-consumer-growth-opportunity',
   },
   {
     title: 'Decoding Digital Adoption Across Markets',
     excerpt: 'Uncover digital behaviors, adoption patterns, and market opportunities across regions.',
     category: 'IT & TELECOM',
     image: 'cs-story-it-telecom.jpg',
+    slug: 'decoding-digital-adoption-across-markets',
   },
   {
     title: 'Understanding Changing Energy Consumption',
     excerpt: 'Track evolving energy habits, consumption patterns, and emerging market needs.',
     category: 'ENERGY & UTILITIES',
     image: 'cs-story-energy-utilities.jpg',
+    slug: 'understanding-changing-energy-consumption',
   },
 ];
+
+/** Uploads every image in a `industries.detail-card`-shaped list
+ * (`{title, description?, image?, icon?}`) and returns the component
+ * data array ready for `data.<field>`. */
+async function buildDetailCardList(
+  strapi: any,
+  items: { title: string; description?: string; image?: string; icon?: string }[]
+) {
+  const out: Record<string, unknown>[] = [];
+  for (const item of items) {
+    const image = item.image ? await uploadAsset(strapi, item.image) : null;
+    const icon = item.icon ? await uploadAsset(strapi, item.icon) : null;
+    out.push({ title: item.title, description: item.description, image, icon });
+  }
+  return out;
+}
 
 async function upsertCaseStudies(strapi: any) {
   const uid = 'api::case-study.case-study';
 
   for (const cs of CASE_STUDIES) {
     const coverImage = await uploadAsset(strapi, cs.image);
-    const data = { title: cs.title, excerpt: cs.excerpt, category: cs.category, coverImage };
+    const data: Record<string, unknown> = {
+      title: cs.title,
+      slug: cs.detail?.slug ?? cs.slug,
+      excerpt: cs.excerpt,
+      category: cs.category,
+      coverImage,
+    };
+
+    if (cs.detail) {
+      const d = cs.detail;
+      data.heroSubheading = d.heroSubheading;
+      data.heroImage = await uploadAsset(strapi, d.heroImage);
+      data.trustLogos = await Promise.all(
+        d.trustLogos.map(async (logo) => ({ name: logo.name, image: await uploadAsset(strapi, logo.image) }))
+      );
+      data.challengeHeading = d.challengeHeading;
+      data.challengeBody = d.challengeBody;
+      data.challengeBullets = d.challengeBullets;
+      data.challengeClosing = d.challengeClosing;
+      data.challengePhoto = await uploadAsset(strapi, d.challengePhoto);
+      data.researchQuestionHeading = d.researchQuestionHeading;
+      data.researchQuestionBody = d.researchQuestionBody;
+      data.researchQuestionItems = await buildDetailCardList(strapi, d.researchQuestionItems);
+      data.approachHeading = d.approachHeading;
+      data.approachBody = d.approachBody;
+      data.approachSteps = await buildDetailCardList(strapi, d.approachSteps);
+      data.uncoveredHeading = d.uncoveredHeading;
+      data.uncoveredBody = d.uncoveredBody;
+      data.uncoveredPanels = await buildDetailCardList(strapi, d.uncoveredPanels);
+      data.impactHeading = d.impactHeading;
+      data.impactBody = d.impactBody;
+      data.impactImage = await uploadAsset(strapi, d.impactImage);
+      data.impactItems = await buildDetailCardList(strapi, d.impactItems);
+      data.faqItems = d.faqItems;
+    }
+
     const existing = await strapi.documents(uid).findFirst({ filters: { title: cs.title } });
     const doc = existing
       ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
@@ -3582,7 +3784,7 @@ async function upsertCaseStudies(strapi: any) {
     await strapi.documents(uid).publish({ documentId: doc.documentId });
   }
 
-  strapi.log.info(`[seed] Case studies: ${CASE_STUDIES.length} upserted and published.`);
+  strapi.log.info(`[seed] Case studies: ${CASE_STUDIES.length} upserted and published (1 with the full node-1107:49842 detail-page content, 5 base-fields-only).`);
 }
 
 async function resetContent(strapi: any) {

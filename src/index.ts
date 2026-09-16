@@ -85,10 +85,13 @@ const REQUIRED_PERMISSIONS: string[] = [
   // Job Application — the "Apply Now" modal's write target (Figma node
   // 924:23856). `create` only, same reasoning as Contact Submission.
   'api::job-application.job-application.create',
-  // Case Study (/case-study, Figma node 1023:45614) — individual case
-  // study cards. Read-only: `find`/`findOne`, no write route exists.
+  // Case Study (/case-study + /case-study/[slug], Figma nodes
+  // 1023:45614 + 1107:49842). Read-only: find/findOne plus the two
+  // slug-based custom routes every other detail page uses.
   'api::case-study.case-study.find',
   'api::case-study.case-study.findOne',
+  'api::case-study.case-study.findBySlug',
+  'api::case-study.case-study.findSlugs',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;
