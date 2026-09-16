@@ -3787,6 +3787,114 @@ async function upsertCaseStudies(strapi: any) {
   strapi.log.info(`[seed] Case studies: ${CASE_STUDIES.length} upserted and published (1 with the full node-1107:49842 detail-page content, 5 base-fields-only).`);
 }
 
+// ---------------------------------------------------------------------------
+// Case Study Page settings — template-level copy shared across every case
+// study (Figma nodes 1023:45614 + 1107:49842), previously hardcoded in the
+// frontend's fallback.ts resolvers. Every field here is real, verbatim
+// Figma text already extracted while building those two pages — nothing
+// new is invented, only relocated from the frontend template into the CMS
+// so an editor can change it without a code change.
+// ---------------------------------------------------------------------------
+
+const CASE_STUDY_PAGE_APPROACH_STEPS = [
+  { title: 'The Challenge', description: 'What business problem needed solving?', icon: 'cs-icon-challenge.png' },
+  { title: 'The Research', description: 'Which methodology was used?', icon: 'cs-icon-research.png' },
+  { title: 'The Insight', description: 'What did the research reveal?', icon: 'cs-icon-insight.png' },
+  { title: 'The Impact', description: 'How did the insight support the business?', icon: 'cs-icon-impact.png' },
+];
+
+const CASE_STUDY_PAGE_TESTIMONIALS = [
+  {
+    heading: 'Expertise That Drives Better Decisions',
+    quote: 'Unimrkt brought strong research expertise and a clear understanding of our business challenge. The insights helped us make more confident, data-driven decisions.',
+    roleLine: 'Marketing Director',
+    orgLine: 'Consumer Brand',
+  },
+  {
+    heading: 'Insights That Strengthen Strategy',
+    quote: 'The team was responsive, thorough and highly focused on data quality. Their research approach gave us actionable insights that directly supported our strategy.',
+    roleLine: 'Strategy Head',
+    orgLine: 'Global Organization',
+  },
+  {
+    heading: 'Turning Research Into Impact',
+    quote: 'What stood out was Unimrkt’s ability to turn complex research findings into clear, practical insights. It was a valuable partnership from start to finish.',
+    roleLine: 'Business Head',
+    orgLine: 'Leading Enterprise',
+  },
+];
+
+const CASE_STUDY_PAGE_LISTING_FAQ_ITEMS = [
+  { question: 'What can I learn from a Unimrkt case study?', answer: 'Each case study walks through a real business challenge, the research methodology used to address it, and the insights that shaped the client’s decisions.' },
+  { question: 'What types of research projects are featured in the case studies?', answer: 'Our case studies span primary and secondary research, qualitative and quantitative studies, and projects across consumer, B2B, and industrial markets.' },
+  { question: 'How does Unimrkt approach a research challenge?', answer: 'We start by clarifying the business question, design a methodology suited to it, gather and analyze the data, and translate the findings into clear, actionable recommendations.' },
+  { question: 'Can I find a case study relevant to my industry?', answer: 'Yes — use the Industries filter above to browse case studies from the sector closest to your business.' },
+  { question: 'What research methodologies does Unimrkt use?', answer: 'We use a mix of surveys, interviews, focus groups, and secondary data analysis, selecting the combination that best fits each project’s objectives.' },
+  { question: 'How do case studies demonstrate the impact of research?', answer: 'Each case study connects the research findings directly to the business outcome they informed, showing how the insight translated into a real decision or result.' },
+  { question: 'Can Unimrkt conduct a similar research project for my business?', answer: 'Absolutely — reach out to our team to discuss your research needs and we’ll help design a project suited to your goals.' },
+];
+
+async function upsertCaseStudyPageSettings(strapi: any) {
+  const uid = 'api::case-study-page.case-study-page';
+
+  const heroImageId = await uploadAsset(strapi, 'cs-hero-bg.jpg');
+
+  const approachSteps = [];
+  for (const step of CASE_STUDY_PAGE_APPROACH_STEPS) {
+    // eslint-disable-next-line no-await-in-loop -- readable seed logs, matches every other image-upload loop in this file
+    const iconId = await uploadAsset(strapi, step.icon);
+    approachSteps.push({ title: step.title, description: step.description, icon: iconId });
+  }
+
+  const data = {
+    heroEyebrow: 'CASE STUDIES',
+    heroHeading: 'Turning Research Into Business Impact',
+    heroSubheading: 'Unimrkt Research helps businesses uncover opportunities, understand consumers and make confident, data-driven decisions.',
+    heroImage: heroImageId,
+    heroCta: { label: 'Explore Case Studies', href: '#case-studies', isExternal: false, variant: 'primary' },
+    explorerEyebrow: 'Case Study Explorer',
+    explorerHeading: 'Explore Our Research Stories',
+    explorerBody: 'Discover how we solve complex research challenges across industries, markets and methodologies.',
+    allLabel: 'All',
+    industriesLabel: 'Industries',
+    researchTypeLabel: 'Research Type',
+    approachEyebrow: 'Our Approach',
+    approachHeading: 'Every Case Study Starts With the Right Question',
+    approachSteps,
+    testimonialsEyebrow: 'Testimonial',
+    testimonialsHeading: 'Trusted by Teams That Value Better Insights',
+    testimonials: CASE_STUDY_PAGE_TESTIMONIALS,
+    listingFaqHeading: 'Frequently Asked Questions',
+    listingFaqItems: CASE_STUDY_PAGE_LISTING_FAQ_ITEMS,
+    aboutEyebrow: 'About Case Study',
+    aboutHeading: 'Research That Creates Real Impact',
+    aboutBody:
+      'Our case studies showcase how Unimrkt Research helps organizations navigate complex business challenges with meaningful, data-driven insights. From understanding consumer behavior to identifying market opportunities, each project demonstrates our ability to turn research into clear, actionable direction. Explore our work to see the challenges we addressed, the methodologies we applied and the insights that helped clients make more informed business decisions.',
+    detailTrustHeading: 'Trusted by Global Businesses',
+    detailChallengeEyebrow: 'The Challenge',
+    detailChallengeNeedsLabel: 'Our client needed to understand:',
+    detailResearchQuestionEyebrow: 'The Research Question',
+    detailApproachEyebrow: 'Our Approach',
+    detailUncoveredEyebrow: 'What We Uncovered',
+    detailImpactEyebrow: 'The Impact',
+    detailFaqHeading: 'Frequently Asked Questions',
+    detailRelatedEyebrow: 'Related Case Study',
+    detailRelatedHeading: 'Discovering What Matters',
+    detailRelatedBody: 'Uncovering insights that drive smarter decisions.',
+    bottomCtaHeading: 'A Better Way to Understand Your Market',
+    bottomCtaBody: 'Your customers are already telling you what they expect. We help you listen, understand and act.',
+    bottomCtaAction: { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' },
+  };
+
+  const existing = await strapi.documents(uid).findFirst({});
+  const doc = existing
+    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+    : await strapi.documents(uid).create({ data });
+  await strapi.documents(uid).publish({ documentId: doc.documentId });
+
+  strapi.log.info('[seed] Case Study page settings: upserted and published (hero, explorer labels, 4 approach steps, 3 testimonials, 7 listing FAQ items, about, detail-page section chrome, bottom CTA).');
+}
+
 async function resetContent(strapi: any) {
   strapi.log.info('[seed] --reset: truncating content tables');
   await strapi.db.query('api::testimonial.testimonial').deleteMany({});
@@ -3923,6 +4031,10 @@ async function main() {
     // 16. Case studies (/case-study, Figma node 1023:45614) — the
     //     "Case Study Explorer" grid's 6 cards.
     await upsertCaseStudies(app);
+
+    // 17. Case Study page settings — template-level copy shared across
+    //     every case study (Figma nodes 1023:45614 + 1107:49842).
+    await upsertCaseStudyPageSettings(app);
 
     app.log.info('[seed] Done.');
   } finally {

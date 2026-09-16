@@ -628,6 +628,36 @@ export interface BlocksWhyChooseUs extends Struct.ComponentSchema {
   };
 }
 
+export interface CaseStudyTestimonialCard extends Struct.ComponentSchema {
+  collectionName: 'components_case_study_testimonial_cards';
+  info: {
+    displayName: 'Case Study Testimonial Card';
+    icon: 'quote';
+  };
+  attributes: {
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    orgLine: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    quote: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    roleLine: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+  };
+}
+
 export interface ContactOfficeLocation extends Struct.ComponentSchema {
   collectionName: 'components_contact_office_locations';
   info: {
@@ -902,6 +932,7 @@ declare module '@strapi/strapi' {
       'blocks.stats-band': BlocksStatsBand;
       'blocks.testimonials': BlocksTestimonials;
       'blocks.why-choose-us': BlocksWhyChooseUs;
+      'case-study.testimonial-card': CaseStudyTestimonialCard;
       'contact.office-location': ContactOfficeLocation;
       'industries.detail-card': IndustriesDetailCard;
       'industries.trust-logo': IndustriesTrustLogo;

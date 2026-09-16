@@ -92,6 +92,13 @@ const REQUIRED_PERMISSIONS: string[] = [
   'api::case-study.case-study.findOne',
   'api::case-study.case-study.findBySlug',
   'api::case-study.case-study.findSlugs',
+  // Case Study Page settings — singleType holding the template-level
+  // copy shared across every case study (section eyebrows/headings,
+  // the listing page's Approach/Testimonials/About/FAQ content, the
+  // detail page's shared "Trusted by Global Businesses"/"Related Case
+  // Study"/bottom-CTA chrome). Read-only, same as every other *-page
+  // singleType.
+  'api::case-study-page.case-study-page.find',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

@@ -1,0 +1,169 @@
+{
+  "kind": "singleType",
+  "collectionName": "case_study_page",
+  "info": {
+    "singularName": "case-study-page",
+    "pluralName": "case-study-pages",
+    "displayName": "Case Study Page Settings",
+    "description": "Every piece of template-level text/media on /case-study (Figma node 1023:45614) and the shared section chrome on /case-study/[slug] (Figma node 1107:49842) that is identical across every case study — section eyebrows, headings, body copy, the 'Our Approach'/'Testimonial'/'About Case Study' content on the listing page, and the 'Trusted by Global Businesses'/'Related Case Study'/bottom-CTA copy on the detail page. Per-case-study content (title, excerpt, category, cover photo, and every detail-page field like challengeHeading/approachSteps/faqItems) stays on api::case-study.case-study — this singleType is only the page furniture every case study shares, now CMS-editable instead of hardcoded in the frontend template, with node 1023:45614/1107:49842's own verbatim copy as the fallback when a field is empty."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "heroHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "heroCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "explorerEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "explorerHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "explorerBody": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "allLabel": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "industriesLabel": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "researchTypeLabel": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "approachEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "approachHeading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "approachSteps": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 4
+    },
+    "testimonialsEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "testimonialsHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "testimonials": {
+      "type": "component",
+      "component": "case-study.testimonial-card",
+      "repeatable": true,
+      "max": 3
+    },
+    "listingFaqHeading": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "listingFaqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 10
+    },
+    "aboutEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "aboutHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "aboutBody": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "detailTrustHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "detailChallengeEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "detailChallengeNeedsLabel": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "detailResearchQuestionEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "detailApproachEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "detailUncoveredEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "detailImpactEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "detailFaqHeading": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "detailRelatedEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "detailRelatedHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "detailRelatedBody": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "bottomCtaHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "bottomCtaBody": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "bottomCtaAction": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

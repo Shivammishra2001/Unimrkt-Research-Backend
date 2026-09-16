@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_case_study_testimonial_cards",
+  "info": {
+    "displayName": "Case Study Testimonial Card",
+    "icon": "quote"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "quote": {
+      "type": "text",
+      "required": true,
+      "maxLength": 400
+    },
+    "roleLine": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "orgLine": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    }
+  }
+}
