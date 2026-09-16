@@ -3521,6 +3521,70 @@ async function deleteStaleWorkWithUsGenericPage(strapi: any) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Case Study (/case-study, Figma node 1023:45614) — the "Case Study
+// Explorer" grid's 6 cards (Component 1055-1060). Each card's own 4
+// drawn fields only: category badge, title, short description, cover
+// photo. No slug/detail-page field — this node only draws the listing
+// grid, no case-study detail page exists yet (confirmed with the user:
+// the card's arrow-right CTA is presentational only, no link target).
+// ---------------------------------------------------------------------------
+
+const CASE_STUDIES = [
+  {
+    title: 'Understanding Customer Expectations in a Changing Financial Market',
+    excerpt: 'Uncover evolving customer needs and expectations shaping today’s financial landscape.',
+    category: 'BANKING & FINANCE',
+    image: 'cs-story-banking-finance.jpg',
+  },
+  {
+    title: 'Mapping Patient Needs Across the Healthcare Journey',
+    excerpt: 'Understand patient needs across every healthcare touchpoint.',
+    category: 'HEALTHCARE',
+    image: 'cs-story-healthcare.jpg',
+  },
+  {
+    title: 'Understanding the Future of Mobility',
+    excerpt: 'Explore evolving mobility trends, behaviours, and consumer expectations.',
+    category: 'AUTOMOTIVE',
+    image: 'cs-story-automotive.jpg',
+  },
+  {
+    title: 'Finding the Next Consumer Growth Opportunity',
+    excerpt: 'Identify emerging consumer trends and opportunities driving sustainable growth.',
+    category: 'FMCG',
+    image: 'cs-story-fmcg.jpg',
+  },
+  {
+    title: 'Decoding Digital Adoption Across Markets',
+    excerpt: 'Uncover digital behaviors, adoption patterns, and market opportunities across regions.',
+    category: 'IT & TELECOM',
+    image: 'cs-story-it-telecom.jpg',
+  },
+  {
+    title: 'Understanding Changing Energy Consumption',
+    excerpt: 'Track evolving energy habits, consumption patterns, and emerging market needs.',
+    category: 'ENERGY & UTILITIES',
+    image: 'cs-story-energy-utilities.jpg',
+  },
+];
+
+async function upsertCaseStudies(strapi: any) {
+  const uid = 'api::case-study.case-study';
+
+  for (const cs of CASE_STUDIES) {
+    const coverImage = await uploadAsset(strapi, cs.image);
+    const data = { title: cs.title, excerpt: cs.excerpt, category: cs.category, coverImage };
+    const existing = await strapi.documents(uid).findFirst({ filters: { title: cs.title } });
+    const doc = existing
+      ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+      : await strapi.documents(uid).create({ data });
+    await strapi.documents(uid).publish({ documentId: doc.documentId });
+  }
+
+  strapi.log.info(`[seed] Case studies: ${CASE_STUDIES.length} upserted and published.`);
+}
+
 async function resetContent(strapi: any) {
   strapi.log.info('[seed] --reset: truncating content tables');
   await strapi.db.query('api::testimonial.testimonial').deleteMany({});
@@ -3653,6 +3717,10 @@ async function main() {
     //     to live at this slug.
     await deleteStaleWorkWithUsGenericPage(app);
     await upsertWorkWithUsPageSettings(app);
+
+    // 16. Case studies (/case-study, Figma node 1023:45614) — the
+    //     "Case Study Explorer" grid's 6 cards.
+    await upsertCaseStudies(app);
 
     app.log.info('[seed] Done.');
   } finally {

@@ -85,6 +85,10 @@ const REQUIRED_PERMISSIONS: string[] = [
   // Job Application — the "Apply Now" modal's write target (Figma node
   // 924:23856). `create` only, same reasoning as Contact Submission.
   'api::job-application.job-application.create',
+  // Case Study (/case-study, Figma node 1023:45614) — individual case
+  // study cards. Read-only: `find`/`findOne`, no write route exists.
+  'api::case-study.case-study.find',
+  'api::case-study.case-study.findOne',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

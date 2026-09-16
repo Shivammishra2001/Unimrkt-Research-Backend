@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "case_studies",
+  "info": {
+    "singularName": "case-study",
+    "pluralName": "case-studies",
+    "displayName": "Case Study",
+    "description": "One card in the /case-study page's grid (Figma node 1023:45614, 'Case Study Explorer' section, Component 1055-1060) — exactly the 4 fields drawn on every card: category badge, title, short description, and cover photo. No slug/detail-page field: this node only draws the listing grid, no case-study detail page exists yet, so each card's arrow-right CTA is presentational only (matches the node's own static mockup, which has no drawn destination)."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "excerpt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 320
+    },
+    "category": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    }
+  }
+}
