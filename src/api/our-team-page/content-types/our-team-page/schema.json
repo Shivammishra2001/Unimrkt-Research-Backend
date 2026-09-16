@@ -1,0 +1,55 @@
+{
+  "kind": "singleType",
+  "collectionName": "our_team_page",
+  "info": {
+    "singularName": "our-team-page",
+    "pluralName": "our-team-pages",
+    "displayName": "Our Team Page",
+    "description": "/our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Every attribute maps 1:1 to a node actually drawn on this canvas, in top-to-bottom order — hero (eyebrow/heading/subheading/image), the 'People. Expertise. Impact.' heading above the member grid, and the bottom CTA band. The member cards themselves live on api::team-member.team-member, not here."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "heroHeading": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "membersHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "bottomCtaHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "bottomCtaBody": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "bottomCtaAction": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

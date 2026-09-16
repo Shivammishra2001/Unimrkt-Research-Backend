@@ -4009,6 +4009,89 @@ async function upsertPrivacyPolicyPageSettings(strapi: any) {
   strapi.log.info('[seed] Privacy Policy page settings: upserted and published (hero, intro, 12-item TOC, 2 body clauses with sub-sections and 3 lists).');
 }
 
+// ---------------------------------------------------------------------------
+// Team Member — /our-team (Figma node 1126:54624, file
+// foaJFuv0vRX8nD43o0ylgB). 19 cards, verbatim name/role/photo, in the
+// node's own exact top-to-bottom, left-to-right grid reading order
+// (`order` below matches that sequence 1-19). Natural key: `name` (no
+// slug field — no member detail page is drawn on this node, so there's
+// nothing a slug-based single-entry lookup would be for; the card's own
+// "View Profile" button is decorative, same as the case-study grid's
+// arrow-right CTA).
+// ---------------------------------------------------------------------------
+
+interface TeamMemberSeed {
+  name: string;
+  role: string;
+  photoFilename: string;
+  order: number;
+}
+
+const TEAM_MEMBERS_SEED: TeamMemberSeed[] = [
+  { name: 'Anurag Magoo', role: 'Co-Founder', photoFilename: 'team-anurag-magoo.jpg', order: 1 },
+  { name: 'Sandeep Kumar', role: 'Co-Founder', photoFilename: 'team-sandeep-kumar.jpg', order: 2 },
+  { name: 'Kanishk Sheel', role: 'Co-Founder & Managing Director', photoFilename: 'team-kanishk-sheel.jpg', order: 3 },
+  { name: 'James West', role: 'Managing Director - North America', photoFilename: 'team-james-west.jpg', order: 4 },
+  { name: 'Bharat Sharma', role: 'Senior Director - Operations', photoFilename: 'team-bharat-sharma.jpg', order: 5 },
+  { name: 'Veronika Sharma', role: 'Director - Client Services', photoFilename: 'team-veronika-sharma.jpg', order: 6 },
+  { name: 'Alex Parkman', role: 'Director – Sales, EMEA/UK', photoFilename: 'team-alex-parkman.jpg', order: 7 },
+  { name: 'Sanjay Kumar', role: 'Director - Strategy & Business Development', photoFilename: 'team-sanjay-kumar.jpg', order: 8 },
+  { name: 'Rahul Shah', role: 'Senior Manager – Business Development', photoFilename: 'team-rahul-shah.jpg', order: 9 },
+  { name: 'Chris Schaedel', role: 'Senior Manager - Business Development', photoFilename: 'team-chris-schaedel.jpg', order: 10 },
+  { name: 'Robin Singh Chauhan', role: 'Associate Director - Risk & Compliance', photoFilename: 'team-robin-singh-chauhan.jpg', order: 11 },
+  { name: 'Vishal Pathak', role: 'Head – Competitive Intelligence', photoFilename: 'team-vishal-pathak.jpg', order: 12 },
+  { name: 'Narender Vadhava', role: 'Associate Director - Data Quality', photoFilename: 'team-narender-vadhava.jpg', order: 13 },
+  { name: 'Yashodhara Badoni Bhatt', role: 'Head – Voice Quality and Training', photoFilename: 'team-yashodhara-badoni-bhatt.jpg', order: 14 },
+  { name: 'Dashwant Singh', role: 'Director - Client Services', photoFilename: 'team-dashwant-singh.jpg', order: 15 },
+  { name: 'Shradha Chauhan', role: 'Head - Operations', photoFilename: 'team-shradha-chauhan.jpg', order: 16 },
+  { name: 'Elliot Neziri', role: 'Executive- Business Development', photoFilename: 'team-elliot-neziri.jpg', order: 17 },
+  { name: 'Júlia Alves', role: 'Manager - Client Servicing', photoFilename: 'team-julia-alves.jpg', order: 18 },
+  { name: 'Krystal Richardson', role: 'Manager - Business Development', photoFilename: 'team-krystal-richardson.jpg', order: 19 },
+];
+
+async function upsertTeamMembers(strapi: any) {
+  const uid = 'api::team-member.team-member';
+  for (const member of TEAM_MEMBERS_SEED) {
+    // eslint-disable-next-line no-await-in-loop -- readable seed logs, matches every other image-upload loop in this file
+    const photoId = await uploadAsset(strapi, member.photoFilename);
+    // eslint-disable-next-line no-await-in-loop
+    const existing = await strapi.documents(uid).findFirst({ filters: { name: member.name } });
+    const data = { name: member.name, role: member.role, photo: photoId, order: member.order };
+    // eslint-disable-next-line no-await-in-loop
+    const doc = existing
+      ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+      : await strapi.documents(uid).create({ data });
+    // eslint-disable-next-line no-await-in-loop
+    await strapi.documents(uid).publish({ documentId: doc.documentId });
+  }
+  strapi.log.info(`[seed] Team members: ${TEAM_MEMBERS_SEED.length} upserted, published, and photo-linked.`);
+}
+
+async function upsertOurTeamPageSettings(strapi: any) {
+  const uid = 'api::our-team-page.our-team-page';
+
+  const heroImageId = await uploadAsset(strapi, 'team-hero-bg.jpg');
+
+  const data = {
+    heroEyebrow: 'Unimrkt Team',
+    heroHeading: 'Meet the Minds\nBehind Unimrkt',
+    heroSubheading: 'A diverse team of research experts bringing experience, insight, and strategic thinking to every project.',
+    heroImage: heroImageId,
+    membersHeading: 'People. Expertise. Impact.',
+    bottomCtaHeading: 'A Better Way to Understand Your Market',
+    bottomCtaBody: 'Your customers are already telling you what they expect.\n We help you listen, understand and act.',
+    bottomCtaAction: { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' },
+  };
+
+  const existing = await strapi.documents(uid).findFirst({});
+  const doc = existing
+    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
+    : await strapi.documents(uid).create({ data });
+  await strapi.documents(uid).publish({ documentId: doc.documentId });
+
+  strapi.log.info('[seed] Our Team page settings: upserted and published (hero, members-grid heading, bottom CTA).');
+}
+
 async function resetContent(strapi: any) {
   strapi.log.info('[seed] --reset: truncating content tables');
   await strapi.db.query('api::testimonial.testimonial').deleteMany({});
@@ -4152,6 +4235,10 @@ async function main() {
 
     // 18. Privacy Policy page (Figma node 1114:50556).
     await upsertPrivacyPolicyPageSettings(app);
+
+    // 19. Our Team page + 19 team member cards (Figma node 1126:54624).
+    await upsertTeamMembers(app);
+    await upsertOurTeamPageSettings(app);
 
     app.log.info('[seed] Done.');
   } finally {

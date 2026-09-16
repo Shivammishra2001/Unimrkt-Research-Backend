@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "team_members",
+  "info": {
+    "singularName": "team-member",
+    "pluralName": "team-members",
+    "displayName": "Team Member",
+    "description": "A single member card on /our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Only the fields the node actually draws on every card — name, role/designation, photo — nothing else (no bio, no social links, no department: none of those are drawn on this node's cards, per the zero-invention rule)."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "role": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

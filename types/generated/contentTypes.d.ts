@@ -1577,6 +1577,61 @@ export interface ApiOurCompanyPageOurCompanyPage
   };
 }
 
+export interface ApiOurTeamPageOurTeamPage extends Struct.SingleTypeSchema {
+  collectionName: 'our_team_page';
+  info: {
+    description: "/our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Every attribute maps 1:1 to a node actually drawn on this canvas, in top-to-bottom order \u2014 hero (eyebrow/heading/subheading/image), the 'People. Expertise. Impact.' heading above the member grid, and the bottom CTA band. The member cards themselves live on api::team-member.team-member, not here.";
+    displayName: 'Our Team Page';
+    pluralName: 'our-team-pages';
+    singularName: 'our-team-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bottomCtaAction: Schema.Attribute.Component<'shared.link', false>;
+    bottomCtaBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    bottomCtaHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    heroHeading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::our-team-page.our-team-page'
+    > &
+      Schema.Attribute.Private;
+    membersHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
@@ -2046,6 +2101,46 @@ export interface ApiServicesPageServicesPage extends Struct.SingleTypeSchema {
         maxLength: 120;
       }>;
     workflow: Schema.Attribute.Component<'blocks.process-steps', false>;
+  };
+}
+
+export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
+  collectionName: 'team_members';
+  info: {
+    description: "A single member card on /our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Only the fields the node actually draws on every card \u2014 name, role/designation, photo \u2014 nothing else (no bio, no social links, no department: none of those are drawn on this node's cards, per the zero-invention rule).";
+    displayName: 'Team Member';
+    pluralName: 'team-members';
+    singularName: 'team-member';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::team-member.team-member'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    photo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    role: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -2788,10 +2883,12 @@ declare module '@strapi/strapi' {
       'api::industry.industry': ApiIndustryIndustry;
       'api::job-application.job-application': ApiJobApplicationJobApplication;
       'api::our-company-page.our-company-page': ApiOurCompanyPageOurCompanyPage;
+      'api::our-team-page.our-team-page': ApiOurTeamPageOurTeamPage;
       'api::page.page': ApiPagePage;
       'api::privacy-policy-page.privacy-policy-page': ApiPrivacyPolicyPagePrivacyPolicyPage;
       'api::service.service': ApiServiceService;
       'api::services-page.services-page': ApiServicesPageServicesPage;
+      'api::team-member.team-member': ApiTeamMemberTeamMember;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::work-with-us-page.work-with-us-page': ApiWorkWithUsPageWorkWithUsPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;

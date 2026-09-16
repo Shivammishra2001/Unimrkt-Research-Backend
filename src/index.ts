@@ -103,6 +103,14 @@ const REQUIRED_PERMISSIONS: string[] = [
   // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType. Read-only, same as
   // every other *-page singleType.
   'api::privacy-policy-page.privacy-policy-page.find',
+  // Team Member (/our-team, Figma node 1126:54624, file
+  // foaJFuv0vRX8nD43o0ylgB) — the 19 member cards. Read-only.
+  'api::team-member.team-member.find',
+  'api::team-member.team-member.findOne',
+  // Our Team Page settings — singleType holding this page's own hero/
+  // section-heading/bottom-CTA chrome. Read-only, same as every other
+  // *-page singleType.
+  'api::our-team-page.our-team-page.find',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;
