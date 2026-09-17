@@ -498,7 +498,7 @@ export interface ApiCaseStudyPageCaseStudyPage extends Struct.SingleTypeSchema {
   collectionName: 'case_study_page';
   info: {
     description: "Every piece of template-level text/media on /case-study (Figma node 1023:45614) and the shared section chrome on /case-study/[slug] (Figma node 1107:49842) that is identical across every case study \u2014 section eyebrows, headings, body copy, the 'Our Approach'/'Testimonial'/'About Case Study' content on the listing page, and the 'Trusted by Global Businesses'/'Related Case Study'/bottom-CTA copy on the detail page. Per-case-study content (title, excerpt, category, cover photo, and every detail-page field like challengeHeading/approachSteps/faqItems) stays on api::case-study.case-study \u2014 this singleType is only the page furniture every case study shares, now CMS-editable instead of hardcoded in the frontend template, with node 1023:45614/1107:49842's own verbatim copy as the fallback when a field is empty.";
-    displayName: '[Page] Case Studies Overview';
+    displayName: 'Case Studies Overview';
     pluralName: 'case-study-pages';
     singularName: 'case-study-page';
   };
@@ -862,7 +862,7 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
   collectionName: 'contact_pages';
   info: {
     description: "All editable content on /contact (Figma node 637:10433, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated singleType, not a `page` dynamiczone entry. The form's own fields (Name/Email/Phone/Company) are fixed UI chrome, never CMS content, same convention as every other lead form on this site.";
-    displayName: '[Page] Contact Us';
+    displayName: 'Contact Us';
     pluralName: 'contact-pages';
     singularName: 'contact-page';
   };
@@ -962,7 +962,7 @@ export interface ApiContactSubmissionContactSubmission
   collectionName: 'contact_submissions';
   info: {
     description: "A lead captured from the /contact page form (Name/Email/Phone/Company \u2014 the exact fields drawn in Figma node 637:10433, nothing else). Public API grants `create` only \u2014 no public find/findOne/update/delete \u2014 so a visitor can submit a lead but never read, list, or tamper with anyone else's.";
-    displayName: '[Inbound Leads] Contact Us Forms';
+    displayName: 'Contact Us Forms';
     pluralName: 'contact-submissions';
     singularName: 'contact-submission';
   };
@@ -1051,7 +1051,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
     description: 'Site-wide navigation, footer and SEO defaults';
-    displayName: '[Site Config] Global Header, Footer & SEO';
+    displayName: 'Global Header, Footer & SEO';
     pluralName: 'globals';
     singularName: 'global';
   };
@@ -1360,7 +1360,7 @@ export interface ApiJobApplicationJobApplication
   collectionName: 'job_applications';
   info: {
     description: "An application captured from /work-with-us's \"Apply Now\" modal (Figma node 924:23856) \u2014 exactly the fields drawn there (Full Name, Email Address, Phone Number, Experience (in Years), Current Location, Resume/CV, Additional Message) plus a plain string field recording which job's title the applicant applied for (node 924:23508's \"Apply Now\" always opens this same form for whichever job card it was launched from \u2014 there's no relation target since job listings live as a repeatable component on api::work-with-us-page, not a standalone collection type). Disclosed exception: Figma draws the Experience field as a dropdown (chevron) but shows it closed with no option list anywhere in the file \u2014 user-approved fallback is standard year-range buckets (fresher/1-3/3-5/5-10/10+ years); enum values use identifier-safe keys (Strapi rejects enum members starting with a digit) with human labels rendered client-side. Public API grants `create` only \u2014 no public find/findOne/update/delete \u2014 so a visitor can submit an application but never read, list, or tamper with anyone else's.";
-    displayName: '[Inbound Leads] Career / Job Applications';
+    displayName: 'Career / Job Applications';
     pluralName: 'job-applications';
     singularName: 'job-application';
   };
@@ -1416,7 +1416,7 @@ export interface ApiOurCompanyPageOurCompanyPage
   collectionName: 'our_company_pages';
   info: {
     description: "All editable content on /our-company (Figma node 617:7561, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated page, not the generic `page` dynamiczone. Latest Blogs, FAQ, and the bottom CTA reuse existing global content (blog posts, this singleType's own faqItems, and the site's shared bottom-CTA copy) rather than duplicating fields here.";
-    displayName: '[Page] About Us / Our Company';
+    displayName: 'About Us / Our Company';
     pluralName: 'our-company-pages';
     singularName: 'our-company-page';
   };
@@ -1581,7 +1581,7 @@ export interface ApiOurTeamPageOurTeamPage extends Struct.SingleTypeSchema {
   collectionName: 'our_team_page';
   info: {
     description: "/our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Every attribute maps 1:1 to a node actually drawn on this canvas, in top-to-bottom order \u2014 hero (eyebrow/heading/subheading/image), the 'People. Expertise. Impact.' heading above the member grid, and the bottom CTA band. The member cards themselves live on api::team-member.team-member, not here.";
-    displayName: '[Page] Our Team';
+    displayName: 'Our Team';
     pluralName: 'our-team-pages';
     singularName: 'our-team-page';
   };
@@ -1695,7 +1695,7 @@ export interface ApiPrivacyPolicyPagePrivacyPolicyPage
   collectionName: 'privacy_policy_page';
   info: {
     description: "/privacy-policy (Figma node 1114:50556, file foaJFuv0vRX8nD43o0ylgB). Every attribute below maps 1:1 to a node that is actually drawn in 1114:50556, in the exact top-to-bottom sequence it appears on the canvas \u2014 hero, breadcrumb (global pattern, not stored here), the 'This Privacy Policy Defines and Regulates:' table of contents, then every clause heading/body/list the node draws body copy for. The node's own table of contents lists 12 entries, but only the first 2 (What qualifies as Personal Data / Lawful Collection and Use of Personal Data, the latter with 3 bold sub-headings) have body copy actually drawn beneath them \u2014 the remaining 10 TOC entries render as plain (non-scrolling-to-anything) list items, exactly as drawn, per the zero-invention rule: no body content is fabricated for a TOC entry the node itself never gives body copy to.";
-    displayName: '[Page] Privacy Policy';
+    displayName: 'Privacy Policy';
     pluralName: 'privacy-policy-pages';
     singularName: 'privacy-policy-page';
   };
@@ -2042,7 +2042,7 @@ export interface ApiServicesPageServicesPage extends Struct.SingleTypeSchema {
   collectionName: 'services_pages';
   info: {
     description: 'All editable content on /services (hero, intro, value props, research process, FAQ, CTA) \u2014 the category grid itself stays sourced from the `service` hierarchy, not this single type.';
-    displayName: '[Page] Services Overview';
+    displayName: 'Services Overview';
     pluralName: 'services-pages';
     singularName: 'services-page';
   };
@@ -2210,7 +2210,7 @@ export interface ApiWorkWithUsPageWorkWithUsPage
   collectionName: 'work_with_us_pages';
   info: {
     description: "All editable content on /work-with-us (Figma node 924:23216, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated singleType. The bottom CTA reuses the same sitewide 'Start Your Research Journey' copy every other page reuses, so it has no fields here.";
-    displayName: '[Page] Careers (Work With Us)';
+    displayName: 'Careers (Work With Us)';
     pluralName: 'work-with-us-pages';
     singularName: 'work-with-us-page';
   };

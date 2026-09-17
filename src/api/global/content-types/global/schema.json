@@ -4,7 +4,7 @@
   "info": {
     "singularName": "global",
     "pluralName": "globals",
-    "displayName": "[Site Config] Global Header, Footer & SEO",
+    "displayName": "Global Header, Footer & SEO",
     "description": "Site-wide navigation, footer and SEO defaults"
   },
   "options": {

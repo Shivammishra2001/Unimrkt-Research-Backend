@@ -4,7 +4,7 @@
   "info": {
     "singularName": "our-team-page",
     "pluralName": "our-team-pages",
-    "displayName": "[Page] Our Team",
+    "displayName": "Our Team",
     "description": "/our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Every attribute maps 1:1 to a node actually drawn on this canvas, in top-to-bottom order — hero (eyebrow/heading/subheading/image), the 'People. Expertise. Impact.' heading above the member grid, and the bottom CTA band. The member cards themselves live on api::team-member.team-member, not here."
   },
   "options": {

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "services-page",
     "pluralName": "services-pages",
-    "displayName": "[Page] Services Overview",
+    "displayName": "Services Overview",
     "description": "All editable content on /services (hero, intro, value props, research process, FAQ, CTA) — the category grid itself stays sourced from the `service` hierarchy, not this single type."
   },
   "options": {
