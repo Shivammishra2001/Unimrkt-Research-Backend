@@ -4,7 +4,7 @@
   "info": {
     "singularName": "privacy-policy-page",
     "pluralName": "privacy-policy-pages",
-    "displayName": "Privacy Policy Page",
+    "displayName": "[Page] Privacy Policy",
     "description": "/privacy-policy (Figma node 1114:50556, file foaJFuv0vRX8nD43o0ylgB). Every attribute below maps 1:1 to a node that is actually drawn in 1114:50556, in the exact top-to-bottom sequence it appears on the canvas — hero, breadcrumb (global pattern, not stored here), the 'This Privacy Policy Defines and Regulates:' table of contents, then every clause heading/body/list the node draws body copy for. The node's own table of contents lists 12 entries, but only the first 2 (What qualifies as Personal Data / Lawful Collection and Use of Personal Data, the latter with 3 bold sub-headings) have body copy actually drawn beneath them — the remaining 10 TOC entries render as plain (non-scrolling-to-anything) list items, exactly as drawn, per the zero-invention rule: no body content is fabricated for a TOC entry the node itself never gives body copy to."
   },
   "options": {

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "case-study-page",
     "pluralName": "case-study-pages",
-    "displayName": "Case Study Page Settings",
+    "displayName": "[Page] Case Studies Overview",
     "description": "Every piece of template-level text/media on /case-study (Figma node 1023:45614) and the shared section chrome on /case-study/[slug] (Figma node 1107:49842) that is identical across every case study — section eyebrows, headings, body copy, the 'Our Approach'/'Testimonial'/'About Case Study' content on the listing page, and the 'Trusted by Global Businesses'/'Related Case Study'/bottom-CTA copy on the detail page. Per-case-study content (title, excerpt, category, cover photo, and every detail-page field like challengeHeading/approachSteps/faqItems) stays on api::case-study.case-study — this singleType is only the page furniture every case study shares, now CMS-editable instead of hardcoded in the frontend template, with node 1023:45614/1107:49842's own verbatim copy as the fallback when a field is empty."
   },
   "options": {

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "gallery-item",
     "pluralName": "gallery-items",
-    "displayName": "Gallery Item",
+    "displayName": "Media Gallery Items",
     "description": "A single photo in the /gallery page's grid, editable from the CMS instead of the static fixture it replaces."
   },
   "options": {

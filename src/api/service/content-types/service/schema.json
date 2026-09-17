@@ -4,7 +4,7 @@
   "info": {
     "singularName": "service",
     "pluralName": "services",
-    "displayName": "Service",
+    "displayName": "Service Detail Pages",
     "description": "A single service offering — listed at /services, detailed at /services/:slug"
   },
   "options": {

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "page",
     "pluralName": "pages",
-    "displayName": "Page",
+    "displayName": "Custom Generic Pages",
     "description": "Any routable page — home, about, or a nested section like services/cloud"
   },
   "options": {

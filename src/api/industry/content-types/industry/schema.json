@@ -4,7 +4,7 @@
   "info": {
     "singularName": "industry",
     "pluralName": "industries",
-    "displayName": "Industry",
+    "displayName": "Industries Served",
     "description": "A single industry vertical — listed at /industries, detailed at /industries/:slug"
   },
   "options": {

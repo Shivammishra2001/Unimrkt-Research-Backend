@@ -4,7 +4,7 @@
   "info": {
     "singularName": "contact-submission",
     "pluralName": "contact-submissions",
-    "displayName": "Contact Submission",
+    "displayName": "[Inbound Leads] Contact Us Forms",
     "description": "A lead captured from the /contact page form (Name/Email/Phone/Company — the exact fields drawn in Figma node 637:10433, nothing else). Public API grants `create` only — no public find/findOne/update/delete — so a visitor can submit a lead but never read, list, or tamper with anyone else's."
   },
   "options": {

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "case-study",
     "pluralName": "case-studies",
-    "displayName": "Case Study",
+    "displayName": "Case Study Detail Pages",
     "description": "One case study — both the listing grid card (Figma node 1023:45614, 'Case Study Explorer', Component 1055-1060: category/title/excerpt/coverImage) and, when its detail fields below are populated, the full /case-study/[slug] detail page (Figma node 1107:49842). `slug` is required and unique for by-slug lookup. Every detail field is optional: only the node's own named example ('Understanding Customer Expectations in a Changing Financial Market') has real detail content seeded — every other case study leaves these empty, and the detail page falls back to node 1107:49842's own verbatim copy when they are, per that page's own CMS-first/fallback directive. No un-drawn fields: section eyebrows ('THE CHALLENGE', 'THE RESEARCH QUESTION', etc.), the FAQ heading, the 'Related Case Study' panel copy, and the bottom CTA are template-level chrome identical across every case study, not per-entry content, so they live in the frontend template, not here."
   },
   "options": {

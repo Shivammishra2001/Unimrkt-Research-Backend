@@ -4,7 +4,7 @@
   "info": {
     "singularName": "contact-page",
     "pluralName": "contact-pages",
-    "displayName": "Contact Page",
+    "displayName": "[Page] Contact Us",
     "description": "All editable content on /contact (Figma node 637:10433, file foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType, not a `page` dynamiczone entry. The form's own fields (Name/Email/Phone/Company) are fixed UI chrome, never CMS content, same convention as every other lead form on this site."
   },
   "options": {
