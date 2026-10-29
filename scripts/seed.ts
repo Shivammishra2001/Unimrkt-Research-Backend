@@ -2210,6 +2210,25 @@ const INDUSTRIES_SEED: IndustrySeed[] = [
   },
 ];
 
+/**
+ * Listing-card photo for each seeded industry (`icon`, shown on /industries).
+ * Reuses photos already in seed-assets/figma by sector keyword — thematic, not
+ * literal, for the long tail (uploadAsset() matches-and-skips by filename, so no
+ * new files are added). Replace any of them from the Strapi admin at any time.
+ */
+const INDUSTRY_CARD_PHOTOS: Array<[RegExp, string]> = [
+  [/automotive|transport/i, 'industry-automotive.jpg'],
+  [/bank|financ|fintech|insurance|legal|professional/i, 'industry-banking.jpg'],
+  [/health|life sci|pharma|sport/i, 'industry-healthcare.jpg'],
+  [/retail|cpg|fmcg|e-commerce|fashion|food|travel|agri/i, 'industry-retail.jpg'],
+  [/it &|telecom|education|media/i, 'oc-industry-technology.jpg'],
+  [/chemical|energy|oil|metal|mining|manufactur|construction|architecture|aerospace|defence|real estate/i, 'oc-industry-b2b-industrial.jpg'],
+];
+
+function industryCardPhoto(title: string): string {
+  return INDUSTRY_CARD_PHOTOS.find(([re]) => re.test(title))?.[1] ?? 'industry-cityscape.jpg';
+}
+
 async function upsertIndustries(strapi: any) {
   for (const industry of INDUSTRIES_SEED) {
     const slug = slugifyTitle(industry.title);
@@ -2228,6 +2247,8 @@ async function upsertIndustries(strapi: any) {
         legacyUrl: industry.legacyUrl ?? null,
         suggestedUrl: industry.suggestedUrl,
         summary: industry.summary,
+        // eslint-disable-next-line no-await-in-loop -- uploadAsset() dedupes by filename
+        icon: await uploadAsset(strapi, industryCardPhoto(industry.title)),
         seo: {
           metaTitle: `${industry.title.length > 46 ? `${industry.title.slice(0, 45)}…` : industry.title} | Unimrkt Research`,
           metaDescription: industry.metaDescription,
