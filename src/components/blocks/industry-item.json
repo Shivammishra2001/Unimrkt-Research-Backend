@@ -16,6 +16,10 @@
       "required": true,
       "allowedTypes": ["images"]
     },
+    "description": {
+      "type": "text",
+      "maxLength": 160
+    },
     "accentColor": {
       "type": "string",
       "default": "#7f3856",

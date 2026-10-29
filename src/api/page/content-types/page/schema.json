@@ -4,7 +4,7 @@
   "info": {
     "singularName": "page",
     "pluralName": "pages",
-    "displayName": "Custom Generic Pages",
+    "displayName": "Pages",
     "description": "Any routable page — home, about, or a nested section like services/cloud"
   },
   "options": {
@@ -32,18 +32,24 @@
       "type": "dynamiczone",
       "components": [
         "blocks.hero",
+        "blocks.service-band",
+        "blocks.stats-band",
+        "blocks.industry-grid",
         "blocks.content",
+        "blocks.media-gallery",
+        "blocks.blog-teaser",
+        "blocks.faq",
+        "blocks.cta",
         "blocks.feature-grid",
         "blocks.testimonials",
-        "blocks.cta",
-        "blocks.stats-band",
-        "blocks.service-band",
-        "blocks.industry-grid",
-        "blocks.media-gallery",
-        "blocks.faq",
-        "blocks.blog-teaser",
         "blocks.why-choose-us",
-        "blocks.process-steps"
+        "blocks.process-steps",
+        "page-content.our-company",
+        "page-content.work-with-us",
+        "page-content.case-study",
+        "page-content.contact",
+        "page-content.our-team",
+        "page-content.privacy-policy"
       ],
       "required": true,
       "min": 1

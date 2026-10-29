@@ -447,7 +447,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   collectionName: 'blogs';
   info: {
     description: 'A single blog post \u2014 listed at /blogs, detailed at /blogs/:slug';
-    displayName: 'Articles / Insights (Blog)';
+    displayName: 'Blog';
     pluralName: 'blogs';
     singularName: 'blog';
   };
@@ -487,181 +487,6 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiCaseStudyPageCaseStudyPage extends Struct.SingleTypeSchema {
-  collectionName: 'case_study_page';
-  info: {
-    description: "Every piece of template-level text/media on /case-study (Figma node 1023:45614) and the shared section chrome on /case-study/[slug] (Figma node 1107:49842) that is identical across every case study \u2014 section eyebrows, headings, body copy, the 'Our Approach'/'Testimonial'/'About Case Study' content on the listing page, and the 'Trusted by Global Businesses'/'Related Case Study'/bottom-CTA copy on the detail page. Per-case-study content (title, excerpt, category, cover photo, and every detail-page field like challengeHeading/approachSteps/faqItems) stays on api::case-study.case-study \u2014 this singleType is only the page furniture every case study shares, now CMS-editable instead of hardcoded in the frontend template, with node 1023:45614/1107:49842's own verbatim copy as the fallback when a field is empty.";
-    displayName: 'Case Studies Overview';
-    pluralName: 'case-study-pages';
-    singularName: 'case-study-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    aboutBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 800;
-      }>;
-    aboutEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    aboutHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    allLabel: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 40;
-      }>;
-    approachEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    approachHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    approachSteps: Schema.Attribute.Component<'industries.detail-card', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 4;
-        },
-        number
-      >;
-    bottomCtaAction: Schema.Attribute.Component<'shared.link', false>;
-    bottomCtaBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    bottomCtaHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    detailApproachEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    detailChallengeEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    detailChallengeNeedsLabel: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    detailFaqHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    detailImpactEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    detailRelatedBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    detailRelatedEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    detailRelatedHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    detailResearchQuestionEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    detailTrustHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    detailUncoveredEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    explorerBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    explorerEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    explorerHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    heroCta: Schema.Attribute.Component<'shared.link', false>;
-    heroEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    heroHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    heroImage: Schema.Attribute.Media<'images'>;
-    heroSubheading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    industriesLabel: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 40;
-      }>;
-    listingFaqHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    listingFaqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 10;
-        },
-        number
-      >;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::case-study-page.case-study-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    researchTypeLabel: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 40;
-      }>;
-    testimonials: Schema.Attribute.Component<
-      'case-study.testimonial-card',
-      true
-    > &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 3;
-        },
-        number
-      >;
-    testimonialsEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    testimonialsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
       }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -818,7 +643,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
     description: "A blog category \u2014 created, edited, and linked to any number of blog posts entirely from the Admin panel. Replaces the old fixed enum on api::blog.blog's `category` field.";
-    displayName: 'Article Categories';
+    displayName: 'Blog Categories';
     pluralName: 'categories';
     singularName: 'category';
   };
@@ -855,105 +680,6 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
-  collectionName: 'contact_pages';
-  info: {
-    description: "All editable content on /contact (Figma node 637:10433, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated singleType, not a `page` dynamiczone entry. The form's own fields (Name/Email/Phone/Company) are fixed UI chrome, never CMS content, same convention as every other lead form on this site.";
-    displayName: 'Contact Us';
-    pluralName: 'contact-pages';
-    singularName: 'contact-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 10;
-        },
-        number
-      >;
-    formEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    formHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    formImage: Schema.Attribute.Media<'images'>;
-    formSubheading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    heroCta: Schema.Attribute.Component<'shared.link', false>;
-    heroEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    heroHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    heroImage: Schema.Attribute.Media<'images'>;
-    heroSubheading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::contact-page.contact-page'
-    > &
-      Schema.Attribute.Private;
-    officeEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    officeHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    offices: Schema.Attribute.Component<'contact.office-location', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 6;
-        },
-        number
-      >;
-    publishedAt: Schema.Attribute.DateTime;
-    seo: Schema.Attribute.Component<'shared.seo', false>;
-    stats: Schema.Attribute.Component<'services.stat-item', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 4;
-        },
-        number
-      >;
-    statsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 120;
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    workWithUsBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    workWithUsCta: Schema.Attribute.Component<'shared.link', false>;
-    workWithUsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    workWithUsImage: Schema.Attribute.Media<'images'>;
   };
 }
 
@@ -1112,7 +838,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
   collectionName: 'industries';
   info: {
     description: 'A single industry vertical \u2014 listed at /industries, detailed at /industries/:slug';
-    displayName: 'Industries Served';
+    displayName: 'Industries';
     pluralName: 'industries';
     singularName: 'industry';
   };
@@ -1411,232 +1137,11 @@ export interface ApiJobApplicationJobApplication
   };
 }
 
-export interface ApiOurCompanyPageOurCompanyPage
-  extends Struct.SingleTypeSchema {
-  collectionName: 'our_company_pages';
-  info: {
-    description: "All editable content on /our-company (Figma node 617:7561, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated page, not the generic `page` dynamiczone. Latest Blogs, FAQ, and the bottom CTA reuse existing global content (blog posts, this singleType's own faqItems, and the site's shared bottom-CTA copy) rather than duplicating fields here.";
-    displayName: 'About Us / Our Company';
-    pluralName: 'our-company-pages';
-    singularName: 'our-company-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    aboutBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 2000;
-      }>;
-    aboutCompanyBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 2000;
-      }>;
-    aboutCompanyEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    aboutCompanyHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    aboutEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    aboutHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    aboutImage: Schema.Attribute.Media<'images'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    ecosystemCards: Schema.Attribute.Component<'industries.detail-card', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 4;
-        },
-        number
-      >;
-    ecosystemEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    ecosystemHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    ecosystemSubtext: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 10;
-        },
-        number
-      >;
-    heroCta: Schema.Attribute.Component<'shared.link', false>;
-    heroEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    heroHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    heroImage: Schema.Attribute.Media<'images'>;
-    heroSubheading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    industriesBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 400;
-      }>;
-    industriesCards: Schema.Attribute.Component<
-      'industries.detail-card',
-      true
-    > &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 8;
-        },
-        number
-      >;
-    industriesEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    industriesHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    insightsBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 400;
-      }>;
-    insightsCards: Schema.Attribute.Component<'industries.detail-card', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 4;
-        },
-        number
-      >;
-    insightsEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    insightsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::our-company-page.our-company-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    seo: Schema.Attribute.Component<'shared.seo', false>;
-    stats: Schema.Attribute.Component<'services.stat-item', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 4;
-        },
-        number
-      >;
-    statsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 120;
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    valuesBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 400;
-      }>;
-    valuesCards: Schema.Attribute.Component<'industries.detail-card', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 8;
-        },
-        number
-      >;
-    valuesEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    valuesHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-  };
-}
-
-export interface ApiOurTeamPageOurTeamPage extends Struct.SingleTypeSchema {
-  collectionName: 'our_team_page';
-  info: {
-    description: "/our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Every attribute maps 1:1 to a node actually drawn on this canvas, in top-to-bottom order \u2014 hero (eyebrow/heading/subheading/image), the 'People. Expertise. Impact.' heading above the member grid, and the bottom CTA band. The member cards themselves live on api::team-member.team-member, not here.";
-    displayName: 'Our Team';
-    pluralName: 'our-team-pages';
-    singularName: 'our-team-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    bottomCtaAction: Schema.Attribute.Component<'shared.link', false>;
-    bottomCtaBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    bottomCtaHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    heroEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 40;
-      }>;
-    heroHeading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    heroImage: Schema.Attribute.Media<'images'>;
-    heroSubheading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::our-team-page.our-team-page'
-    > &
-      Schema.Attribute.Private;
-    membersHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 120;
-      }>;
-    publishedAt: Schema.Attribute.DateTime;
-    seo: Schema.Attribute.Component<'shared.seo', false>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
     description: 'Any routable page \u2014 home, about, or a nested section like services/cloud';
-    displayName: 'Custom Generic Pages';
+    displayName: 'Pages';
     pluralName: 'pages';
     singularName: 'page';
   };
@@ -1647,18 +1152,24 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     blocks: Schema.Attribute.DynamicZone<
       [
         'blocks.hero',
+        'blocks.service-band',
+        'blocks.stats-band',
+        'blocks.industry-grid',
         'blocks.content',
+        'blocks.media-gallery',
+        'blocks.blog-teaser',
+        'blocks.faq',
+        'blocks.cta',
         'blocks.feature-grid',
         'blocks.testimonials',
-        'blocks.cta',
-        'blocks.stats-band',
-        'blocks.service-band',
-        'blocks.industry-grid',
-        'blocks.media-gallery',
-        'blocks.faq',
-        'blocks.blog-teaser',
         'blocks.why-choose-us',
         'blocks.process-steps',
+        'page-content.our-company',
+        'page-content.work-with-us',
+        'page-content.case-study',
+        'page-content.contact',
+        'page-content.our-team',
+        'page-content.privacy-policy',
       ]
     > &
       Schema.Attribute.Required &
@@ -1684,146 +1195,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiPrivacyPolicyPagePrivacyPolicyPage
-  extends Struct.SingleTypeSchema {
-  collectionName: 'privacy_policy_page';
-  info: {
-    description: "/privacy-policy (Figma node 1114:50556, file foaJFuv0vRX8nD43o0ylgB). Every attribute below maps 1:1 to a node that is actually drawn in 1114:50556, in the exact top-to-bottom sequence it appears on the canvas \u2014 hero, breadcrumb (global pattern, not stored here), the 'This Privacy Policy Defines and Regulates:' table of contents, then every clause heading/body/list the node draws body copy for. The node's own table of contents lists 12 entries, but only the first 2 (What qualifies as Personal Data / Lawful Collection and Use of Personal Data, the latter with 3 bold sub-headings) have body copy actually drawn beneath them \u2014 the remaining 10 TOC entries render as plain (non-scrolling-to-anything) list items, exactly as drawn, per the zero-invention rule: no body content is fabricated for a TOC entry the node itself never gives body copy to.";
-    displayName: 'Privacy Policy';
-    pluralName: 'privacy-policy-pages';
-    singularName: 'privacy-policy-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    heroEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 40;
-      }>;
-    heroHeading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    heroImage: Schema.Attribute.Media<'images'>;
-    heroSubheading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    introBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 2000;
-      }>;
-    lawfulBasisIntro: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 600;
-      }>;
-    lawfulBasisList: Schema.Attribute.Component<
-      'privacy-policy.list-item',
-      true
-    > &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 10;
-        },
-        number
-      >;
-    lawfulClosing: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    lawfulHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    lawfulIntro: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    lawfulPurposesList: Schema.Attribute.Component<
-      'privacy-policy.list-item',
-      true
-    > &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 20;
-        },
-        number
-      >;
-    legalBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 800;
-      }>;
-    legalHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::privacy-policy-page.privacy-policy-page'
-    > &
-      Schema.Attribute.Private;
-    panelClosing: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 600;
-      }>;
-    panelDataSourcesList: Schema.Attribute.Component<
-      'privacy-policy.list-item',
-      true
-    > &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 10;
-        },
-        number
-      >;
-    panelHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    panelIntro: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 800;
-      }>;
-    publishedAt: Schema.Attribute.DateTime;
-    qualifiesBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    qualifiesHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    registrationBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 800;
-      }>;
-    registrationHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    seo: Schema.Attribute.Component<'shared.seo', false>;
-    tocHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    tocItems: Schema.Attribute.Component<'privacy-policy.toc-item', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 20;
-        },
-        number
-      >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2038,72 +1409,6 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiServicesPageServicesPage extends Struct.SingleTypeSchema {
-  collectionName: 'services_pages';
-  info: {
-    description: 'All editable content on /services (hero, intro, value props, research process, FAQ, CTA) \u2014 the category grid itself stays sourced from the `service` hierarchy, not this single type.';
-    displayName: 'Services Overview';
-    pluralName: 'services-pages';
-    singularName: 'services-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    cta: Schema.Attribute.Component<'blocks.cta', false>;
-    faq: Schema.Attribute.Component<'blocks.faq', false>;
-    hero: Schema.Attribute.Component<'blocks.hero', false>;
-    introEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    introHeading: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    introParagraph1: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 800;
-      }>;
-    introParagraph2: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 800;
-      }>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::services-page.services-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    valueProps: Schema.Attribute.Component<'blocks.feature-item', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 8;
-          min: 1;
-        },
-        number
-      >;
-    valuePropsBackground: Schema.Attribute.Media<'images'>;
-    valuePropsBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 400;
-      }>;
-    valuePropsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 120;
-      }>;
-    workflow: Schema.Attribute.Component<'blocks.process-steps', false>;
-  };
-}
-
 export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
   collectionName: 'team_members';
   info: {
@@ -2202,166 +1507,6 @@ export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiWorkWithUsPageWorkWithUsPage
-  extends Struct.SingleTypeSchema {
-  collectionName: 'work_with_us_pages';
-  info: {
-    description: "All editable content on /work-with-us (Figma node 924:23216, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated singleType. The bottom CTA reuses the same sitewide 'Start Your Research Journey' copy every other page reuses, so it has no fields here.";
-    displayName: 'Careers (Work With Us)';
-    pluralName: 'work-with-us-pages';
-    singularName: 'work-with-us-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    aboutCareersBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 800;
-      }>;
-    aboutCareersEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    aboutCareersHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    benefits: Schema.Attribute.Component<'industries.detail-card', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 8;
-        },
-        number
-      >;
-    benefitsBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    benefitsEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    benefitsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    benefitsImage: Schema.Attribute.Media<'images'>;
-    benefitsLabel: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 40;
-      }>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    disclaimerBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 2000;
-      }>;
-    disclaimerHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 10;
-        },
-        number
-      >;
-    heroCta: Schema.Attribute.Component<'shared.link', false>;
-    heroEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    heroHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    heroImage: Schema.Attribute.Media<'images'>;
-    heroSubheading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    jobs: Schema.Attribute.Component<'work-with-us.job-listing', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 20;
-        },
-        number
-      >;
-    jobsBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    jobsEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    jobsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    joinUsBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 800;
-      }>;
-    joinUsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    journeyBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    journeyEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    journeyHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    journeySteps: Schema.Attribute.Component<'industries.detail-card', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 6;
-        },
-        number
-      >;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::work-with-us-page.work-with-us-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    seo: Schema.Attribute.Component<'shared.seo', false>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    valuesBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    valuesCards: Schema.Attribute.Component<'industries.detail-card', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 8;
-        },
-        number
-      >;
-    valuesEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    valuesHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
   };
 }
 
@@ -2877,24 +2022,17 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
-      'api::case-study-page.case-study-page': ApiCaseStudyPageCaseStudyPage;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::category.category': ApiCategoryCategory;
-      'api::contact-page.contact-page': ApiContactPageContactPage;
       'api::contact-submission.contact-submission': ApiContactSubmissionContactSubmission;
       'api::gallery-item.gallery-item': ApiGalleryItemGalleryItem;
       'api::global.global': ApiGlobalGlobal;
       'api::industry.industry': ApiIndustryIndustry;
       'api::job-application.job-application': ApiJobApplicationJobApplication;
-      'api::our-company-page.our-company-page': ApiOurCompanyPageOurCompanyPage;
-      'api::our-team-page.our-team-page': ApiOurTeamPageOurTeamPage;
       'api::page.page': ApiPagePage;
-      'api::privacy-policy-page.privacy-policy-page': ApiPrivacyPolicyPagePrivacyPolicyPage;
       'api::service.service': ApiServiceService;
-      'api::services-page.services-page': ApiServicesPageServicesPage;
       'api::team-member.team-member': ApiTeamMemberTeamMember;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
-      'api::work-with-us-page.work-with-us-page': ApiWorkWithUsPageWorkWithUsPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

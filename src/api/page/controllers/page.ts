@@ -3,6 +3,17 @@ import { buildPagePopulate } from '../services/page';
 
 export default factories.createCoreController('api::page.page', ({ strapi }) => ({
   /**
+   * GET /pages?filters[slug][$eq]=home — core list, but the deep populate
+   * is forced server-side (Strapi v5 has no native `populate=deep`, and a
+   * caller-supplied populate is never trusted). Filters, sort and
+   * pagination from the query string still apply.
+   */
+  async find(ctx) {
+    ctx.query = { ...ctx.query, populate: buildPagePopulate() as any };
+    return super.find(ctx);
+  },
+
+  /**
    * GET /pages/slug/:slug — deep-populated, draft-aware single-entry
    * lookup by slug. Registered before the core router's routes (see
    * routes/page.ts) so it isn't swallowed by GET /pages/:id.

@@ -283,14 +283,76 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
         media: images.heroPhoto,
         mediaAlignment: 'background',
         actions: [{ label: 'Discover the unimrkt', href: '/about', isExternal: false, variant: 'primary' }],
+        // Each row drives the hero's left-hand copy while selected. Figma
+        // (267:1238) only shows the default state — "Competitive
+        // Intelligence" below carries the exact Figma copy; the other six
+        // rows' tag / headline / description / CTA are authored placeholders
+        // for the client to review.
         sideMenu: [
-          { label: 'Online Bulletin Board', href: '/services' },
-          { label: 'Intercept Interview', href: '/services' },
-          { label: 'Country Research', href: '/services' },
-          { label: 'Competitive Intelligence', href: '/services', isActive: true },
-          { label: 'Survey programming', href: '/services' },
-          { label: 'In-Depth Interview', href: '/services' },
-          { label: 'Telephonic Interview', href: '/services' },
+          {
+            label: 'Online Bulletin Board',
+            href: '/services',
+            tag: 'Qualitative Research',
+            headline: 'Online Bulletin Boards for Deeper Conversations',
+            description:
+              'Multi-day moderated discussions that let participants respond in their own time, surfacing richer, more considered insights.',
+            ctaLabel: 'Explore Bulletin Boards',
+          },
+          {
+            label: 'Intercept Interview',
+            href: '/services',
+            tag: 'Primary Research',
+            headline: 'Intercept Interviews, Straight from the Moment',
+            description:
+              'Capture honest, in-the-moment feedback from real customers at the point of purchase, event or service touchpoint.',
+            ctaLabel: 'Explore Intercept Interviews',
+          },
+          {
+            label: 'Country Research',
+            href: '/services',
+            tag: 'Global Research',
+            headline: 'Country Research Built on Local Understanding',
+            description:
+              'Market-by-market studies across 90+ countries and 22+ languages, designed and fielded by teams who know the local context.',
+            ctaLabel: 'Explore Country Research',
+          },
+          {
+            label: 'Competitive Intelligence',
+            href: '/about',
+            isActive: true,
+            tag: 'Market Intelligence',
+            headline: 'Structured Market Data for Unprecedented Clarity',
+            description:
+              'Delivering structured market data enabling organizations to gain complete clarity into market dynamics, minimize risks, and uncover new opportunities.',
+            ctaLabel: 'Discover the unimrkt',
+          },
+          {
+            label: 'Survey programming',
+            href: '/services',
+            tag: 'Quantitative Research',
+            headline: 'Survey Programming That Works on Every Screen',
+            description:
+              'Expert scripting, logic and quality checks for web, mobile and CATI surveys, so your data arrives clean and field-ready.',
+            ctaLabel: 'Explore Survey Programming',
+          },
+          {
+            label: 'In-Depth Interview',
+            href: '/services',
+            tag: 'Qualitative Research',
+            headline: 'In-Depth Interviews That Uncover the Why',
+            description:
+              'One-to-one conversations with executives and consumers that go beyond the numbers to the motivations behind behavior.',
+            ctaLabel: 'Explore In-Depth Interviews',
+          },
+          {
+            label: 'Telephonic Interview',
+            href: '/services',
+            tag: 'CATI Research',
+            headline: 'Telephonic Interviews at National Scale',
+            description:
+              '500+ CATI workstations and skilled interviewers deliver high-volume, quality-controlled telephone research nationwide.',
+            ctaLabel: 'Explore Telephonic Interviews',
+          },
         ],
         theme: 'dark',
       },
@@ -346,11 +408,26 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
       {
         __component: 'blocks.stats-band',
         items: [
-          { value: '250000+', label: 'Surveys Completed Annually' },
-          // inferred label — not named on the Figma canvas; every other
-          // figure ties directly to the "About Unimrkt" body copy above.
-          { value: '450+', label: 'Global Clients' },
-          { value: '16+ Years', label: 'Of Research Excellence' },
+          // Copy + photos from Figma 268:3667 ("Component 178") — the three
+          // expanded variants shown on hover/tap.
+          {
+            value: '250000+',
+            label: 'CATI Surveys Completed Every Year',
+            description: 'Delivering reliable insights through 250,000+ CATI surveys conducted annually across global markets.',
+            image: images.statCatiSurveys,
+          },
+          {
+            value: '450+',
+            label: 'CATI Stations',
+            description: 'Advanced CATI infrastructure supporting reliable telephone surveys across global markets.',
+            image: images.statCatiStations,
+          },
+          {
+            value: '16+ Years',
+            label: 'Of Experience',
+            description: 'Delivering trusted research excellence for over 16 years.',
+            image: images.statExperience,
+          },
         ],
         theme: 'light',
       },
@@ -374,10 +451,10 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
         // Every real card uses the same accent color — there is no
         // per-industry palette on the source canvas.
         items: [
-          { title: 'Healthcare & Life Sciences', image: images.industryHealthcare, accentColor: '#7f3856' },
-          { title: 'Banking & Financial Services', image: images.industryBanking, accentColor: '#7f3856' },
-          { title: 'Retail & Consumer Goods', image: images.industryRetail, accentColor: '#7f3856' },
-          { title: 'Automotive & Mobility', image: images.industryAutomotive, accentColor: '#7f3856' },
+          { title: 'Healthcare & Life Sciences', description: 'Evidence-led research for providers, pharma, and patients to guide care and innovation.', image: images.industryHealthcare, accentColor: '#7f3856' },
+          { title: 'Banking & Financial Services', description: 'Insights on customers, products, and trust to sharpen strategy across banking and finance.', image: images.industryBanking, accentColor: '#7f3856' },
+          { title: 'Retail & Consumer Goods', description: 'Understand shoppers, brands, and channels to win in fast-moving consumer markets.', image: images.industryRetail, accentColor: '#7f3856' },
+          { title: 'Automotive & Mobility', description: 'Research on buyers, technology, and mobility trends to steer product and market decisions.', image: images.industryAutomotive, accentColor: '#7f3856' },
         ],
       },
       {
@@ -400,7 +477,7 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
         heading: 'Moments of Excellence',
         subheading:
           'Showcasing the expertise, innovation, and dedication behind every research project and client success story.',
-        actions: [{ label: 'Browse Gallery', href: '/#gallery', isExternal: false, variant: 'secondary' }],
+        actions: [{ label: 'Browse Gallery', href: '/#gallery', isExternal: false, variant: 'primary' }],
         // The two `large` items show the play-button overlay purely from
         // `size` — no `videoUrl` here on purpose. No real embedded video
         // exists anywhere in the source assets; shipping a fabricated
@@ -491,7 +568,12 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
       {
         __component: 'blocks.content',
         heading: 'Global Research, Local Understanding',
-        body: 'At Unimrkt Research, we empower organizations with reliable market intelligence, actionable insights, and data-driven strategies that support confident decision-making. Since 2009, we have been helping businesses across industries uncover opportunities, understand consumer behavior, and navigate evolving market landscapes through comprehensive research solutions. With a strong global presence across 90+ countries and 22+ languages, we combine worldwide research capabilities with deep local expertise to deliver accurate, relevant, and impactful insights. Our services span qualitative and quantitative research, CATI surveys, business research, global panel solutions, data analytics, and end-to-end research support. Backed by 16+ years of research excellence, 500+ CATI workstations, and 250,000+ surveys completed annually, we are committed to delivering high-quality data and meaningful intelligence that drive growth, innovation, and business success.',
+        // Figma 267:1262 — three paragraphs separated by a blank line.
+        body: [
+          'At Unimrkt Research, we empower organizations with reliable market intelligence, actionable insights, and data-driven strategies that support confident decision-making. Since 2009, we have been helping businesses across industries uncover opportunities, understand consumer behavior, and navigate evolving market landscapes through comprehensive research solutions.',
+          'With a strong global presence across 90+ countries and 22+ languages, we combine worldwide research capabilities with deep local expertise to deliver accurate, relevant, and impactful insights. Our services span qualitative and quantitative research, CATI surveys, business research, global panel solutions, data analytics, and end-to-end research support.',
+          'Backed by 16+ years of research excellence, 500+ CATI workstations, and 250,000+ surveys completed annually, we are committed to delivering high-quality data and meaningful intelligence that drive growth, innovation, and business success. By transforming complex information into clear strategic direction, we help organizations make smarter decisions and achieve lasting impact in competitive markets.',
+        ].join('\n\n'),
         mediaAlignment: 'none',
         theme: 'light',
       },
@@ -499,13 +581,13 @@ async function upsertHomePage(strapi: any, images: Record<string, number | null>
         __component: 'blocks.cta',
         heading: 'Global Research Panel',
         body: 'Access a diverse network of verified respondents across multiple countries, demographics, and industries, enabling reliable market research, faster data collection, and meaningful insights at a global scale.',
-        actions: [{ label: 'Explore Our Global Panel', href: '/#global-panel', isExternal: false, variant: 'primary' }],
-        background: images.momentsLarge,
+        actions: [{ label: 'Explore Our Global Panel', href: '/#global-panel', isExternal: false, variant: 'secondary' }],
+        background: images.globalPanelBg,
         theme: 'dark',
         // Custom solid navy for this one CTA — the `theme: 'dark'` preset
         // above (bg-ink-900) is shared by every other dark section
         // site-wide, so this overrides just this instance's background.
-        backgroundColor: '#0B132B',
+        backgroundColor: '#0b0c0e',
       },
     ],
   };
@@ -543,6 +625,33 @@ async function upsertAboutPage(strapi: any) {
   };
 
   return upsertBySlug(strapi, 'api::page.page', 'about', data);
+}
+
+/**
+ * Site-section pages as ordinary `page` entries. Dedicated Figma-matched
+ * routes (e.g. /contact, /privacy-policy) still win over the catch-all in
+ * Next, so those two entries are API-addressable placeholders until their
+ * layouts are rebuilt as blocks.
+ */
+const SITE_PAGES: Array<{ slug: string; title: string; eyebrow: string; heading: string; subheading: string; body: string; metaDescription: string }> = [
+  { slug: 'blog', title: 'Blog', eyebrow: 'Blog', heading: 'Insights from our researchers', subheading: 'Perspectives on markets, methods and data.', body: 'Articles and commentary from the Unimrkt Research team.', metaDescription: 'The Unimrkt Research blog. Market research insights, methodology and expertise you can rely on.' },
+  { slug: 'terms-and-conditions', title: 'Terms & Conditions', eyebrow: 'Legal', heading: 'Terms & Conditions', subheading: 'The terms governing use of this site.', body: 'By using this site you agree to the terms set out on this page.', metaDescription: 'Unimrkt Research terms and conditions. Market research insights, methodology and expertise you can rely on.' },
+];
+
+async function upsertSitePages(strapi: any) {
+  for (const p of SITE_PAGES) {
+    // eslint-disable-next-line no-await-in-loop -- sequential for readable seed logs
+    await upsertBySlug(strapi, 'api::page.page', p.slug, {
+      title: p.title,
+      slug: p.slug,
+      seo: { metaTitle: `${p.title} — Unimrkt Research`, metaDescription: p.metaDescription },
+      blocks: [
+        { __component: 'blocks.hero', eyebrow: p.eyebrow, heading: p.heading, subheading: p.subheading, mediaAlignment: 'below', theme: 'light' },
+        { __component: 'blocks.content', heading: p.title, body: p.body, mediaAlignment: 'none', theme: 'light' },
+      ],
+    });
+  }
+  strapi.log.info(`[seed] Site pages: ${SITE_PAGES.length} upserted and published.`);
 }
 
 /**
@@ -2898,172 +3007,6 @@ async function upsertWhyChooseUsPage(strapi: any) {
 }
 
 // ---------------------------------------------------------------------------
-// 12. Services Page settings (singleType) — every hardcoded string in
-//     Frontend/views/services/ServiceListingView.tsx and its child
-//     components, moved into Strapi. The category grid itself stays
-//     sourced from the `service` hierarchy (getServiceTree()), not this
-//     single type — there's nothing to duplicate there.
-// ---------------------------------------------------------------------------
-
-const SERVICES_PAGE_VALUE_PROPS = [
-  { title: 'Research Excellence', description: '', iconIdentifier: 'trophy', statValue: '16+ Years', statLabel: 'of Research Excellence', order: 0 },
-  { title: 'Countries Covered', description: '', iconIdentifier: 'global', statValue: '90+ Countries', statLabel: 'Covered', order: 1 },
-  { title: 'Languages Supported', description: '', iconIdentifier: 'languages', statValue: '22+ Languages', statLabel: 'Supported', order: 2 },
-  { title: 'Research Professionals', description: '', iconIdentifier: 'users', statValue: 'Experienced', statLabel: 'Research Professionals', order: 3 },
-  { title: 'Research Solutions', description: '', iconIdentifier: 'box', statValue: 'Customized', statLabel: 'Research Solutions', order: 4 },
-  { title: 'Actionable Insights', description: '', iconIdentifier: 'shield-check', statValue: 'Accurate', statLabel: '& Actionable Insights', order: 5 },
-];
-
-const SERVICES_PAGE_WORKFLOW_STEPS = [
-  {
-    stepNumber: '01',
-    title: 'Discover Your Objectives',
-    description: 'Aligning research goals, target audience, and business context to establish clear project milestones.',
-    iconIdentifier: 'inspection',
-    imageFilename: 'process-clipboard-tick.svg',
-    order: 0,
-  },
-  {
-    stepNumber: '02',
-    title: 'Design the Research',
-    description: 'Carefully designing research methodologies to deliver reliable, actionable, and impactful results.',
-    iconIdentifier: 'discovery',
-    imageFilename: 'process-brush.svg',
-    order: 1,
-  },
-  {
-    stepNumber: '03',
-    title: 'Collect Quality Data',
-    description: 'Gathering accurate, reliable data from trusted sources for meaningful business insights.',
-    iconIdentifier: 'decode',
-    imageFilename: 'process-presentation-chart.svg',
-    order: 2,
-  },
-  {
-    stepNumber: '04',
-    title: 'Analyze & Validate',
-    description: 'Transforming raw data into accurate, validated insights for confident business decisions.',
-    iconIdentifier: 'timing',
-    imageFilename: 'process-chart.svg',
-    order: 3,
-  },
-];
-
-const SERVICES_PAGE_FAQ_ITEMS = [
-  {
-    question: 'What services does Unimrkt Research provide?',
-    answer:
-      'Unimrkt Research provides comprehensive qualitative and quantitative research, secondary research, CATI, CAWI, and online global panel services across B2B and B2C sectors.',
-  },
-  {
-    question: 'How do I choose the right research service for my project?',
-    answer:
-      'Our team collaborates directly with you to understand your objectives, timelines, and budget, designing a bespoke methodology tailored to your market.',
-  },
-  {
-    question: 'Can Unimrkt Research handle global and multi-country research projects?',
-    answer:
-      'Yes, we possess on-the-ground reach and vetted panel infrastructure across 110+ markets in North America, Europe, APAC, LATAM, and the Middle East.',
-  },
-  {
-    question: 'Which industries do you serve?',
-    answer: 'We serve Healthcare & Life Sciences, Technology, BFSI, Automotive, Consumer Goods (FMCG), and Industrial Manufacturing.',
-  },
-  {
-    question: 'Why choose Unimrkt Research as your research partner?',
-    answer:
-      'With 16+ years of operational excellence, ISO-compliant quality checks, and proprietary panel verification, we ensure clean, decision-ready data.',
-  },
-];
-
-async function upsertServicesPageSettings(strapi: any) {
-  const uid = 'api::services-page.services-page';
-
-  const heroImageId = await uploadAsset(strapi, 'hero-photo.jpg');
-  const valuePropsBackgroundId = await uploadAsset(strapi, 'industry-cityscape.jpg');
-  const faqBackgroundId = await uploadAsset(strapi, 'worldmap-mask.svg');
-  const ctaBackgroundId = await uploadAsset(strapi, 'blog-photo.jpg');
-
-  const valueProps = [];
-  for (const prop of SERVICES_PAGE_VALUE_PROPS) {
-    valueProps.push({
-      title: prop.title,
-      description: prop.description,
-      iconIdentifier: prop.iconIdentifier,
-      statValue: prop.statValue,
-      statLabel: prop.statLabel,
-      order: prop.order,
-    });
-  }
-
-  const workflowSteps = [];
-  for (const step of SERVICES_PAGE_WORKFLOW_STEPS) {
-    // eslint-disable-next-line no-await-in-loop
-    const iconId = await uploadAsset(strapi, step.imageFilename);
-    workflowSteps.push({
-      stepNumber: step.stepNumber,
-      title: step.title,
-      description: step.description,
-      iconIdentifier: step.iconIdentifier,
-      icon: iconId,
-      order: step.order,
-    });
-  }
-
-  const data = {
-    hero: {
-      eyebrow: 'OUR SERVICES',
-      heading: 'Research Solutions That Drive Business Growth',
-      subheading:
-        'Helping organizations transform data into actionable insights through comprehensive market research and business intelligence.',
-      media: heroImageId,
-      mediaAlignment: 'background',
-      actions: [
-        { label: 'Get a Free Quote', href: '/contact', isExternal: false, variant: 'primary' },
-        { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' },
-      ],
-    },
-    introEyebrow: 'ABOUT OUR SERVICES',
-    introHeading: 'Comprehensive Research Solutions For Smarter Business Decisions',
-    introParagraph1:
-      'At Unimrkt Research, we provide end-to-end market research services that empower businesses with accurate data, actionable insights, and strategic intelligence. From primary data collection and qualitative research to quantitative studies, business research, and research support functions, our tailored solutions help organizations understand markets, customers, and emerging opportunities.',
-    introParagraph2:
-      "Backed by experienced researchers, advanced methodologies, and global capabilities, we deliver reliable research solutions across diverse industries. Whether you're launching a new product, evaluating market opportunities, or strengthening your competitive position, Unimrkt Research provides the insights you need to make confident, data-driven decisions and achieve sustainable growth.",
-    valuePropsHeading: 'Why Choose Unimrkt?',
-    valuePropsBody:
-      'With 16+ years of expertise, global research capabilities, advanced methodologies, and trusted data quality, Unimrkt delivers accurate insights that empower smarter business decisions and sustainable growth.',
-    valuePropsBackground: valuePropsBackgroundId,
-    valueProps,
-    workflow: {
-      eyebrow: 'WORKFLOW',
-      heading: 'Research Process',
-      subheading:
-        'Our proven research process combines strategic planning, precise data collection, rigorous analysis, and actionable reporting to deliver reliable insights that support confident business decisions and measurable growth.',
-      steps: workflowSteps,
-    },
-    faq: {
-      heading: 'Frequently Asked Questions',
-      background: faqBackgroundId,
-      items: SERVICES_PAGE_FAQ_ITEMS,
-    },
-    cta: {
-      heading: 'Start Your Research Journey',
-      body: 'Partner with Unimrkt Research to uncover actionable market intelligence, understand your industry, and make confident business decisions.',
-      actions: [{ label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' }],
-      background: ctaBackgroundId,
-    },
-  };
-
-  const existing = await strapi.documents(uid).findFirst({});
-  const doc = existing
-    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
-    : await strapi.documents(uid).create({ data });
-  await strapi.documents(uid).publish({ documentId: doc.documentId });
-  strapi.log.info('[seed] Services page settings: upserted and published (hero, intro, 6 value props, 4 workflow steps, 5 FAQ items, CTA).');
-  return doc;
-}
-
-// ---------------------------------------------------------------------------
 // 13. Our Company page (/our-company, Figma node 617:7561, file
 //     foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType, not a `page`
 //     dynamiczone entry (see the plan's own architecture note). Every
@@ -3138,8 +3081,22 @@ const OUR_COMPANY_FAQ_ITEMS = [
   { question: 'How is Unimrkt Research different from other research firms?', answer: 'We combine global reach, deep category expertise, robust methodologies, and advanced data collection capabilities to turn complex data into insights businesses can act on with confidence.' },
 ];
 
+/**
+ * Dedicated pages (About Us, Contact, Careers, Case Studies) are `page`
+ * entries holding a single `page-content.*` block that carries the
+ * page's full field set. Upserts by slug and publishes.
+ */
+async function upsertPageContent(strapi: any, slug: string, title: string, component: string, content: Record<string, unknown>) {
+  const { seo } = content as { seo?: Record<string, unknown> };
+  return upsertBySlug(strapi, 'api::page.page', slug, {
+    title,
+    slug,
+    ...(seo ? { seo } : {}),
+    blocks: [{ __component: component, ...content }],
+  });
+}
+
 async function upsertOurCompanyPageSettings(strapi: any) {
-  const uid = 'api::our-company-page.our-company-page';
 
   const heroImageId = await uploadAsset(strapi, 'our-company-hero-bg.jpg');
   const aboutImageId = await uploadAsset(strapi, 'our-company-about-founding.jpg');
@@ -3201,25 +3158,9 @@ async function upsertOurCompanyPageSettings(strapi: any) {
     },
   };
 
-  const existing = await strapi.documents(uid).findFirst({});
-  const doc = existing
-    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
-    : await strapi.documents(uid).create({ data });
-  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  const doc = await upsertPageContent(strapi, 'about-us', 'About Us', 'page-content.our-company', data);
   strapi.log.info('[seed] Our Company page: upserted and published (hero, stats, about, insights, ecosystem, values, industries, FAQ, about company).');
   return doc;
-}
-
-/** Deletes the stale generic `page.page` row that used to live at the
- * `our-company` slug (5 Google-Sheet-migration blocks, none of it real
- * Figma content) now that /our-company is a dedicated route backed by
- * api::our-company-page — see the comment above ABOUT_CONTACT_SUBPAGES. */
-async function deleteStaleOurCompanyGenericPage(strapi: any) {
-  const existing = await strapi.documents('api::page.page').findFirst({ filters: { slug: 'our-company' } });
-  if (existing) {
-    await strapi.documents('api::page.page').delete({ documentId: existing.documentId });
-    strapi.log.info('[seed] Deleted stale generic page.page entry at slug "our-company" (superseded by api::our-company-page).');
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -3273,7 +3214,6 @@ const CONTACT_FAQ_ITEMS = [
 ];
 
 async function upsertContactPageSettings(strapi: any) {
-  const uid = 'api::contact-page.contact-page';
 
   const heroImageId = await uploadAsset(strapi, 'contact-hero-bg.jpg');
   const formImageId = await uploadAsset(strapi, 'contact-form-bg.jpg');
@@ -3328,11 +3268,7 @@ async function upsertContactPageSettings(strapi: any) {
     },
   };
 
-  const existing = await strapi.documents(uid).findFirst({});
-  const doc = existing
-    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
-    : await strapi.documents(uid).create({ data });
-  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  const doc = await upsertPageContent(strapi, 'contact', 'Contact Us', 'page-content.contact', data);
   strapi.log.info('[seed] Contact page: upserted and published (hero, stats, 3 offices, form, 5 FAQ items, Work With Unimrkt CTA).');
   return doc;
 }
@@ -3453,7 +3389,6 @@ const WORK_WITH_US_FAQ_ITEMS = [
 ];
 
 async function upsertWorkWithUsPageSettings(strapi: any) {
-  const uid = 'api::work-with-us-page.work-with-us-page';
 
   const heroImageId = await uploadAsset(strapi, 'wwu-hero-bg.jpg');
   const benefitsImageId = await uploadAsset(strapi, 'wwu-benefits-photo.jpg');
@@ -3500,25 +3435,9 @@ async function upsertWorkWithUsPageSettings(strapi: any) {
     },
   };
 
-  const existing = await strapi.documents(uid).findFirst({});
-  const doc = existing
-    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
-    : await strapi.documents(uid).create({ data });
-  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  const doc = await upsertPageContent(strapi, 'work-with-us', 'Careers (Work With Us)', 'page-content.work-with-us', data);
   strapi.log.info('[seed] Work With Us page: upserted and published (hero, values, benefits, 4 jobs, career journey, join us, disclaimer, 7 FAQ items, about careers).');
   return doc;
-}
-
-/** Deletes the stale generic `page.page` row that used to live at the
- * `work-with-us` slug (5 Google-Sheet-migration blocks, none of it real
- * Figma content) now that /work-with-us is a dedicated route backed by
- * api::work-with-us-page — see the comment above ABOUT_CONTACT_SUBPAGES. */
-async function deleteStaleWorkWithUsGenericPage(strapi: any) {
-  const existing = await strapi.documents('api::page.page').findFirst({ filters: { slug: 'work-with-us' } });
-  if (existing) {
-    await strapi.documents('api::page.page').delete({ documentId: existing.documentId });
-    strapi.log.info('[seed] Deleted stale generic page.page entry at slug "work-with-us" (superseded by api::work-with-us-page).');
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -3835,7 +3754,6 @@ const CASE_STUDY_PAGE_LISTING_FAQ_ITEMS = [
 ];
 
 async function upsertCaseStudyPageSettings(strapi: any) {
-  const uid = 'api::case-study-page.case-study-page';
 
   const heroImageId = await uploadAsset(strapi, 'cs-hero-bg.jpg');
 
@@ -3886,11 +3804,7 @@ async function upsertCaseStudyPageSettings(strapi: any) {
     bottomCtaAction: { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' },
   };
 
-  const existing = await strapi.documents(uid).findFirst({});
-  const doc = existing
-    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
-    : await strapi.documents(uid).create({ data });
-  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  const doc = await upsertPageContent(strapi, 'case-studies', 'Case Studies', 'page-content.case-study', data);
 
   strapi.log.info('[seed] Case Study page settings: upserted and published (hero, explorer labels, 4 approach steps, 3 testimonials, 7 listing FAQ items, about, detail-page section chrome, bottom CTA).');
 }
@@ -3952,7 +3866,6 @@ const PRIVACY_POLICY_PANEL_DATA_SOURCES_LIST = [
 ];
 
 async function upsertPrivacyPolicyPageSettings(strapi: any) {
-  const uid = 'api::privacy-policy-page.privacy-policy-page';
 
   const heroImageId = await uploadAsset(strapi, 'pp-hero-bg.jpg');
 
@@ -4000,11 +3913,7 @@ async function upsertPrivacyPolicyPageSettings(strapi: any) {
     legalBody: 'Unimrkt Research may be required to use and retain personal data for legal and compliance reasons, such as the prevention, detection, or investigation of a crime, loss prevention, fraud or any other abuse of their services and IT systems. Unimrkt Research may also use the User’s personal data to meet its internal and external audit requirements, information security purposes or to protect or enforce their rights of privacy, safety, or property, or those of other persons that may be encountered for the purposes set out or contractual or statutory requirements and their compliance.',
   };
 
-  const existing = await strapi.documents(uid).findFirst({});
-  const doc = existing
-    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
-    : await strapi.documents(uid).create({ data });
-  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  const doc = await upsertPageContent(strapi, 'privacy-policy', 'Privacy Policy', 'page-content.privacy-policy', data);
 
   strapi.log.info('[seed] Privacy Policy page settings: upserted and published (hero, intro, 12-item TOC, 2 body clauses with sub-sections and 3 lists).');
 }
@@ -4084,7 +3993,6 @@ async function upsertTeamMembers(strapi: any) {
 }
 
 async function upsertOurTeamPageSettings(strapi: any) {
-  const uid = 'api::our-team-page.our-team-page';
 
   const heroImageId = await uploadAsset(strapi, 'team-hero-bg.jpg');
 
@@ -4099,11 +4007,7 @@ async function upsertOurTeamPageSettings(strapi: any) {
     bottomCtaAction: { label: 'Talk to Our Experts', href: '/contact', isExternal: false, variant: 'secondary' },
   };
 
-  const existing = await strapi.documents(uid).findFirst({});
-  const doc = existing
-    ? await strapi.documents(uid).update({ documentId: existing.documentId, data })
-    : await strapi.documents(uid).create({ data });
-  await strapi.documents(uid).publish({ documentId: doc.documentId });
+  const doc = await upsertPageContent(strapi, 'our-team', 'Our Team', 'page-content.our-team', data);
 
   strapi.log.info('[seed] Our Team page settings: upserted and published (hero, members-grid heading, bottom CTA).');
 }
@@ -4116,8 +4020,6 @@ async function resetContent(strapi: any) {
   await strapi.db.query('api::industry.industry').deleteMany({});
   await strapi.db.query('api::gallery-item.gallery-item').deleteMany({});
   await strapi.db.query('api::blog.blog').deleteMany({});
-  await strapi.db.query('api::services-page.services-page').deleteMany({});
-  await strapi.db.query('api::our-company-page.our-company-page').deleteMany({});
   await strapi.db.query('api::global.global').deleteMany({});
 }
 
@@ -4133,13 +4035,22 @@ const IMAGE_FILENAMES = {
   // resized, compressed JPEGs (see backend/_optimize_assets.js).
   heroPhoto: 'hero-photo.jpg',
   momentsLarge: 'moments-large.jpg',
-  momentsSmall: 'moments-small.jpg',
+  // Figma 267:1463 "6013096_People_Person" — the Global Research Panel photo.
+  globalPanelBg: 'global-panel-bg.jpg',
+  // PNG on purpose: Figma's three cut-out people composite needs transparency
+  // (it sits over the section's wave texture).
+  momentsSmall: 'moments-small.png',
   servicesEarth: 'services-earth.jpg',
   industryHealthcare: 'industry-healthcare.jpg',
   industryBanking: 'industry-banking.jpg',
   industryRetail: 'industry-retail.jpg',
   industryAutomotive: 'industry-automotive.jpg',
   industryCityscape: 'industry-cityscape.jpg',
+  // Stats band hover photos (Figma 268:3724/3708/3691), pre-cropped to the
+  // 330.64x176 Figma mask window.
+  statCatiSurveys: 'stat-cati-surveys.jpg',
+  statCatiStations: 'stat-cati-stations.jpg',
+  statExperience: 'stat-experience.jpg',
   // Kept as PNG: line-art/texture (crisp edges, already small) and the
   // pin-marker illustration (transparency-adjacent, already small).
   faqWorldmap: 'faq-worldmap-bg.png',
@@ -4198,6 +4109,7 @@ async function main() {
     await upsertHomePage(app, images);
     await upsertAboutPage(app);
     await upsertNestedDemoPage(app);
+    await upsertSitePages(app);
 
     // 5. Service category hierarchy (Google Sheet IA migration) — the only
     //    content this seeds into `service` now; the 3 demo entries and the
@@ -4224,12 +4136,10 @@ async function main() {
     await upsertWhyChooseUsPage(app);
 
     // 12. Services page settings (/services hero/intro/value-props/workflow/FAQ/CTA).
-    await upsertServicesPageSettings(app);
 
     // 13. Our Company page (/our-company, Figma node 617:7561) — a
     //     dedicated page, replacing the generic page.page entry that used
     //     to live at this slug.
-    await deleteStaleOurCompanyGenericPage(app);
     await upsertOurCompanyPageSettings(app);
 
     // 14. Contact page (/contact, Figma node 637:10433).
@@ -4238,7 +4148,6 @@ async function main() {
     // 15. Work With Us page (/work-with-us, Figma node 924:23216) — a
     //     dedicated page, replacing the generic page.page entry that used
     //     to live at this slug.
-    await deleteStaleWorkWithUsGenericPage(app);
     await upsertWorkWithUsPageSettings(app);
 
     // 16. Case studies (/case-study, Figma node 1023:45614) — the

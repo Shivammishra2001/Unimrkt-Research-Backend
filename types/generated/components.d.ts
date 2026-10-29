@@ -110,7 +110,7 @@ export interface BlocksCta extends Struct.ComponentSchema {
         number
       >;
     anchorId: Schema.Attribute.String;
-    background: Schema.Attribute.Media<'images'>;
+    background: Schema.Attribute.Media<'images' | 'videos'>;
     backgroundColor: Schema.Attribute.String;
     body: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
@@ -305,7 +305,7 @@ export interface BlocksIndustryGrid extends Struct.ComponentSchema {
   };
   attributes: {
     anchorId: Schema.Attribute.String;
-    background: Schema.Attribute.Media<'images'>;
+    background: Schema.Attribute.Media<'images' | 'videos'>;
     cta: Schema.Attribute.Component<'shared.link', false>;
     heading: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -337,6 +337,10 @@ export interface BlocksIndustryItem extends Struct.ComponentSchema {
   attributes: {
     accentColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#7f3856'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -471,7 +475,7 @@ export interface BlocksServiceBand extends Struct.ComponentSchema {
   };
   attributes: {
     anchorId: Schema.Attribute.String;
-    background: Schema.Attribute.Media<'images'>;
+    background: Schema.Attribute.Media<'images' | 'videos'>;
     body: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 400;
@@ -500,14 +504,26 @@ export interface BlocksServiceBandItem extends Struct.ComponentSchema {
     icon: 'bulletList';
   };
   attributes: {
+    ctaLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
     description: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
+      }>;
+    headline: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
       }>;
     href: Schema.Attribute.String & Schema.Attribute.Required;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    tag: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
       }>;
@@ -521,6 +537,11 @@ export interface BlocksStatItem extends Struct.ComponentSchema {
     icon: 'chart-bubble';
   };
   attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 240;
+      }>;
+    image: Schema.Attribute.Media<'images'>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -731,6 +752,690 @@ export interface IndustriesTrustLogo extends Struct.ComponentSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
+      }>;
+  };
+}
+
+export interface PageContentCaseStudy extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_case_studys';
+  info: {
+    description: "Every piece of template-level text/media on /case-study (Figma node 1023:45614) and the shared section chrome on /case-study/[slug] (Figma node 1107:49842) that is identical across every case study \u2014 section eyebrows, headings, body copy, the 'Our Approach'/'Testimonial'/'About Case Study' content o";
+    displayName: 'Case Studies Overview';
+  };
+  attributes: {
+    aboutBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    aboutEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    aboutHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    allLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    approachEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    approachHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    approachSteps: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+        },
+        number
+      >;
+    bottomCtaAction: Schema.Attribute.Component<'shared.link', false>;
+    bottomCtaBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    bottomCtaHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    detailApproachEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    detailChallengeEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    detailChallengeNeedsLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    detailFaqHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    detailImpactEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    detailRelatedBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    detailRelatedEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    detailRelatedHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    detailResearchQuestionEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    detailTrustHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    detailUncoveredEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    explorerBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    explorerEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    explorerHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroCta: Schema.Attribute.Component<'shared.link', false>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    heroHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    industriesLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    listingFaqHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    listingFaqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    researchTypeLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    testimonials: Schema.Attribute.Component<
+      'case-study.testimonial-card',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+        },
+        number
+      >;
+    testimonialsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    testimonialsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+  };
+}
+
+export interface PageContentContact extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_contacts';
+  info: {
+    description: "All editable content on /contact (Figma node 637:10433, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated singleType, not a `page` dynamiczone entry. The form's own fields (Name/Email/Phone/Company) are fixed UI chrome, never CMS content, same convention as every other lead form on this site.";
+    displayName: 'Contact Us';
+  };
+  attributes: {
+    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    formEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    formHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    formImage: Schema.Attribute.Media<'images'>;
+    formSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    heroCta: Schema.Attribute.Component<'shared.link', false>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heroHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    officeEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    officeHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    offices: Schema.Attribute.Component<'contact.office-location', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    stats: Schema.Attribute.Component<'services.stat-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+        },
+        number
+      >;
+    statsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    workWithUsBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    workWithUsCta: Schema.Attribute.Component<'shared.link', false>;
+    workWithUsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    workWithUsImage: Schema.Attribute.Media<'images'>;
+  };
+}
+
+export interface PageContentOurCompany extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_our_companys';
+  info: {
+    description: "All editable content on /our-company (Figma node 617:7561, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated page, not the generic `page` dynamiczone. Latest Blogs, FAQ, and the bottom CTA reuse existing global content (blog posts, this singleType's own faqItems, and the site's shared bottom-CTA copy) rath";
+    displayName: 'About Us / Our Company';
+  };
+  attributes: {
+    aboutBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
+    aboutCompanyBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
+    aboutCompanyEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    aboutCompanyHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    aboutEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    aboutHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    aboutImage: Schema.Attribute.Media<'images'>;
+    ecosystemCards: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+        },
+        number
+      >;
+    ecosystemEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    ecosystemHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    ecosystemSubtext: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    heroCta: Schema.Attribute.Component<'shared.link', false>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heroHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    industriesBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    industriesCards: Schema.Attribute.Component<
+      'industries.detail-card',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
+    industriesEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    industriesHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    insightsBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    insightsCards: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+        },
+        number
+      >;
+    insightsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    insightsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    stats: Schema.Attribute.Component<'services.stat-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+        },
+        number
+      >;
+    statsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    valuesBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    valuesCards: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
+    valuesEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    valuesHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+  };
+}
+
+export interface PageContentOurTeam extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_our_teams';
+  info: {
+    description: "/our-team (Figma node 1126:54624, file foaJFuv0vRX8nD43o0ylgB). Every attribute maps 1:1 to a node actually drawn on this canvas, in top-to-bottom order \u2014 hero (eyebrow/heading/subheading/image), the 'People. Expertise. Impact.' heading above the member grid, and the bottom CTA band. The member card";
+    displayName: 'Our Team';
+  };
+  attributes: {
+    bottomCtaAction: Schema.Attribute.Component<'shared.link', false>;
+    bottomCtaBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    bottomCtaHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    heroHeading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    membersHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+  };
+}
+
+export interface PageContentPrivacyPolicy extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_privacy_policys';
+  info: {
+    description: "/privacy-policy (Figma node 1114:50556, file foaJFuv0vRX8nD43o0ylgB). Every attribute below maps 1:1 to a node that is actually drawn in 1114:50556, in the exact top-to-bottom sequence it appears on the canvas \u2014 hero, breadcrumb (global pattern, not stored here), the 'This Privacy Policy Defines and";
+    displayName: 'Privacy Policy';
+  };
+  attributes: {
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    heroHeading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    introBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
+    lawfulBasisIntro: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+    lawfulBasisList: Schema.Attribute.Component<
+      'privacy-policy.list-item',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    lawfulClosing: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    lawfulHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    lawfulIntro: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    lawfulPurposesList: Schema.Attribute.Component<
+      'privacy-policy.list-item',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+        },
+        number
+      >;
+    legalBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    legalHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    panelClosing: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+    panelDataSourcesList: Schema.Attribute.Component<
+      'privacy-policy.list-item',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    panelHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    panelIntro: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    qualifiesBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    qualifiesHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    registrationBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    registrationHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    tocHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    tocItems: Schema.Attribute.Component<'privacy-policy.toc-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+        },
+        number
+      >;
+  };
+}
+
+export interface PageContentWorkWithUs extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_work_with_uss';
+  info: {
+    description: "All editable content on /work-with-us (Figma node 924:23216, file foaJFuv0vRX8nD43o0ylgB) \u2014 a dedicated singleType. The bottom CTA reuses the same sitewide 'Start Your Research Journey' copy every other page reuses, so it has no fields here.";
+    displayName: 'Careers (Work With Us)';
+  };
+  attributes: {
+    aboutCareersBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    aboutCareersEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    aboutCareersHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    benefits: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
+    benefitsBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    benefitsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    benefitsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    benefitsImage: Schema.Attribute.Media<'images'>;
+    benefitsLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    disclaimerBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
+    disclaimerHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
+    heroCta: Schema.Attribute.Component<'shared.link', false>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heroHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    jobs: Schema.Attribute.Component<'work-with-us.job-listing', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+        },
+        number
+      >;
+    jobsBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    jobsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    jobsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    joinUsBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    joinUsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    journeyBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    journeyEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    journeyHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    journeySteps: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    valuesBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    valuesCards: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
+    valuesEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    valuesHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
       }>;
   };
 }
@@ -971,6 +1676,12 @@ declare module '@strapi/strapi' {
       'contact.office-location': ContactOfficeLocation;
       'industries.detail-card': IndustriesDetailCard;
       'industries.trust-logo': IndustriesTrustLogo;
+      'page-content.case-study': PageContentCaseStudy;
+      'page-content.contact': PageContentContact;
+      'page-content.our-company': PageContentOurCompany;
+      'page-content.our-team': PageContentOurTeam;
+      'page-content.privacy-policy': PageContentPrivacyPolicy;
+      'page-content.work-with-us': PageContentWorkWithUs;
       'privacy-policy.list-item': PrivacyPolicyListItem;
       'privacy-policy.toc-item': PrivacyPolicyTocItem;
       'services.stat-item': ServicesStatItem;

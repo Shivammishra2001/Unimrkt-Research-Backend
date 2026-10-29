@@ -28,6 +28,7 @@ import type { Core } from '@strapi/strapi';
  */
 const REQUIRED_PERMISSIONS: string[] = [
   'api::global.global.find',
+  'api::page.page.find',
   'api::page.page.findSlugs',
   'api::page.page.findBySlug',
   'api::service.service.find',
@@ -47,10 +48,6 @@ const REQUIRED_PERMISSIONS: string[] = [
   // the frontend always fetches the whole collection in one request.
   'api::gallery-item.gallery-item.find',
   'api::gallery-item.gallery-item.findOne',
-  // Services Page (singleType) — /services' hero/intro/value-props/
-  // workflow/FAQ/CTA copy, migrated off hardcoded JSX. Single types only
-  // ever expose `find` (there's exactly one record, no list/detail split).
-  'api::services-page.services-page.find',
   // Blog (/blogs page, Figma node 522:4719) — plain find (populate=* per
   // the frontend's controllers/blog.ts), findOne (core detail, harmless
   // to leave on), plus the custom slug-based lookups the frontend calls.
@@ -65,13 +62,6 @@ const REQUIRED_PERMISSIONS: string[] = [
   // on the frontend) is what lets the tab list itself be dynamic.
   'api::category.category.find',
   'api::category.category.findOne',
-  // Our Company Page (/our-company, Figma node 617:7561, file
-  // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType, not a `page`
-  // dynamiczone entry. Single types only ever expose `find`.
-  'api::our-company-page.our-company-page.find',
-  // Contact Page (/contact, Figma node 637:10433, file
-  // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType.
-  'api::contact-page.contact-page.find',
   // Contact Submission — the /contact form's lead-capture write target.
   // `create` only (see that content type's own routes.ts: find/findOne/
   // update/delete are never registered at all, so granting them here
@@ -79,9 +69,6 @@ const REQUIRED_PERMISSIONS: string[] = [
   // visitor can submit a lead but never read, list, or tamper with
   // anyone else's.
   'api::contact-submission.contact-submission.create',
-  // Work With Us Page (/work-with-us, Figma node 924:23216, file
-  // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType.
-  'api::work-with-us-page.work-with-us-page.find',
   // Job Application — the "Apply Now" modal's write target (Figma node
   // 924:23856). `create` only, same reasoning as Contact Submission.
   'api::job-application.job-application.create',
@@ -92,17 +79,9 @@ const REQUIRED_PERMISSIONS: string[] = [
   'api::case-study.case-study.findOne',
   'api::case-study.case-study.findBySlug',
   'api::case-study.case-study.findSlugs',
-  // Case Study Page settings — singleType holding the template-level
-  // copy shared across every case study (section eyebrows/headings,
-  // the listing page's Approach/Testimonials/About/FAQ content, the
-  // detail page's shared "Trusted by Global Businesses"/"Related Case
-  // Study"/bottom-CTA chrome). Read-only, same as every other *-page
-  // singleType.
-  'api::case-study-page.case-study-page.find',
   // Privacy Policy Page (/privacy-policy, Figma node 1114:50556, file
   // foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType. Read-only, same as
   // every other *-page singleType.
-  'api::privacy-policy-page.privacy-policy-page.find',
   // Team Member (/our-team, Figma node 1126:54624, file
   // foaJFuv0vRX8nD43o0ylgB) — the 19 member cards. Read-only.
   'api::team-member.team-member.find',
@@ -110,7 +89,6 @@ const REQUIRED_PERMISSIONS: string[] = [
   // Our Team Page settings — singleType holding this page's own hero/
   // section-heading/bottom-CTA chrome. Read-only, same as every other
   // *-page singleType.
-  'api::our-team-page.our-team-page.find',
 ];
 
 const ROLE_TYPES = ['public', 'authenticated'] as const;

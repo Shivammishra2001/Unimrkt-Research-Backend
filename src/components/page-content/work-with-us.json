@@ -1,16 +1,10 @@
 {
-  "kind": "singleType",
-  "collectionName": "work_with_us_pages",
+  "collectionName": "components_page_content_work_with_uss",
   "info": {
-    "singularName": "work-with-us-page",
-    "pluralName": "work-with-us-pages",
     "displayName": "Careers (Work With Us)",
     "description": "All editable content on /work-with-us (Figma node 924:23216, file foaJFuv0vRX8nD43o0ylgB) — a dedicated singleType. The bottom CTA reuses the same sitewide 'Start Your Research Journey' copy every other page reuses, so it has no fields here."
   },
-  "options": {
-    "draftAndPublish": true
-  },
-  "pluginOptions": {},
+  "options": {},
   "attributes": {
     "heroEyebrow": {
       "type": "string",
@@ -28,7 +22,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "heroCta": {
       "type": "component",
@@ -73,7 +69,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "benefits": {
       "type": "component",

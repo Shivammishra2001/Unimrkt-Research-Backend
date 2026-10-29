@@ -21,6 +21,18 @@
     "description": {
       "type": "text",
       "maxLength": 160
+    },
+    "tag": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "headline": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "ctaLabel": {
+      "type": "string",
+      "maxLength": 60
     }
   }
 }

@@ -6,7 +6,6 @@
  * frontend page:
  *   - api::industry.industry   (/industries/[slug])
  *   - api::service.service     (/services/[slug])
- *   - api::services-page.services-page  (/services listing)
  *   - api::global.global       (Navbar + Footer, on every page)
  *   - api::testimonial.testimonial (rendered wherever blocks.testimonials appears)
  *   - api::blog.blog           (/blogs/[slug] — already correctly ordered;
@@ -69,7 +68,6 @@ import { compileStrapi, createStrapi } from '@strapi/strapi';
 
 const INDUSTRY_UID = 'api::industry.industry';
 const SERVICE_UID = 'api::service.service';
-const SERVICES_PAGE_UID = 'api::services-page.services-page';
 const GLOBAL_UID = 'api::global.global';
 const TESTIMONIAL_UID = 'api::testimonial.testimonial';
 const BLOG_UID = 'api::blog.blog';
@@ -217,33 +215,6 @@ const SERVICE_FIELD_ORDER = [
   'aboutBody',
 ];
 
-// Order = exact top-to-bottom JSX render sequence of
-// Frontend/views/services/ServiceListingView.tsx. The category grid
-// itself is sourced from the `service` hierarchy, not this singleType,
-// so it has no fields here.
-const SERVICES_PAGE_FIELD_ORDER = [
-  // --- Hero band ---
-  'hero',
-  // (breadcrumb is static markup, no field)
-  // --- Intro heading + category grid header ---
-  'introEyebrow',
-  'introHeading',
-  'introParagraph1',
-  'introParagraph2',
-  // --- <ResearchProcessSection> (renders right after the grid, BEFORE
-  // the value-props band — this was the confirmed mismatch: schema.json
-  // had `workflow` declared after `valueProps*`) ---
-  'workflow',
-  // --- Value proposition / methodology band ---
-  'valuePropsHeading',
-  'valuePropsBody',
-  'valuePropsBackground',
-  'valueProps',
-  // --- <ServiceFaqAccordion> ---
-  'faq',
-  // --- Bottom CTA ---
-  'cta',
-];
 
 // Order = Navbar (top of every page) then Footer (bottom of every
 // page) — the two sitewide chrome components this content type feeds,
@@ -369,7 +340,6 @@ async function main() {
   try {
     await reorderContentType(strapi, INDUSTRY_UID, INDUSTRY_FIELD_ORDER);
     await reorderContentType(strapi, SERVICE_UID, SERVICE_FIELD_ORDER);
-    await reorderContentType(strapi, SERVICES_PAGE_UID, SERVICES_PAGE_FIELD_ORDER);
     await reorderContentType(strapi, GLOBAL_UID, GLOBAL_FIELD_ORDER);
     await reorderContentType(strapi, TESTIMONIAL_UID, TESTIMONIAL_FIELD_ORDER);
     await reorderContentType(strapi, BLOG_UID, BLOG_FIELD_ORDER);
