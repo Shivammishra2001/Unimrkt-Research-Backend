@@ -50,7 +50,19 @@
         "page-content.contact",
         "page-content.our-team",
         "page-content.privacy-policy",
-        "page-content.industries"
+        "industries-page.hero",
+        "industries-page.intro",
+        "industries-page.grid",
+        "industries-page.beyond",
+        "industries-page.band",
+        "industries-page.insights",
+        "industries-page.cases",
+        "industries-page.reach",
+        "industries-page.process",
+        "industries-page.testimonials",
+        "industries-page.faq",
+        "industries-page.about",
+        "industries-page.final-cta"
       ],
       "required": true,
       "min": 1

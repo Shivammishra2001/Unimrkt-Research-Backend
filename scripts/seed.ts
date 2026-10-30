@@ -18,6 +18,7 @@
  * rather than a thrown error — every field below tolerates a null image.
  */
 
+import { seedIndustriesPage } from './lib/industries-page';
 import path from 'path';
 import fs from 'fs';
 import { compileStrapi, createStrapi } from '@strapi/strapi';
@@ -4188,13 +4189,7 @@ async function main() {
 
     // 20. Industries page (/industries, Figma node 1384:26772) — copy lives in
     // scripts/seed-data/industries-page.json (also used by seed:industries-page).
-    await upsertPageContent(
-      app,
-      'industries',
-      'Industries',
-      'page-content.industries',
-      JSON.parse(fs.readFileSync(path.join(__dirname, 'seed-data', 'industries-page.json'), 'utf-8'))
-    );
+    await seedIndustriesPage(app, true);
 
     app.log.info('[seed] Done.');
   } finally {

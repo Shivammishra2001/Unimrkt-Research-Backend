@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_industries_page_hero",
+  "info": {
+    "displayName": "Industries · Hero",
+    "description": "Top banner: pill, 2-line title, subtitle, hero photo and the two buttons."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "text",
+      "maxLength": 200
+    },
+    "subheading": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "primaryCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "secondaryCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

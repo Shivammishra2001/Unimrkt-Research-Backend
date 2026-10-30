@@ -717,6 +717,296 @@ export interface ContactOfficeLocation extends Struct.ComponentSchema {
   };
 }
 
+export interface IndustriesPageAbout extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_about';
+  info: {
+    description: '"About Our Services" copy.';
+    displayName: 'Industries \u00B7 About';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2400;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface IndustriesPageBand extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_band';
+  info: {
+    description: '"Have a Question? Let\u2019s Find the Answer." red band with the couple cut-out and button.';
+    displayName: 'Industries \u00B7 Question Band';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    cta: Schema.Attribute.Component<'shared.link', false>;
+    heading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    personImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface IndustriesPageBeyond extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_beyond';
+  info: {
+    description: '"One Research Partner. Multiple Industries." heading with its six cards.';
+    displayName: 'Industries \u00B7 Beyond Industries';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    cards: Schema.Attribute.Component<'page-content.industries-card', true>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface IndustriesPageCases extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_cases';
+  info: {
+    description: '"From Business Questions to Meaningful Outcomes" heading with its three cards.';
+    displayName: 'Industries \u00B7 Case Studies';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    cards: Schema.Attribute.Component<'page-content.industries-card', true>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface IndustriesPageFaq extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_faq';
+  info: {
+    description: 'Latest-blogs button, FAQ heading and the questions.';
+    displayName: 'Industries \u00B7 FAQ';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'shared.link', false>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    items: Schema.Attribute.Component<'blocks.faq-item', true>;
+  };
+}
+
+export interface IndustriesPageFinalCta extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_final_cta';
+  info: {
+    description: 'Closing "Start Your Research Journey" banner.';
+    displayName: 'Industries \u00B7 Final CTA';
+  };
+  attributes: {
+    action: Schema.Attribute.Component<'shared.link', false>;
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface IndustriesPageGrid extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_grid';
+  info: {
+    description: '"Deep Expertise Across Diverse Industries" heading over the industry card grid (cards come from the Industries collection).';
+    displayName: 'Industries \u00B7 Grid';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    cardFallbackImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface IndustriesPageHero extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_hero';
+  info: {
+    description: 'Top banner: pill, 2-line title, subtitle, hero photo and the two buttons.';
+    displayName: 'Industries \u00B7 Hero';
+  };
+  attributes: {
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    primaryCta: Schema.Attribute.Component<'shared.link', false>;
+    secondaryCta: Schema.Attribute.Component<'shared.link', false>;
+    subheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+  };
+}
+
+export interface IndustriesPageInsights extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_insights';
+  info: {
+    description: 'Heading, woman cut-out panel and the accordion rows.';
+    displayName: 'Industries \u00B7 Questions to Insights';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    cutoutImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    items: Schema.Attribute.Component<'page-content.industries-card', true>;
+  };
+}
+
+export interface IndustriesPageIntro extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_intro';
+  info: {
+    description: '"Understanding Industries" copy with the worker cut-out illustration.';
+    displayName: 'Industries \u00B7 Intro';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2400;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface IndustriesPageProcess extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_process';
+  info: {
+    description: '"Turning Research Into Impact" heading with its four steps.';
+    displayName: 'Industries \u00B7 Research Process';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    steps: Schema.Attribute.Component<'page-content.industries-card', true>;
+  };
+}
+
+export interface IndustriesPageReach extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_reach';
+  info: {
+    description: '"Local Insight. Global Reach." heading with the four stat tiles.';
+    displayName: 'Industries \u00B7 Global Reach';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    stats: Schema.Attribute.Component<'page-content.industries-stat', true>;
+  };
+}
+
+export interface IndustriesPageTestimonials extends Struct.ComponentSchema {
+  collectionName: 'components_industries_page_testimonials';
+  info: {
+    description: '"Trusted Research Partner" heading with the testimonial cards.';
+    displayName: 'Industries \u00B7 Client Stories';
+  };
+  attributes: {
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    items: Schema.Attribute.Component<
+      'page-content.industries-testimonial',
+      true
+    >;
+  };
+}
+
 export interface IndustriesDetailCard extends Struct.ComponentSchema {
   collectionName: 'components_industries_detail_cards';
   info: {
@@ -993,193 +1283,6 @@ export interface PageContentContact extends Struct.ComponentSchema {
         maxLength: 160;
       }>;
     workWithUsImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
-  };
-}
-
-export interface PageContentIndustries extends Struct.ComponentSchema {
-  collectionName: 'components_page_content_industries';
-  info: {
-    description: '/industries page (Figma node 1384:26772), top to bottom: hero, intro, industry grid heading, beyond-industries cards + question band, questions-to-insights, case studies, global reach, research process, client stories, latest-blogs/FAQ, about + closing CTA. The industry cards and blog posts come from their own collections.';
-    displayName: 'Industries';
-  };
-  attributes: {
-    aboutBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 2400;
-      }>;
-    aboutEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    aboutHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    bandBackgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    bandBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    bandCta: Schema.Attribute.Component<'shared.link', false>;
-    bandHeading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    bandPersonImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    beyondBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    beyondCards: Schema.Attribute.Component<
-      'page-content.industries-card',
-      true
-    >;
-    beyondEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    beyondHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    caseCards: Schema.Attribute.Component<'page-content.industries-card', true>;
-    casesBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    casesEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    casesHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    faqCta: Schema.Attribute.Component<'shared.link', false>;
-    faqHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    faqItems: Schema.Attribute.Component<'blocks.faq-item', true>;
-    finalCtaAction: Schema.Attribute.Component<'shared.link', false>;
-    finalCtaBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    finalCtaHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
-    finalCtaImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    gridBackgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    gridBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    gridCardFallbackImage: Schema.Attribute.Media<
-      'images' | 'files' | 'videos'
-    >;
-    gridEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    gridHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    heroEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    heroHeading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    heroImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    heroPrimaryCta: Schema.Attribute.Component<'shared.link', false>;
-    heroSecondaryCta: Schema.Attribute.Component<'shared.link', false>;
-    heroSubheading: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 320;
-      }>;
-    insightsBackgroundImage: Schema.Attribute.Media<
-      'images' | 'files' | 'videos'
-    >;
-    insightsBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    insightsCutoutImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    insightsEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    insightsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    insightsItems: Schema.Attribute.Component<
-      'page-content.industries-card',
-      true
-    >;
-    introBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 2400;
-      }>;
-    introEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    introHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    introImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    processBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    processEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    processHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    processSteps: Schema.Attribute.Component<
-      'page-content.industries-card',
-      true
-    >;
-    reachBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1200;
-      }>;
-    reachEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    reachHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    reachStats: Schema.Attribute.Component<
-      'page-content.industries-stat',
-      true
-    >;
-    seo: Schema.Attribute.Component<'shared.seo', false>;
-    testimonials: Schema.Attribute.Component<
-      'page-content.industries-testimonial',
-      true
-    >;
-    testimonialsEyebrow: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
-      }>;
-    testimonialsHeading: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
   };
 }
 
@@ -1933,11 +2036,23 @@ declare module '@strapi/strapi' {
       'blocks.why-choose-us': BlocksWhyChooseUs;
       'case-study.testimonial-card': CaseStudyTestimonialCard;
       'contact.office-location': ContactOfficeLocation;
+      'industries-page.about': IndustriesPageAbout;
+      'industries-page.band': IndustriesPageBand;
+      'industries-page.beyond': IndustriesPageBeyond;
+      'industries-page.cases': IndustriesPageCases;
+      'industries-page.faq': IndustriesPageFaq;
+      'industries-page.final-cta': IndustriesPageFinalCta;
+      'industries-page.grid': IndustriesPageGrid;
+      'industries-page.hero': IndustriesPageHero;
+      'industries-page.insights': IndustriesPageInsights;
+      'industries-page.intro': IndustriesPageIntro;
+      'industries-page.process': IndustriesPageProcess;
+      'industries-page.reach': IndustriesPageReach;
+      'industries-page.testimonials': IndustriesPageTestimonials;
       'industries.detail-card': IndustriesDetailCard;
       'industries.trust-logo': IndustriesTrustLogo;
       'page-content.case-study': PageContentCaseStudy;
       'page-content.contact': PageContentContact;
-      'page-content.industries': PageContentIndustries;
       'page-content.industries-card': PageContentIndustriesCard;
       'page-content.industries-stat': PageContentIndustriesStat;
       'page-content.industries-testimonial': PageContentIndustriesTestimonial;

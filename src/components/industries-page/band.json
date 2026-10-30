@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_industries_page_band",
+  "info": {
+    "displayName": "Industries · Question Band",
+    "description": "\"Have a Question? Let’s Find the Answer.\" red band with the couple cut-out and button."
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "personImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

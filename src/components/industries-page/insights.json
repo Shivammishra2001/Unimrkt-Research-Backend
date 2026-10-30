@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_industries_page_insights",
+  "info": {
+    "displayName": "Industries · Questions to Insights",
+    "description": "Heading, woman cut-out panel and the accordion rows."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "cutoutImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "items": {
+      "type": "component",
+      "component": "page-content.industries-card",
+      "repeatable": true
+    }
+  }
+}
