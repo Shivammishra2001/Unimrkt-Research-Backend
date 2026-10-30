@@ -6,7 +6,7 @@ import { buildCaseStudyPopulate } from '../services/case-study';
  * `populate` query has no effect either way. */
 export default factories.createCoreController('api::case-study.case-study', ({ strapi }) => ({
   async find(ctx) {
-    ctx.query = { ...ctx.query, populate: buildCaseStudyPopulate() };
+    ctx.query = { ...ctx.query, populate: buildCaseStudyPopulate(), sort: ctx.query.sort ?? ['createdAt:asc'] };
     const { data, meta } = await super.find(ctx);
     return { data, meta };
   },

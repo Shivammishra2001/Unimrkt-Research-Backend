@@ -19,7 +19,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "link": {
       "type": "component",

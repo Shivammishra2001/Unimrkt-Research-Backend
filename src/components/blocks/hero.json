@@ -22,7 +22,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "mediaAlignment": {
       "type": "enumeration",

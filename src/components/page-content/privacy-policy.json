@@ -21,9 +21,7 @@
     "heroImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "introBody": {
       "type": "text",

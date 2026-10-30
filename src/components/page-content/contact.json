@@ -22,9 +22,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "heroCta": {
       "type": "component",
@@ -71,9 +69,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "faqItems": {
       "type": "component",
@@ -98,9 +94,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "seo": {
       "type": "component",

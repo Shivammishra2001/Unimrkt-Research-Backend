@@ -21,13 +21,13 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "logoDark": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "primaryNav": {
       "type": "component",

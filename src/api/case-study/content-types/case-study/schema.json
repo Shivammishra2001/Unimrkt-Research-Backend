@@ -36,7 +36,7 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "heroSubheading": {
       "type": "text",
@@ -45,7 +45,7 @@
     "heroImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "trustLogos": {
       "type": "component",
@@ -71,7 +71,7 @@
     "challengePhoto": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "researchQuestionHeading": {
       "type": "string",
@@ -126,7 +126,7 @@
     "impactImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "impactItems": {
       "type": "component",

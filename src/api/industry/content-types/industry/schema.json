@@ -39,7 +39,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "seo": {
       "type": "component",
@@ -62,7 +62,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "heroActions": {
       "type": "component",
@@ -101,7 +101,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "whyResearchEyebrow": {
       "type": "string",
@@ -202,7 +202,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "enquiryEyebrow": {
       "type": "string",
@@ -220,7 +220,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos", "files"]
     },
     "faqItems": {
       "type": "component",
