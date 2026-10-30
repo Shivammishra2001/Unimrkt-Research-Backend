@@ -1,7 +1,7 @@
 {
   "collectionName": "components_page_content_industries_cards",
   "info": {
-    "displayName": "Industries Card",
+    "displayName": "Card",
     "description": "Title + description card used by the /industries page sections (icons are fixed by position in the design)."
   },
   "options": {},

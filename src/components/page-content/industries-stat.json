@@ -1,7 +1,7 @@
 {
   "collectionName": "components_page_content_industries_stats",
   "info": {
-    "displayName": "Industries Stat",
+    "displayName": "Stat",
     "description": "Value + label tile in the /industries \"Local Insight. Global Reach.\" band."
   },
   "options": {},

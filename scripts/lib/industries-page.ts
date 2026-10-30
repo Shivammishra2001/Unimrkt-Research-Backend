@@ -61,15 +61,14 @@ async function uploadAsset(strapi: any, filename: string): Promise<number | null
 export async function seedIndustriesPage(strapi: any, force = false): Promise<void> {
   const c = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
 
+  const img = (name: string) => uploadAsset(strapi, `industries-${name}`);
   const existing = await strapi.documents(UID).findFirst({ filters: { slug: 'industries' }, populate: { blocks: true } });
   const sectioned = existing?.blocks?.some((b: any) => b.__component === 'industries-page.hero');
   if (existing && sectioned && !force) {
-    // eslint-disable-next-line no-console
-    console.log('[industries-page] Page already exists — left untouched (use --force to reset it).');
+    await fillEmptyImages(strapi, existing.documentId, img);
     return;
   }
 
-  const img = (name: string) => uploadAsset(strapi, `industries-${name}`);
   const icon = (name: string) => uploadAsset(strapi, `industries-icon-${name}.svg`);
   const cards = async (items: Array<{ title: string; body: string }>, icons: string[]) =>
     Promise.all(items.map(async (it, i) => ({ title: it.title, body: it.body, icon: await icon(icons[i % icons.length]) })));
@@ -156,6 +155,7 @@ export async function seedIndustriesPage(strapi: any, force = false): Promise<vo
       __component: 'industries-page.testimonials',
       eyebrow: c.testimonialsEyebrow,
       heading: c.testimonialsHeading,
+      backgroundWavesImage: await img('process-bg.jpg'),
       items: c.testimonials,
     },
     {
@@ -186,4 +186,62 @@ export async function seedIndustriesPage(strapi: any, force = false): Promise<vo
   await strapi.documents(UID).publish({ documentId: doc.documentId });
   // eslint-disable-next-line no-console
   console.log(`[industries-page] ${existing ? 'Rebuilt' : 'Created'} and published the "industries" page with ${blocks.length} sections and its images bound.`);
+}
+
+// Image field -> shipped default, per section. Used to top up a page whose editor
+// has not set that image yet (e.g. a field added in a later release).
+const DEFAULT_IMAGES: Record<string, Record<string, string>> = {
+  'industries-page.hero': { image: 'hero.webp' },
+  'industries-page.intro': { image: 'worker-cutout.webp' },
+  'industries-page.grid': { backgroundImage: 'wave-pattern.png', cardFallbackImage: 'card-fallback.jpg' },
+  'industries-page.band': { backgroundImage: 'texture.jpg', personImage: 'couple-cutout.webp' },
+  'industries-page.insights': { backgroundImage: 'woman-panel-bg.png', cutoutImage: 'woman-cutout.webp' },
+  'industries-page.testimonials': { backgroundWavesImage: 'process-bg.jpg' },
+  'industries-page.final-cta': { image: 'cta-people.jpg' },
+};
+
+/** Media objects -> their ids, so a populated block can be written back as input. */
+function toInput(value: any): any {
+  if (Array.isArray(value)) return value.map(toInput);
+  if (value && typeof value === 'object') {
+    if (typeof value.mime === 'string' && typeof value.url === 'string') return value.id;
+    const out: Record<string, any> = {};
+    for (const [k, v] of Object.entries(value)) {
+      if (['documentId', 'createdAt', 'updatedAt', 'publishedAt', 'locale'].includes(k)) continue;
+      out[k] = toInput(v);
+    }
+    return out;
+  }
+  return value;
+}
+
+/** Non-destructive: keeps every text edit and every image an editor chose, and only
+ * binds the shipped image where a section's image field is still empty. */
+async function fillEmptyImages(strapi: any, documentId: string, img: (n: string) => Promise<number | null>) {
+  const { buildPagePopulate } = require('../../src/api/page/services/page');
+  const page = await strapi.documents(UID).findOne({ documentId, populate: buildPagePopulate() });
+  let filled = 0;
+  const blocks = await Promise.all(
+    (page.blocks ?? []).map(async (block: any) => {
+      const input = toInput(block);
+      for (const [field, file] of Object.entries(DEFAULT_IMAGES[block.__component] ?? {})) {
+        if (block[field]) continue;
+        const id = await img(file);
+        if (id) {
+          input[field] = id;
+          filled += 1;
+        }
+      }
+      return input;
+    })
+  );
+  if (filled === 0) {
+    // eslint-disable-next-line no-console
+    console.log('[industries-page] Page already exists and every image is set — left untouched (use --force to reset it).');
+    return;
+  }
+  await strapi.documents(UID).update({ documentId, data: { blocks } });
+  await strapi.documents(UID).publish({ documentId });
+  // eslint-disable-next-line no-console
+  console.log(`[industries-page] Kept all existing content; bound ${filled} missing image(s) and re-published.`);
 }

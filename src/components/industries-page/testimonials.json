@@ -1,7 +1,7 @@
 {
   "collectionName": "components_industries_page_testimonials",
   "info": {
-    "displayName": "Industries · Client Stories",
+    "displayName": "Client Success Stories",
     "description": "\"Trusted Research Partner\" heading with the testimonial cards."
   },
   "options": {},
@@ -13,6 +13,16 @@
     "heading": {
       "type": "string",
       "maxLength": 200
+    },
+    "backgroundWavesImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
     },
     "items": {
       "type": "component",

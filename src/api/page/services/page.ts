@@ -98,7 +98,7 @@ export function buildPagePopulate() {
         'industries-page.cases': { populate: { cards: { populate: { icon: true } } } },
         'industries-page.reach': { populate: { stats: { populate: { icon: true } } } },
         'industries-page.process': { populate: { steps: { populate: { icon: true } } } },
-        'industries-page.testimonials': { populate: { items: true } },
+        'industries-page.testimonials': { populate: { backgroundWavesImage: true, items: true } },
         'industries-page.faq': { populate: { cta: true, items: true } },
         'industries-page.about': { populate: '*' },
         'industries-page.final-cta': { populate: { image: true, action: true } },

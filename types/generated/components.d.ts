@@ -721,7 +721,7 @@ export interface IndustriesPageAbout extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_about';
   info: {
     description: '"About Our Services" copy.';
-    displayName: 'Industries \u00B7 About';
+    displayName: 'About Our Services';
   };
   attributes: {
     body: Schema.Attribute.Text &
@@ -743,7 +743,7 @@ export interface IndustriesPageBand extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_band';
   info: {
     description: '"Have a Question? Let\u2019s Find the Answer." red band with the couple cut-out and button.';
-    displayName: 'Industries \u00B7 Question Band';
+    displayName: 'Have a Question? (Question Band)';
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
@@ -764,7 +764,7 @@ export interface IndustriesPageBeyond extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_beyond';
   info: {
     description: '"One Research Partner. Multiple Industries." heading with its six cards.';
-    displayName: 'Industries \u00B7 Beyond Industries';
+    displayName: 'Beyond Industries';
   };
   attributes: {
     body: Schema.Attribute.Text &
@@ -787,7 +787,7 @@ export interface IndustriesPageCases extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_cases';
   info: {
     description: '"From Business Questions to Meaningful Outcomes" heading with its three cards.';
-    displayName: 'Industries \u00B7 Case Studies';
+    displayName: 'Featured Case Studies';
   };
   attributes: {
     body: Schema.Attribute.Text &
@@ -810,7 +810,7 @@ export interface IndustriesPageFaq extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_faq';
   info: {
     description: 'Latest-blogs button, FAQ heading and the questions.';
-    displayName: 'Industries \u00B7 FAQ';
+    displayName: 'Frequently Asked Questions';
   };
   attributes: {
     cta: Schema.Attribute.Component<'shared.link', false>;
@@ -826,7 +826,7 @@ export interface IndustriesPageFinalCta extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_final_cta';
   info: {
     description: 'Closing "Start Your Research Journey" banner.';
-    displayName: 'Industries \u00B7 Final CTA';
+    displayName: 'Start Your Research Journey';
   };
   attributes: {
     action: Schema.Attribute.Component<'shared.link', false>;
@@ -846,7 +846,7 @@ export interface IndustriesPageGrid extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_grid';
   info: {
     description: '"Deep Expertise Across Diverse Industries" heading over the industry card grid (cards come from the Industries collection).';
-    displayName: 'Industries \u00B7 Grid';
+    displayName: 'Industries';
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
@@ -870,7 +870,7 @@ export interface IndustriesPageHero extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_hero';
   info: {
     description: 'Top banner: pill, 2-line title, subtitle, hero photo and the two buttons.';
-    displayName: 'Industries \u00B7 Hero';
+    displayName: 'Industries We Serve';
   };
   attributes: {
     eyebrow: Schema.Attribute.String &
@@ -895,7 +895,7 @@ export interface IndustriesPageInsights extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_insights';
   info: {
     description: 'Heading, woman cut-out panel and the accordion rows.';
-    displayName: 'Industries \u00B7 Questions to Insights';
+    displayName: 'What We Help You Understand';
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
@@ -920,7 +920,7 @@ export interface IndustriesPageIntro extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_intro';
   info: {
     description: '"Understanding Industries" copy with the worker cut-out illustration.';
-    displayName: 'Industries \u00B7 Intro';
+    displayName: 'Our Industries';
   };
   attributes: {
     body: Schema.Attribute.Text &
@@ -943,7 +943,7 @@ export interface IndustriesPageProcess extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_process';
   info: {
     description: '"Turning Research Into Impact" heading with its four steps.';
-    displayName: 'Industries \u00B7 Research Process';
+    displayName: 'Industry Research Process';
   };
   attributes: {
     body: Schema.Attribute.Text &
@@ -966,7 +966,7 @@ export interface IndustriesPageReach extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_reach';
   info: {
     description: '"Local Insight. Global Reach." heading with the four stat tiles.';
-    displayName: 'Industries \u00B7 Global Reach';
+    displayName: 'Local Insight. Global Reach.';
   };
   attributes: {
     body: Schema.Attribute.Text &
@@ -989,9 +989,10 @@ export interface IndustriesPageTestimonials extends Struct.ComponentSchema {
   collectionName: 'components_industries_page_testimonials';
   info: {
     description: '"Trusted Research Partner" heading with the testimonial cards.';
-    displayName: 'Industries \u00B7 Client Stories';
+    displayName: 'Client Success Stories';
   };
   attributes: {
+    backgroundWavesImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     eyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -1290,7 +1291,7 @@ export interface PageContentIndustriesCard extends Struct.ComponentSchema {
   collectionName: 'components_page_content_industries_cards';
   info: {
     description: 'Title + description card used by the /industries page sections (icons are fixed by position in the design).';
-    displayName: 'Industries Card';
+    displayName: 'Card';
   };
   attributes: {
     body: Schema.Attribute.Text &
@@ -1310,7 +1311,7 @@ export interface PageContentIndustriesStat extends Struct.ComponentSchema {
   collectionName: 'components_page_content_industries_stats';
   info: {
     description: 'Value + label tile in the /industries "Local Insight. Global Reach." band.';
-    displayName: 'Industries Stat';
+    displayName: 'Stat';
   };
   attributes: {
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
@@ -1332,7 +1333,7 @@ export interface PageContentIndustriesTestimonial
   collectionName: 'components_page_content_industries_testimonials';
   info: {
     description: 'Client success story card on /industries.';
-    displayName: 'Industries Testimonial';
+    displayName: 'Testimonial';
   };
   attributes: {
     name: Schema.Attribute.String &
