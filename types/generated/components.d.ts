@@ -12,7 +12,7 @@ export interface BlocksBlogPostItem extends Struct.ComponentSchema {
         maxLength: 240;
       }>;
     href: Schema.Attribute.String & Schema.Attribute.Required;
-    image: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -82,7 +82,7 @@ export interface BlocksContent extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    media: Schema.Attribute.Media<'images'>;
+    media: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     mediaAlignment: Schema.Attribute.Enumeration<
       ['left', 'right', 'below', 'none']
     > &
@@ -110,7 +110,7 @@ export interface BlocksCta extends Struct.ComponentSchema {
         number
       >;
     anchorId: Schema.Attribute.String;
-    background: Schema.Attribute.Media<'images' | 'videos'>;
+    background: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     backgroundColor: Schema.Attribute.String;
     body: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
@@ -134,7 +134,7 @@ export interface BlocksFaq extends Struct.ComponentSchema {
   };
   attributes: {
     anchorId: Schema.Attribute.String;
-    background: Schema.Attribute.Media<'images'>;
+    background: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     cta: Schema.Attribute.Component<'shared.link', false>;
     heading: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -218,7 +218,7 @@ export interface BlocksFeatureItem extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 240;
       }>;
-    icon: Schema.Attribute.Media<'images'>;
+    icon: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     iconIdentifier: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -267,7 +267,7 @@ export interface BlocksHero extends Struct.ComponentSchema {
       }>;
     headingSize: Schema.Attribute.Enumeration<['display', 'h2']> &
       Schema.Attribute.DefaultTo<'display'>;
-    media: Schema.Attribute.Media<'images' | 'videos'>;
+    media: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     mediaAlignment: Schema.Attribute.Enumeration<
       ['right', 'left', 'below', 'background']
     > &
@@ -305,7 +305,7 @@ export interface BlocksIndustryGrid extends Struct.ComponentSchema {
   };
   attributes: {
     anchorId: Schema.Attribute.String;
-    background: Schema.Attribute.Media<'images' | 'videos'>;
+    background: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     cta: Schema.Attribute.Component<'shared.link', false>;
     heading: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -341,7 +341,8 @@ export interface BlocksIndustryItem extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images' | 'videos' | 'files'> &
+      Schema.Attribute.Required;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -393,7 +394,8 @@ export interface BlocksMediaItem extends Struct.ComponentSchema {
     icon: 'play';
   };
   attributes: {
-    media: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    media: Schema.Attribute.Media<'images' | 'videos' | 'files'> &
+      Schema.Attribute.Required;
     size: Schema.Attribute.Enumeration<['large', 'small']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'small'>;
@@ -413,7 +415,7 @@ export interface BlocksProcessStepItem extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 240;
       }>;
-    icon: Schema.Attribute.Media<'images'>;
+    icon: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     iconIdentifier: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -475,7 +477,7 @@ export interface BlocksServiceBand extends Struct.ComponentSchema {
   };
   attributes: {
     anchorId: Schema.Attribute.String;
-    background: Schema.Attribute.Media<'images' | 'videos'>;
+    background: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     body: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 400;
@@ -541,7 +543,7 @@ export interface BlocksStatItem extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 240;
       }>;
-    image: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -697,7 +699,7 @@ export interface ContactOfficeLocation extends Struct.ComponentSchema {
         maxLength: 80;
       }>;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    image: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -726,12 +728,12 @@ export interface IndustriesDetailCard extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 240;
       }>;
-    icon: Schema.Attribute.Media<'images'>;
+    icon: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     iconIdentifier: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
       }>;
-    image: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -747,7 +749,7 @@ export interface IndustriesTrustLogo extends Struct.ComponentSchema {
     icon: 'star';
   };
   attributes: {
-    image: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -868,7 +870,7 @@ export interface PageContentCaseStudy extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 320;
@@ -935,7 +937,7 @@ export interface PageContentContact extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    formImage: Schema.Attribute.Media<'images'>;
+    formImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     formSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 300;
@@ -949,7 +951,7 @@ export interface PageContentContact extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 300;
@@ -990,7 +992,7 @@ export interface PageContentContact extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    workWithUsImage: Schema.Attribute.Media<'images'>;
+    workWithUsImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
   };
 }
 
@@ -1013,6 +1015,7 @@ export interface PageContentIndustries extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    bandBackgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     bandBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 320;
@@ -1022,6 +1025,7 @@ export interface PageContentIndustries extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
+    bandPersonImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     beyondBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1200;
@@ -1066,10 +1070,15 @@ export interface PageContentIndustries extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
+    finalCtaImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    gridBackgroundImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     gridBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1200;
       }>;
+    gridCardFallbackImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos'
+    >;
     gridEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -1086,16 +1095,21 @@ export interface PageContentIndustries extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    heroImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     heroPrimaryCta: Schema.Attribute.Component<'shared.link', false>;
     heroSecondaryCta: Schema.Attribute.Component<'shared.link', false>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 320;
       }>;
+    insightsBackgroundImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos'
+    >;
     insightsBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1200;
       }>;
+    insightsCutoutImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     insightsEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -1120,6 +1134,7 @@ export interface PageContentIndustries extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    introImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     processBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1200;
@@ -1179,6 +1194,7 @@ export interface PageContentIndustriesCard extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 900;
       }>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -1194,6 +1210,7 @@ export interface PageContentIndustriesStat extends Struct.ComponentSchema {
     displayName: 'Industries Stat';
   };
   attributes: {
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -1267,7 +1284,7 @@ export interface PageContentOurCompany extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    aboutImage: Schema.Attribute.Media<'images'>;
+    aboutImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     ecosystemCards: Schema.Attribute.Component<'industries.detail-card', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -1303,7 +1320,7 @@ export interface PageContentOurCompany extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 300;
@@ -1407,7 +1424,7 @@ export interface PageContentOurTeam extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 320;
@@ -1435,7 +1452,7 @@ export interface PageContentPrivacyPolicy extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 320;
@@ -1579,7 +1596,7 @@ export interface PageContentWorkWithUs extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    benefitsImage: Schema.Attribute.Media<'images'>;
+    benefitsImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     benefitsLabel: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 40;
@@ -1608,7 +1625,7 @@ export interface PageContentWorkWithUs extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 300;
@@ -1848,7 +1865,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
       }>;
     preventIndexing: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
-    shareImage: Schema.Attribute.Media<'images'>;
+    shareImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
   };
 }
 

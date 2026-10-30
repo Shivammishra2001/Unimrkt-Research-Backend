@@ -458,7 +458,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
     body: Schema.Attribute.Blocks;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'> &
       Schema.Attribute.Required;
-    coverImage: Schema.Attribute.Media<'images'>;
+    coverImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -539,8 +539,9 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    challengePhoto: Schema.Attribute.Media<'images'>;
-    coverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    challengePhoto: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
+    coverImage: Schema.Attribute.Media<'images' | 'videos' | 'files'> &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -556,7 +557,7 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
         },
         number
       >;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 320;
@@ -569,7 +570,7 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    impactImage: Schema.Attribute.Media<'images'>;
+    impactImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     impactItems: Schema.Attribute.Component<'industries.detail-card', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -753,7 +754,8 @@ export interface ApiGalleryItemGalleryItem extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images' | 'videos' | 'files'> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -811,8 +813,9 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       'api::global.global'
     > &
       Schema.Attribute.Private;
-    logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    logoDark: Schema.Attribute.Media<'images'>;
+    logo: Schema.Attribute.Media<'images' | 'videos' | 'files'> &
+      Schema.Attribute.Required;
+    logoDark: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     navCta: Schema.Attribute.Component<'shared.link', false>;
     primaryNav: Schema.Attribute.Component<'shared.nav-item', true> &
       Schema.Attribute.SetMinMax<
@@ -916,7 +919,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    empowerImage: Schema.Attribute.Media<'images'>;
+    empowerImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     enquiryBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 400;
@@ -929,7 +932,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    enquiryImage: Schema.Attribute.Media<'images'>;
+    enquiryImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     expertiseEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -967,12 +970,12 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 280;
       }>;
-    icon: Schema.Attribute.Media<'images'>;
+    icon: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     legacyUrl: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -1041,7 +1044,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    whatWeDoImage: Schema.Attribute.Media<'images'>;
+    whatWeDoImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     whoWeServeCards: Schema.Attribute.Component<
       'industries.detail-card',
       true
@@ -1273,7 +1276,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    enquiryImage: Schema.Attribute.Media<'images'>;
+    enquiryImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -1303,7 +1306,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    heroImage: Schema.Attribute.Media<'images'>;
+    heroImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     heroSubheading: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 280;
@@ -1374,7 +1377,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    overviewImage: Schema.Attribute.Media<'images'>;
+    overviewImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     parent: Schema.Attribute.Relation<'manyToOne', 'api::service.service'>;
     publishedAt: Schema.Attribute.DateTime;
     seo: Schema.Attribute.Component<'shared.seo', false>;
@@ -1387,7 +1390,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 280;
       }>;
-    thumbnail: Schema.Attribute.Media<'images'>;
+    thumbnail: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -1441,7 +1444,8 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
         maxLength: 120;
       }>;
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    photo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    photo: Schema.Attribute.Media<'images' | 'videos' | 'files'> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     role: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1474,12 +1478,12 @@ export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    avatar: Schema.Attribute.Media<'images'>;
+    avatar: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     company: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
-    companyLogo: Schema.Attribute.Media<'images'>;
+    companyLogo: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

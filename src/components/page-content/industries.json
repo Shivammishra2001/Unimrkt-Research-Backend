@@ -18,6 +18,16 @@
       "type": "text",
       "maxLength": 320
     },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
     "heroPrimaryCta": {
       "type": "component",
       "component": "shared.link",
@@ -41,6 +51,16 @@
       "maxLength": 2400,
       "description": "Separate paragraphs with a blank line."
     },
+    "introImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
     "gridEyebrow": {
       "type": "string",
       "maxLength": 60
@@ -52,6 +72,26 @@
     "gridBody": {
       "type": "text",
       "maxLength": 1200
+    },
+    "gridBackgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "gridCardFallbackImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
     },
     "beyondEyebrow": {
       "type": "string",
@@ -78,6 +118,26 @@
       "type": "text",
       "maxLength": 320
     },
+    "bandBackgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "bandPersonImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
     "bandCta": {
       "type": "component",
       "component": "shared.link",
@@ -94,6 +154,26 @@
     "insightsBody": {
       "type": "text",
       "maxLength": 1200
+    },
+    "insightsBackgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "insightsCutoutImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
     },
     "insightsItems": {
       "type": "component",
@@ -198,6 +278,16 @@
     "finalCtaBody": {
       "type": "text",
       "maxLength": 320
+    },
+    "finalCtaImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
     },
     "finalCtaAction": {
       "type": "component",
