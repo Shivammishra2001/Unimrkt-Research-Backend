@@ -4186,6 +4186,16 @@ async function main() {
     await upsertTeamMembers(app);
     await upsertOurTeamPageSettings(app);
 
+    // 20. Industries page (/industries, Figma node 1384:26772) — copy lives in
+    // scripts/seed-data/industries-page.json (also used by seed:industries-page).
+    await upsertPageContent(
+      app,
+      'industries',
+      'Industries',
+      'page-content.industries',
+      JSON.parse(fs.readFileSync(path.join(__dirname, 'seed-data', 'industries-page.json'), 'utf-8'))
+    );
+
     app.log.info('[seed] Done.');
   } finally {
     await app.destroy();

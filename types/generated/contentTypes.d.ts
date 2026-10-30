@@ -1170,6 +1170,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'page-content.contact',
         'page-content.our-team',
         'page-content.privacy-policy',
+        'page-content.industries',
       ]
     > &
       Schema.Attribute.Required &

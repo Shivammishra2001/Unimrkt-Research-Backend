@@ -11,7 +11,8 @@
     "seed": "ts-node scripts/seed.ts",
     "seed:reset": "ts-node scripts/seed.ts --reset",
     "sync-fallbacks": "ts-node scripts/sync-frontend-fallbacks-to-strapi.ts",
-    "reorder-cm-layout": "ts-node scripts/reorder-content-manager-layout.ts"
+    "reorder-cm-layout": "ts-node scripts/reorder-content-manager-layout.ts",
+    "seed:industries-page": "ts-node scripts/seed-industries-page.ts"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.16",

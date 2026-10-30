@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_page_content_industries_testimonials",
+  "info": {
+    "displayName": "Industries Testimonial",
+    "description": "Client success story card on /industries."
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "maxLength": 160,
+      "required": true
+    },
+    "quote": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 80,
+      "required": true
+    },
+    "role": {
+      "type": "string",
+      "maxLength": 120
+    }
+  }
+}

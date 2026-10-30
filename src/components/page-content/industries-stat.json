@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_page_content_industries_stats",
+  "info": {
+    "displayName": "Industries Stat",
+    "description": "Value + label tile in the /industries \"Local Insight. Global Reach.\" band."
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "string",
+      "maxLength": 60,
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "maxLength": 120,
+      "required": true
+    }
+  }
+}

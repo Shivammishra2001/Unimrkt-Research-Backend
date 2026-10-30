@@ -1,0 +1,210 @@
+{
+  "heroEyebrow": "Industries We Serve",
+  "heroHeading": "Industry Expertise.\nInsights That Drive Growth.",
+  "heroSubheading": "Data-driven market research solutions tailored to the unique challenges of your industry.",
+  "heroPrimaryCta": {
+    "label": "Explore Industries",
+    "href": "#industries-grid",
+    "isExternal": false,
+    "variant": "primary"
+  },
+  "heroSecondaryCta": {
+    "label": "Talk to Our Experts",
+    "href": "/contact",
+    "isExternal": false,
+    "variant": "ghost"
+  },
+  "introEyebrow": "Our Industries",
+  "introHeading": "Understanding Industries. Uncovering Opportunities.",
+  "introBody": "Every industry operates within a unique ecosystem shaped by customer expectations, market trends, competition, technology and regulatory changes. Unimrkt Research helps organizations understand these dynamics through industry-focused research designed around specific business questions and objectives.\n\nOur research explores market opportunities, customer behavior, competitive landscapes, emerging trends, product preferences and changing industry needs. By combining primary, qualitative, quantitative and business research capabilities, we provide a comprehensive view of the markets and audiences that matter most.\n\nFrom established sectors to emerging markets, our approach can be adapted to different industries, geographies and audiences. We bring together industry context, reliable data and meaningful analysis to help businesses identify opportunities, understand challenges and make informed strategic decisions with greater confidence.",
+  "gridEyebrow": "Industries",
+  "gridHeading": "Deep Expertise Across Diverse Industries",
+  "gridBody": "Our research expertise spans diverse industries, helping businesses understand the unique market dynamics, customer behaviours and challenges shaping their sectors. From Banking & Finance and Healthcare to Consumer & Retail, Technology, Automotive and B2B markets, we bring relevant industry understanding and research capabilities to every project.",
+  "beyondEyebrow": "Beyond Industries",
+  "beyondHeading": "One Research Partner. Multiple Industries.",
+  "beyondBody": "Combining cross-industry experience with specialized research expertise, we uncover market opportunities, understand evolving customer behaviors and identify emerging trends. Our research-driven approach transforms data into actionable insights, helping businesses make informed decisions, strengthen strategies, respond to market changes and drive sustainable growth.",
+  "beyondCards": [
+    {
+      "title": "Deep Industry Understanding",
+      "body": "Research backed by deep knowledge of industry trends, evolving customer expectations, competitive landscapes and market dynamics. We combine sector expertise with rigorous research methodologies to uncover meaningful insights, identify opportunities, understand changing behaviors and help businesses make informed, confident strategic decisions."
+    },
+    {
+      "title": "Cross-Industry Perspective",
+      "body": "Identifying meaningful patterns and emerging opportunities by connecting insights across sectors, audiences and markets. Our cross-industry perspective helps uncover shared behaviors, evolving needs and market trends, enabling businesses to discover new possibilities, strengthen strategies and make more informed, forward-looking decisions."
+    },
+    {
+      "title": "Specialized Research Expertise",
+      "body": "Applying qualitative, quantitative and customized research methodologies to address complex business questions. We combine the right approaches, tools and techniques to explore customer perspectives, validate hypotheses, measure market dynamics and generate reliable insights that support strategic planning, informed decision-making and sustainable business growth."
+    },
+    {
+      "title": "Consumer & Market Insights",
+      "body": "Understanding customer needs, behaviors, preferences and decision drivers to reveal what truly influences choices. Our research helps businesses identify customer expectations, uncover experience gaps and respond with greater confidence through informed strategies, relevant solutions and meaningful engagement across diverse audiences and markets."
+    },
+    {
+      "title": "Actionable Business Intelligence",
+      "body": "Transforming research findings into practical, actionable insights that support strategy, innovation and growth. We translate complex data into clear direction, helping businesses identify opportunities, solve challenges, refine strategies, develop customer-focused solutions and make confident decisions that create meaningful, measurable impact."
+    },
+    {
+      "title": "Better Decisions, Stronger Growth",
+      "body": "Providing clarity that helps organizations make informed decisions, navigate changing markets and identify future opportunities. By turning research and market intelligence into clear, actionable insights, we help businesses understand what matters, respond to evolving needs, strengthen strategic direction and plan for sustainable growth."
+    }
+  ],
+  "bandHeading": "Have a Question?\nLet’s Find the Answer.",
+  "bandBody": "Research solutions designed around your business objectives, audience and market.",
+  "bandCta": {
+    "label": "Start a Conversation",
+    "href": "/contact",
+    "isExternal": false,
+    "variant": "primary"
+  },
+  "insightsEyebrow": "What We Help You Understand",
+  "insightsHeading": "From Questions to Insights",
+  "insightsBody": "Turning complex business questions into clear, actionable insights through structured research, reliable data and thoughtful analysis. We help businesses move beyond information to understand what matters, why it matters and how those insights can support confident decisions.",
+  "insightsItems": [
+    {
+      "title": "Market Opportunity",
+      "body": "Identifying emerging trends, unmet needs and changing customer expectations to uncover opportunities for growth. Our research helps businesses understand market potential, assess competitive dynamics and identify the spaces where new products, services and strategies can create meaningful value."
+    },
+    {
+      "title": "Consumer Behavior",
+      "body": "Understanding how customers think, choose and act across the journey. Our research reveals the needs, motivations, preferences and decision drivers behind purchase behavior, helping businesses connect with their audiences through more relevant products, messages and experiences."
+    },
+    {
+      "title": "Competitive Landscape",
+      "body": "Benchmarking your position against competitors across offerings, pricing, perception and performance. Our research highlights strengths, gaps and differentiators so businesses can sharpen their positioning and respond confidently to changes in the market."
+    },
+    {
+      "title": "Product & Innovation",
+      "body": "Testing concepts, features and propositions with the people who will use them. Our research validates ideas early, measures demand and preference, and guides product development and innovation decisions toward what customers truly value."
+    },
+    {
+      "title": "Customer Experience",
+      "body": "Measuring satisfaction, loyalty and experience across every touchpoint. Our research uncovers friction points and moments that matter, so businesses can improve service, strengthen relationships and build lasting customer advocacy."
+    },
+    {
+      "title": "Future Trends",
+      "body": "Spotting the shifts that will shape tomorrow’s markets, from changing technologies to evolving expectations. Our research helps businesses anticipate what is coming, prepare their strategies and stay ahead of change with forward-looking insight."
+    }
+  ],
+  "casesEyebrow": "Featured Case Studies",
+  "casesHeading": "From Business Questions to Meaningful Outcomes",
+  "casesBody": "Explore how Unimrkt helps businesses address complex challenges through focused research, deeper customer understanding and actionable insights. Each case study showcases the journey from the initial business question to decisions that create measurable value.",
+  "caseCards": [
+    {
+      "title": "The Challenge",
+      "body": "The starting point of every research project is understanding the business challenge. We identify the key questions, market gaps, customer needs and decision-making challenges that require deeper clarity. This helps define the research direction, focus on what matters most and establish a clear foundation for meaningful, actionable insights."
+    },
+    {
+      "title": "The Approach",
+      "body": "We design the right research methodology around the business objective, identify and reach the most relevant audiences, and gather reliable, meaningful evidence. From research design and audience selection to fieldwork and data collection, every step is carefully planned to ensure the findings are accurate, relevant and useful for decision-making."
+    },
+    {
+      "title": "The Insight",
+      "body": "We analyze the research to uncover meaningful patterns, customer behaviors, emerging needs, market trends and hidden opportunities. By connecting the findings and looking beyond surface-level responses, we turn complex research data into clear insights that reveal what matters most and where businesses can create greater value and impact."
+    }
+  ],
+  "reachEyebrow": "Beyond Industries",
+  "reachHeading": "Local Insight. Global Reach.",
+  "reachBody": "Unimrkt delivers research across 90+ countries and 22+ languages, combining deep local understanding with a global perspective. Our international research capabilities help businesses understand diverse markets, audiences and industry dynamics with confidence.",
+  "reachStats": [
+    {
+      "value": "90+",
+      "label": "Countries Covered"
+    },
+    {
+      "value": "22+",
+      "label": "Languages Supported"
+    },
+    {
+      "value": "4",
+      "label": "Global Regions"
+    },
+    {
+      "value": "Multi-Industry",
+      "label": "Research Expertise"
+    }
+  ],
+  "processEyebrow": "Industry Research Process",
+  "processHeading": "Turning Research Into Impact",
+  "processBody": "Transforming industry questions, market data and customer insights into actionable strategies that help businesses make informed decisions. Our research connects evidence with business objectives, uncovering meaningful opportunities, addressing challenges and enabling organizations to create measurable impact, strengthen strategies and support sustainable growth.",
+  "processSteps": [
+    {
+      "title": "Understand",
+      "body": "We begin by understanding your business question, objectives and the decisions you need to make. By identifying the core challenge, market context and information gaps, we establish a clear research direction that keeps the study focused, relevant and aligned with your strategic priorities, customer needs and desired business outcomes."
+    },
+    {
+      "title": "Design",
+      "body": "We select the right research methodology and audience based on your objectives, market and business needs. From qualitative and quantitative approaches to specialized research techniques, we identify the most relevant participants, markets and channels to ensure meaningful data, reliable findings and insights that directly address your research questions."
+    },
+    {
+      "title": "Research",
+      "body": "We gather relevant primary and secondary data from credible sources and carefully selected audiences. Through surveys, interviews, discussions, desk research and other appropriate methods, we collect reliable evidence that provides a comprehensive understanding of market conditions, customer behaviors, industry trends and the factors influencing key business decisions."
+    },
+    {
+      "title": "Analyze",
+      "body": "We analyze the research to identify meaningful patterns, key drivers, emerging trends and untapped opportunities. By connecting data points across audiences, markets and industries, we uncover what influences decisions, where gaps exist and which opportunities can help businesses strengthen strategies and respond effectively to changing market needs."
+    }
+  ],
+  "testimonialsEyebrow": "Client Success Stories",
+  "testimonialsHeading": "Trusted Research Partner for Businesses Worldwide",
+  "testimonials": [
+    {
+      "title": "Exceptional Research. Actionable Results.",
+      "quote": "Unimrkt Research delivered comprehensive market intelligence that gave us a clear understanding of customer behavior and competitive trends. Their insights played a key role in shaping our strategic decisions.",
+      "name": "David Anderson",
+      "role": "Head of Market Strategy"
+    },
+    {
+      "title": "A Trusted Extension of Our Team",
+      "quote": "From research design to final reporting, the Unimrkt team demonstrated professionalism, accuracy, and deep industry expertise. Their commitment to quality made them a trusted research partner for our organization.",
+      "name": "Jennifer Collins",
+      "role": "Director – Customer Insights"
+    },
+    {
+      "title": "Insights That Drive Better Decisions",
+      "quote": "The team provided high-quality data, meaningful analysis, and actionable recommendations that helped us confidently enter new markets. Their research exceeded our expectations at every stage.",
+      "name": "Rajesh Mehta",
+      "role": "Vice President – Business Intelligence"
+    }
+  ],
+  "faqCta": {
+    "label": "Browse Blogs",
+    "href": "/blogs",
+    "isExternal": false,
+    "variant": "primary"
+  },
+  "faqHeading": "Frequently Asked Questions",
+  "faqItems": [
+    {
+      "question": "What industries does Unimrkt Research serve?",
+      "answer": "We work across Automotive, Healthcare, FMCG, BFSI, Technology, Retail, Manufacturing, Telecom, Consumer Goods, and many other sectors — see the industries above."
+    },
+    {
+      "question": "What research methodologies do you use for industry-specific studies?",
+      "answer": "We combine qualitative and quantitative methodologies — in-depth interviews, focus groups, CATI surveys, and online panels — tailored to each industry’s unique data needs."
+    },
+    {
+      "question": "Is your research approach customized for each industry?",
+      "answer": "Yes — every engagement is designed around the specific regulatory, competitive, and consumer dynamics of that industry rather than a one-size-fits-all template."
+    },
+    {
+      "question": "How does an industry research engagement typically start?",
+      "answer": "It starts with a scoping conversation to understand your objectives, followed by a tailored methodology proposal — reach out via Talk to Our Experts to begin."
+    },
+    {
+      "question": "How do you ensure data quality across different industries?",
+      "answer": "Every engagement runs through robust quality control processes, trained interviewers, and industry-experienced analysts to keep findings accurate and reliable."
+    }
+  ],
+  "aboutEyebrow": "About Our Services",
+  "aboutHeading": "Comprehensive Research Solutions for Smarter Business Decisions",
+  "aboutBody": "At Unimrkt Research, we provide end-to-end market research services that empower businesses with accurate data, actionable insights, and strategic intelligence. From primary data collection and qualitative research to quantitative studies, business research, and research support functions, our tailored solutions help organizations understand markets, customers, and emerging opportunities.\n\nBacked by experienced researchers, advanced methodologies, and global capabilities, we deliver reliable research solutions across diverse industries. Whether you're launching a new product, evaluating market opportunities, or strengthening your competitive position, Unimrkt Research provides the insights you need to make confident, data-driven decisions and achieve sustainable growth.",
+  "finalCtaHeading": "Start Your Research Journey",
+  "finalCtaBody": "Partner with Unimrkt Research to uncover actionable market intelligence, understand your industry, and make confident business decisions.",
+  "finalCtaAction": {
+    "label": "Talk to Our Experts",
+    "href": "/contact",
+    "isExternal": false,
+    "variant": "secondary"
+  }
+}

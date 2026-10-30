@@ -88,6 +88,23 @@ export function buildPagePopulate() {
         'page-content.our-team': {
           populate: { heroImage: true, bottomCtaAction: true, seo: { populate: { shareImage: true } } },
         },
+        'page-content.industries': {
+          populate: {
+            heroPrimaryCta: true,
+            heroSecondaryCta: true,
+            bandCta: true,
+            faqCta: true,
+            finalCtaAction: true,
+            beyondCards: true,
+            insightsItems: true,
+            caseCards: true,
+            reachStats: true,
+            processSteps: true,
+            testimonials: true,
+            faqItems: true,
+            seo: { populate: { shareImage: true } },
+          },
+        },
         'page-content.privacy-policy': {
           populate: {
             heroImage: true,

@@ -994,6 +994,248 @@ export interface PageContentContact extends Struct.ComponentSchema {
   };
 }
 
+export interface PageContentIndustries extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_industries';
+  info: {
+    description: '/industries page (Figma node 1384:26772), top to bottom: hero, intro, industry grid heading, beyond-industries cards + question band, questions-to-insights, case studies, global reach, research process, client stories, latest-blogs/FAQ, about + closing CTA. The industry cards and blog posts come from their own collections.';
+    displayName: 'Industries';
+  };
+  attributes: {
+    aboutBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2400;
+      }>;
+    aboutEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    aboutHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    bandBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    bandCta: Schema.Attribute.Component<'shared.link', false>;
+    bandHeading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    beyondBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    beyondCards: Schema.Attribute.Component<
+      'page-content.industries-card',
+      true
+    >;
+    beyondEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    beyondHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    caseCards: Schema.Attribute.Component<'page-content.industries-card', true>;
+    casesBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    casesEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    casesHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    faqCta: Schema.Attribute.Component<'shared.link', false>;
+    faqHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    faqItems: Schema.Attribute.Component<'blocks.faq-item', true>;
+    finalCtaAction: Schema.Attribute.Component<'shared.link', false>;
+    finalCtaBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    finalCtaHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    gridBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    gridEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    gridHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heroHeading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    heroPrimaryCta: Schema.Attribute.Component<'shared.link', false>;
+    heroSecondaryCta: Schema.Attribute.Component<'shared.link', false>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    insightsBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    insightsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    insightsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    insightsItems: Schema.Attribute.Component<
+      'page-content.industries-card',
+      true
+    >;
+    introBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2400;
+      }>;
+    introEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    introHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    processBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    processEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    processHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    processSteps: Schema.Attribute.Component<
+      'page-content.industries-card',
+      true
+    >;
+    reachBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    reachEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    reachHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    reachStats: Schema.Attribute.Component<
+      'page-content.industries-stat',
+      true
+    >;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    testimonials: Schema.Attribute.Component<
+      'page-content.industries-testimonial',
+      true
+    >;
+    testimonialsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    testimonialsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface PageContentIndustriesCard extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_industries_cards';
+  info: {
+    description: 'Title + description card used by the /industries page sections (icons are fixed by position in the design).';
+    displayName: 'Industries Card';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 900;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+  };
+}
+
+export interface PageContentIndustriesStat extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_industries_stats';
+  info: {
+    description: 'Value + label tile in the /industries "Local Insight. Global Reach." band.';
+    displayName: 'Industries Stat';
+  };
+  attributes: {
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    value: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
+export interface PageContentIndustriesTestimonial
+  extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_industries_testimonials';
+  info: {
+    description: 'Client success story card on /industries.';
+    displayName: 'Industries Testimonial';
+  };
+  attributes: {
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    quote: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+    role: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+  };
+}
+
 export interface PageContentOurCompany extends Struct.ComponentSchema {
   collectionName: 'components_page_content_our_companys';
   info: {
@@ -1678,6 +1920,10 @@ declare module '@strapi/strapi' {
       'industries.trust-logo': IndustriesTrustLogo;
       'page-content.case-study': PageContentCaseStudy;
       'page-content.contact': PageContentContact;
+      'page-content.industries': PageContentIndustries;
+      'page-content.industries-card': PageContentIndustriesCard;
+      'page-content.industries-stat': PageContentIndustriesStat;
+      'page-content.industries-testimonial': PageContentIndustriesTestimonial;
       'page-content.our-company': PageContentOurCompany;
       'page-content.our-team': PageContentOurTeam;
       'page-content.privacy-policy': PageContentPrivacyPolicy;

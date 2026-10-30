@@ -49,7 +49,8 @@
         "page-content.case-study",
         "page-content.contact",
         "page-content.our-team",
-        "page-content.privacy-policy"
+        "page-content.privacy-policy",
+        "page-content.industries"
       ],
       "required": true,
       "min": 1
