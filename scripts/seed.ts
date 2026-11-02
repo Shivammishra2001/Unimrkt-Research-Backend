@@ -1806,7 +1806,7 @@ const AUTOMOTIVES_DETAIL: IndustryDetailSeed = {
   whatWeDoEyebrow: 'What We Do',
   whatWeDoHeading: 'Our Automotive Research Services',
   whatWeDoBody:
-    'Unimrkt Research is a trusted automotive market research partner, delivering reliable data and actionable insights to help manufacturers, OEMs, suppliers, dealerships, EV companies, and mobility providers make informed business decisions. Our expertise spans consumer behavior, market trends, competitive intelligence, product validation, and emerging opportunities across the automotive ecosystem. Using advanced research methodologies such as CATI, Online Surveys, In-Depth Interviews (IDIs), Focus Group Discussions (FGDs), and Telephonic Surveys, we provide high-quality, accurate data tailored to your business objectives.',
+    'Unimrkt Research is a trusted automotive market research partner, delivering reliable data and actionable insights to help manufacturers, OEMs, suppliers, dealerships, EV companies, and mobility providers make informed business decisions. Our expertise spans consumer behavior, market trends, competitive intelligence, product validation, and emerging opportunities across the automotive ecosystem.\n\nUsing advanced research methodologies such as CATI, Online Surveys, In-Depth Interviews (IDIs), Focus Group Discussions (FGDs), and Telephonic Surveys, we provide high-quality, accurate data tailored to your business objectives. From tracking regulatory changes and understanding customer preferences to evaluating new market opportunities, our research empowers organizations to reduce risk, drive innovation, and achieve sustainable growth in the evolving automotive industry.',
   whatWeDoCta: { label: 'Talk to Our B2B Research Experts', href: '/contact', isExternal: false, variant: 'primary' },
   whatWeDoImageFilename: 'content-research-services.jpg',
   whyResearchEyebrow: 'Why Automotive Research?',
@@ -1831,11 +1831,30 @@ const AUTOMOTIVES_DETAIL: IndustryDetailSeed = {
   expertiseEyebrow: 'Our Expertise',
   expertiseHeading: 'Expertise Across the Automotive Ecosystem',
   expertiseItems: [
-    { title: 'Mobility', iconIdentifier: 'mobility' },
-    { title: 'Automobile Manufacturing', iconIdentifier: 'factory' },
-    { title: 'Two-Wheeler & Three-Wheeler Vehicles', iconIdentifier: 'bike' },
-    { title: 'Automobile Technology', iconIdentifier: 'cpu' },
-    { title: 'Accessories', iconIdentifier: 'package' },
+    // `description` = the sub-services shown when the card expands, one per line.
+    { title: 'Mobility', iconIdentifier: 'mobility', description: 'Shared Mobility\nAutonomous Vehicles\nConnectivity\nIntegrated Transportation' },
+    {
+      title: 'Automobile Manufacturing',
+      iconIdentifier: 'factory',
+      description:
+        'OEM Vehicle Manufacturers\nElectric Vehicle Systems\nHeavy-Duty Commercial Vehicles\nLight Commercial Vehicles\nOff-Highway Equipment\nBuses / Trucks\nMaterial Handling Equipment',
+    },
+    {
+      title: 'Two-Wheeler & Three-Wheeler Vehicles',
+      iconIdentifier: 'bike',
+      description: 'Motorbikes\nScooters\nMopeds\nEV Segment\nThree-Wheeler',
+    },
+    {
+      title: 'Automobile Technology',
+      iconIdentifier: 'cpu',
+      description:
+        'Electric Vehicles\nConnected & Automated Vehicles\nTelematics\nFuel Economy Technologies\nHuman Machine Interface\nADAS\nSmart Home Integration\nV2V / V2P / V2N Communication',
+    },
+    {
+      title: 'Accessories',
+      iconIdentifier: 'package',
+      description: 'OEM Accessories\nAftermarket Components\nInterior Systems\nPerformance Parts',
+    },
   ],
   challengesEyebrow: 'Business Challenges We Cover',
   challengesHeading: 'Key Challenges We Solve',

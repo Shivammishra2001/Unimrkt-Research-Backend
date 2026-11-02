@@ -13,7 +13,8 @@
     "sync-fallbacks": "ts-node scripts/sync-frontend-fallbacks-to-strapi.ts",
     "reorder-cm-layout": "ts-node scripts/reorder-content-manager-layout.ts",
     "seed:industries-page": "ts-node scripts/seed-industries-page.ts",
-    "set-component-labels": "ts-node scripts/set-component-labels.ts"
+    "set-component-labels": "ts-node scripts/set-component-labels.ts",
+    "seed:industry-media": "ts-node scripts/seed-industry-media.ts"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.16",
