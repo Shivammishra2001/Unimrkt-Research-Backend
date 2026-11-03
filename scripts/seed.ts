@@ -1869,10 +1869,10 @@ const AUTOMOTIVES_DETAIL: IndustryDetailSeed = {
   whoWeServeEyebrow: 'Who We Serve',
   whoWeServeHeading: 'Supporting Every Automotive Segment',
   whoWeServeCards: [
-    { title: 'Automotive Manufacturers & OEMs', description: 'Helping manufacturers understand market trends, customer expectations, and product opportunities.', iconIdentifier: 'car' },
-    { title: 'Auto Component Suppliers', description: 'Providing insights into demand forecasting, supply chains, and competitive positioning.', iconIdentifier: 'wrench' },
-    { title: 'EV & Mobility Companies', description: 'Supporting electric vehicle brands, charging providers, and mobility innovators with future-focused research.', iconIdentifier: 'battery-charging' },
-    { title: 'Dealerships, Fleet & Technology Companies', description: 'Helping dealerships, fleet operators, and mobility companies drive smarter decisions through actionable market insights.', iconIdentifier: 'building' },
+    { title: 'Automotive Manufacturers & OEMs', description: 'Helping manufacturers uncover market trends, understand evolving customer expectations, identify emerging opportunities, and make informed product decisions. Our research delivers actionable insights into consumer needs, competitive landscapes, industry dynamics, and growth areas, enabling businesses to develop relevant products, strengthen market positioning, improve customer experiences, and drive sustainable growth.', iconIdentifier: 'car' },
+    { title: 'Auto Component Suppliers', description: 'Providing actionable insights into demand forecasting, supply chain dynamics, market trends, and competitive positioning. Our research helps businesses anticipate customer needs, identify growth opportunities, optimize operations, understand competitors, and make informed strategic decisions that strengthen market presence, improve efficiency, and support sustainable business growth across evolving markets.', iconIdentifier: 'wrench' },
+    { title: 'EV & Mobility Companies', description: 'Supporting electric vehicle brands, charging providers, and mobility innovators with future-focused research. We deliver insights into consumer adoption, market trends, charging infrastructure, competitive landscapes, emerging technologies, and mobility preferences, helping businesses identify opportunities, refine strategies, accelerate innovation, and build solutions that meet the evolving needs of tomorrow’s transportation ecosystem.', iconIdentifier: 'battery-charging' },
+    { title: 'Dealerships, Fleet & Technology Companies', description: 'Helping dealerships, fleet operators, and mobility companies make smarter decisions through actionable market insights. Our research explores customer preferences, market trends, competitive dynamics, purchasing behaviour, and emerging mobility opportunities, enabling businesses to optimize strategies, improve customer experiences, strengthen market positioning, identify growth opportunities, and confidently navigate an evolving automotive landscape.', iconIdentifier: 'building' },
   ],
   methodologiesEyebrow: 'Research Methodologies',
   methodologiesHeading: 'Proven Research Methodologies',
@@ -1887,7 +1887,8 @@ const AUTOMOTIVES_DETAIL: IndustryDetailSeed = {
   empowerEyebrow: 'Automotive Research',
   empowerHeading: 'Empower Your Automotive Business with Unimrkt Research',
   empowerBody:
-    'Unimrkt Research empowers automotive businesses with accurate market intelligence and actionable insights to support informed decision-making. Leveraging advanced research methodologies, experienced professionals, and access to niche automotive audiences, we deliver reliable data that helps organizations understand customer behavior, market trends, competitive landscapes, and emerging opportunities.',
+    'Unimrkt Research empowers automotive businesses with accurate market intelligence and actionable insights to support informed decision-making. Leveraging advanced research methodologies, experienced professionals, and access to niche automotive audiences, we deliver reliable data that helps organizations understand customer behavior, market trends, competitive landscapes, and emerging opportunities.\n\n' +
+    'From product development and brand positioning to customer satisfaction and market expansion, our customized research solutions are designed to address the unique challenges of the automotive industry. Partner with Unimrkt Research to gain data-driven insights that fuel innovation, strengthen your competitive advantage, and accelerate sustainable business growth.',
   empowerCta: { label: 'Get Started with Unimrkt Research Today', href: '/contact', isExternal: false, variant: 'primary' },
   empowerImageFilename: 'content-mechanics.png',
   enquiryEyebrow: 'Get a Free Quote!',

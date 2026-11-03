@@ -13,7 +13,7 @@
     "description": {
       "type": "text",
       "required": false,
-      "maxLength": 240
+      "maxLength": 600
     },
     "image": {
       "type": "media",

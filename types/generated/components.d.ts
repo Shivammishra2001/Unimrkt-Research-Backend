@@ -1017,7 +1017,7 @@ export interface IndustriesDetailCard extends Struct.ComponentSchema {
   attributes: {
     description: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 240;
+        maxLength: 600;
       }>;
     icon: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
     iconIdentifier: Schema.Attribute.String &
