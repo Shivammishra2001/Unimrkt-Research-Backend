@@ -114,7 +114,7 @@ function buildIndustryFallbackPayload(title: string, images: IndustryImageIds): 
   const titleLower = title.toLowerCase();
 
   return {
-    heroEyebrow: `${title.toUpperCase()} MARKET RESEARCH`,
+    heroEyebrow: /market research/i.test(title) ? title.toUpperCase() : `${title.toUpperCase()} MARKET RESEARCH`,
     heroHeading: `Drive Innovation with Data-Driven ${title} Insights`,
     heroSubheading: `Helping organizations in the ${titleLower} sector make smarter, faster business decisions through reliable market intelligence and actionable insights.`,
     // heroImage: no fallback image in fallback.ts — left unset.
