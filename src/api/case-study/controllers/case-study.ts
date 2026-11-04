@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import { activeFilter } from '../../../utils/active';
 import { buildCaseStudyPopulate } from '../services/case-study';
 
 /** `find` forces the same deep populate every list/detail caller needs
@@ -21,7 +22,7 @@ export default factories.createCoreController('api::case-study.case-study', ({ s
     }
 
     const [entry] = await strapi.documents('api::case-study.case-study').findMany({
-      filters: { slug },
+      filters: { slug, ...activeFilter(false) },
       status: 'published',
       populate: buildCaseStudyPopulate(),
       limit: 1,
@@ -43,6 +44,7 @@ export default factories.createCoreController('api::case-study.case-study', ({ s
   async findSlugs(ctx) {
     const entries = await strapi.documents('api::case-study.case-study').findMany({
       status: 'published',
+      filters: activeFilter(false),
       fields: ['slug', 'updatedAt'],
       populate: {},
     });

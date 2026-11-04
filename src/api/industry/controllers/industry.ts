@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import { activeFilter } from '../../../utils/active';
 import { buildIndustryListPopulate, buildIndustryPopulate } from '../services/industry';
 
 /** Structurally identical to service's controller — see the equivalent
@@ -29,7 +30,7 @@ export default factories.createCoreController('api::industry.industry', ({ strap
     const status = isDraft ? 'draft' : 'published';
 
     const [entry] = await strapi.documents('api::industry.industry').findMany({
-      filters: { slug },
+      filters: { slug, ...activeFilter(isDraft) },
       status,
       populate: buildIndustryPopulate(),
       limit: 1,
@@ -61,6 +62,7 @@ export default factories.createCoreController('api::industry.industry', ({ strap
 
     const entries = await strapi.documents('api::industry.industry').findMany({
       status,
+      filters: activeFilter(isDraft),
       fields: ['slug', 'updatedAt'],
       populate: {},
     });

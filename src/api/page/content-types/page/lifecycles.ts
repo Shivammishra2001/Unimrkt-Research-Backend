@@ -17,11 +17,14 @@ export default {
     const { slug } = event.result;
     await notifyRevalidate(`page-${slug}`);
     await notifyRevalidate('pages');
+    // Menus hide links to inactive pages, so the toggle must refresh them too.
+    await notifyRevalidate('global');
   },
 
   async afterDelete(event) {
     const slug = event.result?.slug;
     if (slug) await notifyRevalidate(`page-${slug}`);
     await notifyRevalidate('pages');
+    await notifyRevalidate('global');
   },
 };

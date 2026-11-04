@@ -23,6 +23,11 @@
       "required": true,
       "unique": true
     },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    },
     "seo": {
       "type": "component",
       "component": "shared.seo",

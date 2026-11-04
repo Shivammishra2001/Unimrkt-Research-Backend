@@ -474,6 +474,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'> &
       Schema.Attribute.Private;
@@ -578,6 +579,7 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -976,6 +978,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
         maxLength: 280;
       }>;
     icon: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     legacyUrl: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -1198,6 +1201,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
       Schema.Attribute.Private;
@@ -1345,6 +1349,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     legacyUrl: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<

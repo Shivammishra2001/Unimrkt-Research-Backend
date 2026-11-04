@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import { activeFilter } from '../../../utils/active';
 import { buildServiceListPopulate, buildServicePopulate } from '../services/service';
 
 export default factories.createCoreController('api::service.service', ({ strapi }) => ({
@@ -32,7 +33,7 @@ export default factories.createCoreController('api::service.service', ({ strapi 
     const status = isDraft ? 'draft' : 'published';
 
     const [entry] = await strapi.documents('api::service.service').findMany({
-      filters: { slug },
+      filters: { slug, ...activeFilter(isDraft) },
       status,
       populate: buildServicePopulate(),
       limit: 1,
@@ -72,12 +73,12 @@ export default factories.createCoreController('api::service.service', ({ strapi 
     const status = isDraft ? 'draft' : 'published';
 
     const entries = await strapi.documents('api::service.service').findMany({
-      filters: { parent: { id: { $null: true } } },
+      filters: { parent: { id: { $null: true } }, ...activeFilter(isDraft) },
       status,
       sort: 'title:asc',
       populate: {
         thumbnail: true,
-        children: { fields: ['title', 'slug', 'summary'], sort: 'title:asc' },
+        children: { fields: ['title', 'slug', 'summary'], sort: 'title:asc', filters: activeFilter(isDraft) },
       },
     });
 
@@ -105,6 +106,7 @@ export default factories.createCoreController('api::service.service', ({ strapi 
 
     const entries = await strapi.documents('api::service.service').findMany({
       status,
+      filters: activeFilter(isDraft),
       fields: ['slug', 'updatedAt'],
       populate: {},
     });

@@ -23,11 +23,14 @@ export default {
     const { slug } = event.result;
     await notifyRevalidate(`industry-${slug}`);
     await notifyRevalidate('industries');
+    // Menus hide links to inactive pages, so the toggle must refresh them too.
+    await notifyRevalidate('global');
   },
 
   async afterDelete(event) {
     const slug = event.result?.slug;
     if (slug) await notifyRevalidate(`industry-${slug}`);
     await notifyRevalidate('industries');
+    await notifyRevalidate('global');
   },
 };

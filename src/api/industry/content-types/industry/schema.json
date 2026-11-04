@@ -23,6 +23,11 @@
       "required": true,
       "unique": true
     },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    },
     "legacyUrl": {
       "type": "string",
       "required": false
@@ -39,7 +44,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "seo": {
       "type": "component",
@@ -62,7 +71,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "heroActions": {
       "type": "component",
@@ -101,7 +114,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "whyResearchEyebrow": {
       "type": "string",
@@ -202,7 +219,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "enquiryEyebrow": {
       "type": "string",
@@ -220,7 +241,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "faqItems": {
       "type": "component",

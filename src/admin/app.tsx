@@ -2,6 +2,7 @@ import type { StrapiApp } from '@strapi/strapi/admin';
 import AuthLogo from './extensions/logo.png';
 import MenuLogo from './extensions/menu-logo.png';
 import favicon from './extensions/favicon.png';
+import ActiveSwitchPanel from './extensions/ActiveSwitchPanel';
 import { FONT_LINKS, GLOBAL_CSS, theme } from './extensions/theme';
 
 const CMS_NAME = 'Unimrkt Research CMS';
@@ -31,6 +32,11 @@ export default {
     translations: { en: copy },
     tutorials: false,
     notifications: { releases: false },
+  },
+
+  register(app: StrapiApp) {
+    // "Page visibility" ON/OFF switch in the Content Manager's right-hand panel.
+    (app.getPlugin('content-manager').apis as { addEditViewSidePanel: (panels: unknown[]) => void }).addEditViewSidePanel([ActiveSwitchPanel]);
   },
 
   bootstrap(_app: StrapiApp) {

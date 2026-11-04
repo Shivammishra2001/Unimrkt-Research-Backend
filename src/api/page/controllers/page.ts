@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import { activeFilter } from '../../../utils/active';
 import { buildPagePopulate } from '../services/page';
 
 export default factories.createCoreController('api::page.page', ({ strapi }) => ({
@@ -28,14 +29,23 @@ export default factories.createCoreController('api::page.page', ({ strapi }) => 
     const status = isDraft ? 'draft' : 'published';
 
     const [entry] = await strapi.documents('api::page.page').findMany({
-      filters: { slug },
+      filters: { slug, ...activeFilter(isDraft) },
       status,
       populate: buildPagePopulate(),
       limit: 1,
     });
 
     if (!entry) {
-      return ctx.notFound('Page not found');
+      // Tell "switched off" apart from "never existed": a few pages (e.g. /industries) ship built-in copy while their entry is missing,
+      // but must NOT do so when an editor deliberately turned the page off.
+      const [hidden] = await strapi.documents('api::page.page').findMany({
+        filters: { slug, isActive: { $eq: false } },
+        status,
+        fields: ['slug'],
+        populate: {},
+        limit: 1,
+      });
+      return hidden ? ctx.notFound('Page is inactive', { code: 'INACTIVE' }) : ctx.notFound('Page not found');
     }
 
     const sanitized = await strapi.contentAPI.sanitize.output(entry, strapi.getModel('api::page.page'), {
@@ -60,6 +70,7 @@ export default factories.createCoreController('api::page.page', ({ strapi }) => 
 
     const entries = await strapi.documents('api::page.page').findMany({
       status,
+      filters: activeFilter(isDraft),
       fields: ['slug', 'updatedAt'],
       populate: {},
     });

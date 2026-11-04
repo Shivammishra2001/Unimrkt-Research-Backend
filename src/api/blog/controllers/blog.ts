@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import { activeFilter } from '../../../utils/active';
 import { buildBlogPopulate } from '../services/blog';
 
 /**
@@ -38,7 +39,7 @@ export default factories.createCoreController('api::blog.blog', ({ strapi }) => 
     const status = isDraft ? 'draft' : 'published';
 
     const [entry] = await strapi.documents('api::blog.blog').findMany({
-      filters: { slug },
+      filters: { slug, ...activeFilter(isDraft) },
       status,
       populate: buildBlogPopulate(),
       limit: 1,
@@ -72,6 +73,7 @@ export default factories.createCoreController('api::blog.blog', ({ strapi }) => 
 
     const entries = await strapi.documents('api::blog.blog').findMany({
       status,
+      filters: activeFilter(isDraft),
       fields: ['slug', 'updatedAt'],
       populate: {},
     });

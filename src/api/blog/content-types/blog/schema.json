@@ -23,6 +23,11 @@
       "required": true,
       "unique": true
     },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    },
     "excerpt": {
       "type": "text",
       "required": true,
@@ -39,7 +44,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "body": {
       "type": "blocks"

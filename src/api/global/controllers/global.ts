@@ -1,5 +1,6 @@
 import { factories } from '@strapi/strapi';
 import { buildGlobalPopulate } from '../services/global';
+import { getInactivePaths, pointsAtInactive } from '../../../utils/inactive-paths';
 
 export default factories.createCoreController('api::global.global', ({ strapi }) => ({
   /**
@@ -17,6 +18,26 @@ export default factories.createCoreController('api::global.global', ({ strapi })
     // empty response instead of a 500.
     const result = await super.find(ctx);
     const { data, meta } = result ?? { data: null, meta: {} };
+
+    // Menus never link to a page whose "Page visibility" switch is OFF (preview keeps everything so editors see the full menu).
+    if (data && !isDraft) {
+      const inactive = await getInactivePaths(strapi);
+      if (inactive.size > 0) {
+        const keep = (item: { href?: string | null }) => !pointsAtInactive(item.href, inactive);
+        const nav = (data as any).primaryNav;
+        if (Array.isArray(nav)) {
+          (data as any).primaryNav = nav
+            .filter(keep)
+            .map((item: any) => (Array.isArray(item.children) ? { ...item, children: item.children.filter(keep) } : item));
+        }
+        const cols = (data as any).footerColumns;
+        if (Array.isArray(cols)) {
+          (data as any).footerColumns = cols.map((col: any) => ({ ...col, links: (col.links ?? []).filter(keep) }));
+        }
+        const cta = (data as any).navCta;
+        if (cta && !keep(cta)) (data as any).navCta = null;
+      }
+    }
 
     ctx.set(
       'Cache-Control',
