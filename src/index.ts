@@ -134,6 +134,48 @@ async function grantPermissions(strapi: Core.Strapi, roleType: (typeof ROLE_TYPE
   );
 }
 
+/**
+ * Content Manager list views: a short, meaningful default column set per collection (media fields render as row thumbnails).
+ * Applied once, then left alone so editors' own column choices survive restarts; bump the key to re-apply a new default.
+ */
+const LIST_LAYOUT_KEY = 'unimrkt_list_layouts_v1';
+const LIST_LAYOUTS: Record<string, { columns: string[]; sortBy: string; sortOrder?: 'ASC' | 'DESC' }> = {
+  'api::blog.blog': { columns: ['id', 'coverImage', 'title', 'category', 'publishedAt'], sortBy: 'updatedAt', sortOrder: 'DESC' },
+  'api::industry.industry': { columns: ['id', 'heroImage', 'title', 'slug', 'publishedAt'], sortBy: 'title', sortOrder: 'ASC' },
+  'api::service.service': { columns: ['id', 'thumbnail', 'title', 'slug', 'publishedAt'], sortBy: 'title', sortOrder: 'ASC' },
+  'api::case-study.case-study': { columns: ['id', 'coverImage', 'title', 'category', 'publishedAt'], sortBy: 'updatedAt', sortOrder: 'DESC' },
+  'api::job-application.job-application': {
+    columns: ['id', 'name', 'jobTitle', 'email', 'phone', 'experience', 'location', 'createdAt'],
+    sortBy: 'createdAt',
+    sortOrder: 'DESC',
+  },
+};
+
+async function applyListLayouts(strapi: Core.Strapi) {
+  const store = strapi.store({ type: 'plugin', name: 'unimrkt' });
+  if (await store.get({ key: LIST_LAYOUT_KEY })) return;
+  const service = strapi.plugin('content-manager').service('content-types');
+  for (const [uid, layout] of Object.entries(LIST_LAYOUTS)) {
+    try {
+      // eslint-disable-next-line no-await-in-loop -- sequential on purpose
+      const current = await service.findConfiguration({ uid });
+      const columns = layout.columns.filter((c) => c in (current.metadatas ?? {}));
+      // eslint-disable-next-line no-await-in-loop
+      await service.updateConfiguration(
+        { uid },
+        {
+          layouts: { ...current.layouts, list: columns },
+          settings: { ...current.settings, defaultSortBy: layout.sortBy, defaultSortOrder: layout.sortOrder ?? 'ASC', pageSize: 20 },
+        }
+      );
+      strapi.log.info(`[admin-layout] ${uid}: ${columns.join(', ')}`);
+    } catch (err) {
+      strapi.log.warn(`[admin-layout] ${uid} skipped: ${(err as Error).message}`);
+    }
+  }
+  await store.set({ key: LIST_LAYOUT_KEY, value: true });
+}
+
 export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
@@ -142,5 +184,6 @@ export default {
       // eslint-disable-next-line no-await-in-loop -- sequential on purpose, keeps bootstrap logs ordered
       await grantPermissions(strapi, roleType);
     }
+    await applyListLayouts(strapi);
   },
 };
