@@ -57,6 +57,14 @@ export default {
       document.head.appendChild(style);
     }
 
+    // Tab icon: Strapi 5 ignores `config.head.favicon`, so without this the browser falls back to the site root's /favicon.ico.
+    document.querySelectorAll('link[rel~="icon"]').forEach((el) => el.remove());
+    const icon = document.createElement('link');
+    icon.rel = 'icon';
+    icon.type = 'image/png';
+    icon.href = favicon;
+    document.head.appendChild(icon);
+
     // Document title: every "… | Strapi" / "Strapi Dashboard" becomes "… | Unimrkt Research CMS".
     const retitle = () => {
       const next = document.title.replace(/Strapi( Dashboard)?/g, CMS_NAME);
