@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_services_page_process",
+  "info": {
+    "displayName": "Research Process",
+    "description": "\"Research Process\" heading with its four steps."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "steps": {
+      "type": "component",
+      "component": "page-content.industries-card",
+      "repeatable": true
+    }
+  }
+}

@@ -19,6 +19,7 @@
  */
 
 import { seedIndustriesPage } from './lib/industries-page';
+import { seedServicesPage } from './lib/services-page';
 import path from 'path';
 import fs from 'fs';
 import { compileStrapi, createStrapi } from '@strapi/strapi';
@@ -4210,6 +4211,10 @@ async function main() {
     // 20. Industries page (/industries, Figma node 1384:26772) — copy lives in
     // scripts/seed-data/industries-page.json (also used by seed:industries-page).
     await seedIndustriesPage(app, true);
+
+    // 21. Services page (/services, Figma node 1231:77069) — copy in scripts/seed-data/services-page.json (also used
+    // by seed:services-page). Never forced here: an existing entry keeps every admin edit.
+    await seedServicesPage(app);
 
     app.log.info('[seed] Done.');
   } finally {

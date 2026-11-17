@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_services_page_faq",
+  "info": {
+    "displayName": "Frequently Asked Questions",
+    "description": "Blogs button, FAQ heading and the questions."
+  },
+  "options": {},
+  "attributes": {
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "items": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true
+    }
+  }
+}

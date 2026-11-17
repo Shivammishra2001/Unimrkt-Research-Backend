@@ -1,0 +1,68 @@
+{
+  "collectionName": "components_services_page_case_band",
+  "info": {
+    "displayName": "Case Studies Band",
+    "description": "\"Turning Research Into Real-World Impact\" red band: copy, button and the two stat cards."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "text",
+      "maxLength": 200,
+      "description": "Use a line break to split the two lines."
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "projectsValue": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "projectsLabel": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "projectsCaption": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "clientsValue": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "clientsLabel": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "personImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "chartImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    }
+  }
+}

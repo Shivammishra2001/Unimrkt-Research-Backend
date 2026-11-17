@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_services_page_band",
+  "info": {
+    "displayName": "Have a Question? (Question Band)",
+    "description": "Dark band with the couple cut-out and button."
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "text",
+      "maxLength": 160,
+      "description": "Use a line break to split the two lines."
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "personImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

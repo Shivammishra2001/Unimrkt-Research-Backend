@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_services_page_coverage",
+  "info": {
+    "displayName": "Our Coverage",
+    "description": "\"Research Reach That Goes Beyond Markets\" heading, intro and the four cards."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 2400
+    },
+    "cards": {
+      "type": "component",
+      "component": "page-content.industries-card",
+      "repeatable": true
+    }
+  }
+}

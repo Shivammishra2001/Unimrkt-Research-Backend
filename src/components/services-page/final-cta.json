@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_services_page_final_cta",
+  "info": {
+    "displayName": "Start Your Research Journey",
+    "description": "Closing banner."
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 320
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "action": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

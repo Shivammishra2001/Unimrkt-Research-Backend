@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_services_page_intro",
+  "info": {
+    "displayName": "About Our Services (Intro)",
+    "description": "\"One Research Partner. Multiple Ways to Find the Answer.\" copy with the colleagues photo in the ring."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 3000,
+      "description": "Separate paragraphs with a blank line."
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    }
+  }
+}

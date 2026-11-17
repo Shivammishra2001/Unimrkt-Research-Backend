@@ -1838,6 +1838,304 @@ export interface PrivacyPolicyTocItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ServicesPageAbout extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_about';
+  info: {
+    description: '"Comprehensive Research Solutions" copy above the closing band.';
+    displayName: 'About Our Services';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2400;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface ServicesPageBand extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_band';
+  info: {
+    description: 'Dark band with the couple cut-out and button.';
+    displayName: 'Have a Question? (Question Band)';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    cta: Schema.Attribute.Component<'shared.link', false>;
+    heading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    personImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface ServicesPageCaseBand extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_case_band';
+  info: {
+    description: '"Turning Research Into Real-World Impact" red band: copy, button and the two stat cards.';
+    displayName: 'Case Studies Band';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    chartImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    clientsLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    clientsValue: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+      }>;
+    cta: Schema.Attribute.Component<'shared.link', false>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    personImage: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    projectsCaption: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    projectsLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    projectsValue: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+      }>;
+  };
+}
+
+export interface ServicesPageCoverage extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_coverage';
+  info: {
+    description: '"Research Reach That Goes Beyond Markets" heading, intro and the four cards.';
+    displayName: 'Our Coverage';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2400;
+      }>;
+    cards: Schema.Attribute.Component<'page-content.industries-card', true>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface ServicesPageFaq extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_faq';
+  info: {
+    description: 'Blogs button, FAQ heading and the questions.';
+    displayName: 'Frequently Asked Questions';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'shared.link', false>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    items: Schema.Attribute.Component<'blocks.faq-item', true>;
+  };
+}
+
+export interface ServicesPageFinalCta extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_final_cta';
+  info: {
+    description: 'Closing banner.';
+    displayName: 'Start Your Research Journey';
+  };
+  attributes: {
+    action: Schema.Attribute.Component<'shared.link', false>;
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface ServicesPageHero extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_hero';
+  info: {
+    description: 'Top banner: pill, title, subtitle, hero photo and the two buttons.';
+    displayName: 'Services Hero';
+  };
+  attributes: {
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    primaryCta: Schema.Attribute.Component<'shared.link', false>;
+    secondaryCta: Schema.Attribute.Component<'shared.link', false>;
+    subheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+  };
+}
+
+export interface ServicesPageIndustries extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_industries';
+  info: {
+    description: 'Heading above the industries slider. The cards themselves are the Industries collection.';
+    displayName: 'Industries We Serve';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface ServicesPageIntro extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_intro';
+  info: {
+    description: '"One Research Partner. Multiple Ways to Find the Answer." copy with the colleagues photo in the ring.';
+    displayName: 'About Our Services (Intro)';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 3000;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface ServicesPageProcess extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_process';
+  info: {
+    description: '"Research Process" heading with its four steps.';
+    displayName: 'Research Process';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    steps: Schema.Attribute.Component<'page-content.industries-card', true>;
+  };
+}
+
+export interface ServicesPageShowcase extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_showcase';
+  info: {
+    description: 'Heading above the service-category panels. The panels themselves are the Services collection.';
+    displayName: 'Our Services (Category Panels)';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface ServicesPageTestimonials extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_testimonials';
+  info: {
+    description: 'Heading above the testimonials (the testimonials themselves are edited on Pages > Industries).';
+    displayName: 'Client Success Stories';
+  };
+  attributes: {
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface ServicesPageWhy extends Struct.ComponentSchema {
+  collectionName: 'components_services_page_why';
+  info: {
+    description: 'Red band heading, intro line and the six stat cards (value + label + optional icon).';
+    displayName: 'Why Choose Unimrkt?';
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    stats: Schema.Attribute.Component<'page-content.industries-stat', true>;
+  };
+}
+
 export interface ServicesStatItem extends Struct.ComponentSchema {
   collectionName: 'components_services_stat_items';
   info: {
@@ -2063,6 +2361,19 @@ declare module '@strapi/strapi' {
       'page-content.work-with-us': PageContentWorkWithUs;
       'privacy-policy.list-item': PrivacyPolicyListItem;
       'privacy-policy.toc-item': PrivacyPolicyTocItem;
+      'services-page.about': ServicesPageAbout;
+      'services-page.band': ServicesPageBand;
+      'services-page.case-band': ServicesPageCaseBand;
+      'services-page.coverage': ServicesPageCoverage;
+      'services-page.faq': ServicesPageFaq;
+      'services-page.final-cta': ServicesPageFinalCta;
+      'services-page.hero': ServicesPageHero;
+      'services-page.industries': ServicesPageIndustries;
+      'services-page.intro': ServicesPageIntro;
+      'services-page.process': ServicesPageProcess;
+      'services-page.showcase': ServicesPageShowcase;
+      'services-page.testimonials': ServicesPageTestimonials;
+      'services-page.why': ServicesPageWhy;
       'services.stat-item': ServicesStatItem;
       'shared.footer-column': SharedFooterColumn;
       'shared.link': SharedLink;

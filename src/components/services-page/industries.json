@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_services_page_industries",
+  "info": {
+    "displayName": "Industries We Serve",
+    "description": "Heading above the industries slider. The cards themselves are the Industries collection."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 1200
+    }
+  }
+}

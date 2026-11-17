@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_services_page_showcase",
+  "info": {
+    "displayName": "Our Services (Category Panels)",
+    "description": "Heading above the service-category panels. The panels themselves are the Services collection."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 1200
+    }
+  }
+}

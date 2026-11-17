@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_services_page_testimonials",
+  "info": {
+    "displayName": "Client Success Stories",
+    "description": "Heading above the testimonials (the testimonials themselves are edited on Pages > Industries)."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 200
+    }
+  }
+}

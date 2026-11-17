@@ -102,6 +102,20 @@ export function buildPagePopulate() {
         'industries-page.faq': { populate: { cta: true, items: true } },
         'industries-page.about': { populate: '*' },
         'industries-page.final-cta': { populate: { image: true, action: true } },
+        // /services sections (Pages > Services) — same one-component-per-section shape as /industries.
+        'services-page.hero': { populate: { image: true, primaryCta: true, secondaryCta: true } },
+        'services-page.intro': { populate: { image: true } },
+        'services-page.showcase': { populate: '*' },
+        'services-page.why': { populate: { stats: { populate: { icon: true } } } },
+        'services-page.process': { populate: { steps: { populate: { icon: true } } } },
+        'services-page.band': { populate: { personImage: true, cta: true } },
+        'services-page.coverage': { populate: { cards: { populate: { icon: true } } } },
+        'services-page.industries': { populate: '*' },
+        'services-page.case-band': { populate: { cta: true, personImage: true, chartImage: true } },
+        'services-page.testimonials': { populate: '*' },
+        'services-page.faq': { populate: { cta: true, items: true } },
+        'services-page.about': { populate: '*' },
+        'services-page.final-cta': { populate: { image: true, action: true } },
         'page-content.privacy-policy': {
           populate: {
             heroImage: true,

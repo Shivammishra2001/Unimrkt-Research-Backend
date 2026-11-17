@@ -1189,6 +1189,19 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'industries-page.faq',
         'industries-page.about',
         'industries-page.final-cta',
+        'services-page.hero',
+        'services-page.intro',
+        'services-page.showcase',
+        'services-page.why',
+        'services-page.process',
+        'services-page.band',
+        'services-page.coverage',
+        'services-page.industries',
+        'services-page.case-band',
+        'services-page.testimonials',
+        'services-page.faq',
+        'services-page.about',
+        'services-page.final-cta',
       ]
     > &
       Schema.Attribute.Required &
