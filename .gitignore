@@ -29,3 +29,13 @@ public/uploads/
 .vscode/
 .idea/
 *.log
+
+# === Standardized deploy exclusions (see /DEPLOYMENT.md) ===
+# All env files (secrets) — keep only a committed example
+.env*
+!.env.example
+# Next.js artifacts (kept in sync across repos per DEPLOYMENT.md)
+.next/
+# Crash dumps and generated inventories
+*.stackdump
+content-inventory.json
