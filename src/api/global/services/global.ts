@@ -31,7 +31,7 @@ export function buildGlobalPopulate() {
     footerBadges: true,
     footerColumns: { populate: { links: true } },
     socialLinks: true,
-    chatWidget: { populate: { quickActions: true } },
+    chatWidget: { populate: { quickActions: true, keywordReplies: true } },
     defaultSeo: { populate: ['shareImage'] },
     // Shared closing bands (Global defaults; pages may override).
     blogBand: true,

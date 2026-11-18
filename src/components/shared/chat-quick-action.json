@@ -2,7 +2,8 @@
   "collectionName": "components_shared_chat_quick_actions",
   "info": {
     "displayName": "Chat Quick Action",
-    "icon": "message"
+    "icon": "message",
+    "description": "A pill in the chat panel. Clicking it posts the label as the visitor's message and answers with a card."
   },
   "attributes": {
     "label": {
@@ -10,10 +11,38 @@
       "required": true,
       "maxLength": 80
     },
+    "action": {
+      "type": "enumeration",
+      "enum": [
+        "reply",
+        "lead_form"
+      ],
+      "default": "reply"
+    },
     "reply": {
       "type": "text",
       "required": true,
       "maxLength": 600
+    },
+    "highlights": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "stats": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "linkLabel": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "linkHref": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "showFormButton": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

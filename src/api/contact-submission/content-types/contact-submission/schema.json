@@ -5,7 +5,7 @@
     "singularName": "contact-submission",
     "pluralName": "contact-submissions",
     "displayName": "Contact Us Forms",
-    "description": "A lead captured from the /contact page form (Name/Email/Phone/Company — the exact fields drawn in Figma node 637:10433, nothing else). Public API grants `create` only — no public find/findOne/update/delete — so a visitor can submit a lead but never read, list, or tamper with anyone else's."
+    "description": "A lead captured by a site form: the /contact page, the blog Quick Enquiry card or the chat widget (see Source). Service is the research area picked in the chat form. Public API grants create only, so a visitor can submit a lead but never read, list, or tamper with anyone else's."
   },
   "options": {
     "draftAndPublish": false
@@ -30,6 +30,10 @@
       "type": "string",
       "required": false,
       "maxLength": 160
+    },
+    "service": {
+      "type": "string",
+      "maxLength": 120
     },
     "message": {
       "type": "text",

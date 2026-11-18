@@ -24,6 +24,12 @@
       "repeatable": true,
       "max": 6
     },
+    "keywordReplies": {
+      "type": "component",
+      "component": "shared.chat-keyword-reply",
+      "repeatable": true,
+      "max": 20
+    },
     "placeholder": {
       "type": "string",
       "maxLength": 80
@@ -31,6 +37,26 @@
     "acknowledgement": {
       "type": "text",
       "maxLength": 600
+    },
+    "formButtonLabel": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "proposalButtonLabel": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "formIntro": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "serviceOptions": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "formSuccess": {
+      "type": "text",
+      "maxLength": 400
     }
   }
 }

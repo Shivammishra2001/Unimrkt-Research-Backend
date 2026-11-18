@@ -694,7 +694,7 @@ export interface ApiContactSubmissionContactSubmission
   extends Struct.CollectionTypeSchema {
   collectionName: 'contact_submissions';
   info: {
-    description: "A lead captured from the /contact page form (Name/Email/Phone/Company \u2014 the exact fields drawn in Figma node 637:10433, nothing else). Public API grants `create` only \u2014 no public find/findOne/update/delete \u2014 so a visitor can submit a lead but never read, list, or tamper with anyone else's.";
+    description: "A lead captured by a site form: the /contact page, the blog Quick Enquiry card or the chat widget (see Source). Service is the research area picked in the chat form. Public API grants create only, so a visitor can submit a lead but never read, list, or tamper with anyone else's.";
     displayName: 'Contact Us Forms';
     pluralName: 'contact-submissions';
     singularName: 'contact-submission';
@@ -731,6 +731,10 @@ export interface ApiContactSubmissionContactSubmission
         maxLength: 40;
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    service: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
     source: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;

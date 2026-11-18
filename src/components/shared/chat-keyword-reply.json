@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_shared_chat_keyword_replies",
+  "info": {
+    "displayName": "Chat Keyword Reply",
+    "icon": "search",
+    "description": "An answer the chat gives when a typed message contains one of its keywords. Checked top to bottom; the first match wins."
+  },
+  "attributes": {
+    "keywords": {
+      "type": "string",
+      "required": true,
+      "maxLength": 300
+    },
+    "reply": {
+      "type": "text",
+      "required": true,
+      "maxLength": 600
+    },
+    "highlights": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "linkLabel": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "linkHref": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "opensForm": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

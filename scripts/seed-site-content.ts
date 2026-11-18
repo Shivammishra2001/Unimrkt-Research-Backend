@@ -24,6 +24,7 @@ import fs from 'fs';
 import { compileStrapi, createStrapi } from '@strapi/strapi';
 import { notifyRevalidate } from '../src/utils/revalidate';
 import { buildPagePopulate } from '../src/api/page/services/page';
+import { CHAT_FIELDS, CHAT_KEYWORD_REPLIES, CHAT_QUICK_ACTIONS, OLD_QUICK_ACTION_LABELS, OLD_TEXT } from './chat-content';
 
 const ASSETS = path.join(__dirname, 'seed-assets', 'site-content');
 const PAGE = 'api::page.page';
@@ -197,7 +198,7 @@ async function main() {
 
     // --- Global: footer badges, social heading, chat widget --------------------------------------------------------
     const G = 'api::global.global';
-    const g = await strapi.documents(G).findFirst({ status: 'draft', populate: { footerBadges: true, chatWidget: { populate: { quickActions: true } } } });
+    const g = await strapi.documents(G).findFirst({ status: 'draft', populate: { footerBadges: true, chatWidget: { populate: { quickActions: true, keywordReplies: true } } } });
     if (g) {
       const data: Record<string, unknown> = {};
       if (blank(g.footerBadges)) {
@@ -205,26 +206,50 @@ async function main() {
         if (ids.length) data.footerBadges = ids;
       }
       if (blank(g.socialHeading)) data.socialHeading = 'Connect with us';
-      if (!g.chatWidget) {
-        data.chatWidget = {
-          title: 'Chat with Unimrkt',
-          status: 'Online',
-          greeting: "👋 Hi there! I'm the Unimrkt Research assistant. How can we help with your market research needs today?",
-          quickActions: [
-            { label: 'Request a Quote', reply: "Happy to help — could you share a bit about the market or industry you'd like research on? Type it below and our team will follow up with a tailored quote." },
-            { label: 'Speak with an Analyst', reply: 'Sure thing! Leave your question below and one of our research analysts will reach out to you directly.' },
-            { label: 'General Enquiry', reply: "Of course — go ahead and type your question below, and we'll get back to you shortly." },
-          ],
-          placeholder: 'Type your message…',
-          acknowledgement: "Thanks — we've received your message and a research consultant will be in touch shortly.",
-        };
+
+      // Chat widget: fill what is empty; upgrade only values still exactly as the first seed wrote them (never edited).
+      const chatChanges: string[] = [];
+      const cw = (g.chatWidget ?? {}) as Record<string, any>;
+      const strip = (rows: any[] | undefined) => (rows ?? []).map(({ id, ...rest }) => rest); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const nextChat: Record<string, unknown> = {
+        title: cw.title ?? 'Chat with Unimrkt',
+        status: cw.status ?? 'Online',
+        quickActions: strip(cw.quickActions),
+        keywordReplies: strip(cw.keywordReplies),
+      };
+      for (const key of Object.keys(CHAT_FIELDS) as Array<keyof typeof CHAT_FIELDS>) {
+        const current = cw[key];
+        const old = (OLD_TEXT as Record<string, string>)[key];
+        if (blank(current) || (old && current === old)) {
+          nextChat[key] = CHAT_FIELDS[key];
+          chatChanges.push(key);
+        } else nextChat[key] = current;
       }
+      const labels = (cw.quickActions ?? []).map((a: { label: string }) => a.label);
+      const untouchedQuickActions = labels.length === 0 || (labels.length === OLD_QUICK_ACTION_LABELS.length && labels.every((l: string, i: number) => l === OLD_QUICK_ACTION_LABELS[i]));
+      if (untouchedQuickActions) {
+        nextChat.quickActions = CHAT_QUICK_ACTIONS;
+        chatChanges.push('quickActions');
+      }
+      if (blank(cw.keywordReplies)) {
+        nextChat.keywordReplies = CHAT_KEYWORD_REPLIES;
+        chatChanges.push('keywordReplies');
+      }
+      if (chatChanges.length) data.chatWidget = nextChat;
+
       if (Object.keys(data).length) {
-        const live = await strapi.documents(G).findFirst({ status: 'published', fields: ['id'] });
+        const live = await strapi.documents(G).findFirst({ status: 'published', fields: ['updatedAt'] });
+        // Republish only when the draft carries no unpublished edits (its last save is not newer than the live version).
+        const draftIsClean = !live || new Date(g.updatedAt).getTime() <= new Date(live.updatedAt).getTime() + 1000;
         await strapi.documents(G).update({ documentId: g.documentId, data });
-        if (live) await strapi.documents(G).publish({ documentId: g.documentId });
-        tags.add('global');
-        log(`Global: filled ${Object.keys(data).join(', ')}`);
+        const what = [...Object.keys(data).filter((k) => k !== 'chatWidget'), ...chatChanges.map((k) => `chatWidget.${k}`)].join(', ');
+        if (live && draftIsClean) {
+          await strapi.documents(G).publish({ documentId: g.documentId });
+          tags.add('global');
+          log(`Global: filled ${what} and published`);
+        } else if (live) {
+          log(`Global: filled ${what} in the DRAFT only (Global has unpublished edits — publish it when ready)`);
+        } else log(`Global: filled ${what}`);
       } else log('Global: footer badges, social heading and chat widget already set — unchanged');
     }
     const overview = await fillRows(strapi, 'navigation.services-menu', { overviewLabel: 'Overview' });

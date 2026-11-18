@@ -460,7 +460,7 @@ async function main() {
   const strapi = await createStrapi(appContext).load();
   strapi.log.level = 'error';
 
-  // `-- --only=service` (comma-separated: industry, service, global, testimonial, blog, components, case-study,
+  // `-- --only=service` (comma-separated: industry, service, global, testimonial, blog, components, chat, case-study,
   // team-member, gallery-item, category) limits the run.
   const onlyArg = process.argv.find((a) => a.startsWith('--only='));
   const only = onlyArg ? onlyArg.slice('--only='.length).split(',').map((s) => s.trim()) : null;
@@ -479,6 +479,32 @@ async function main() {
         menuType: 'Services mega-menu / Industries mega-menu open the big menus (their content is set further down this page); link = a plain link; dropdown = the child links below.',
         page: 'Pick a Page instead of typing a URL; its address follows the page if the slug changes.',
         isVisible: 'Off hides the item from the header without deleting it.',
+      });
+    }
+    if (run('chat')) {
+      const ONE_PER_LINE = 'One per line.';
+      await reorderComponent(strapi, 'shared.chat-widget', {
+        quickActions: 'The pills under the chat. "Lead form" pills open the callback form straight away.',
+        keywordReplies: 'Answers to typed messages, checked top to bottom (first match wins). Empty = the built-in answers.',
+        acknowledgement: 'Reply when a typed message matches no keyword. A "Request callback" button is added under it.',
+        formButtonLabel: 'The always-visible button under the chat header that opens the callback form.',
+        proposalButtonLabel: 'Button under answer cards that opens the callback form (e.g. "Request Proposal →").',
+        formIntro: 'Shown above the callback form.',
+        serviceOptions: `Choices in the form's "Service / research area" dropdown. ${ONE_PER_LINE}`,
+        formSuccess: 'Shown after the form is sent. {name} = the visitor\'s first name, {contact} = their phone and email.',
+      });
+      await reorderComponent(strapi, 'shared.chat-quick-action', {
+        action: 'reply = answer with the card below; lead_form = show the reply text, then open the callback form.',
+        highlights: `Bullet points under the reply. ${ONE_PER_LINE}`,
+        stats: `Small figure chips, e.g. "90+ Countries". ${ONE_PER_LINE}`,
+        linkHref: 'A site path such as /services, or a full URL.',
+        showFormButton: 'Adds the proposal button under the card.',
+      });
+      await reorderComponent(strapi, 'shared.chat-keyword-reply', {
+        keywords: 'Comma-separated words or phrases, e.g. "cati, telephonic, phone survey". A word also matches longer forms (career → careers).',
+        highlights: `Bullet points under the reply. ${ONE_PER_LINE}`,
+        linkHref: 'A site path such as /services, or a full URL.',
+        opensForm: 'Also open the callback form (use for quote / pricing / callback questions).',
       });
     }
     if (run('case-study')) await reorderContentType(strapi, CASE_STUDY_UID, CASE_STUDY_FIELD_ORDER);

@@ -2497,22 +2497,76 @@ export interface SharedBlogBand extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedChatKeywordReply extends Struct.ComponentSchema {
+  collectionName: 'components_shared_chat_keyword_replies';
+  info: {
+    description: 'An answer the chat gives when a typed message contains one of its keywords. Checked top to bottom; the first match wins.';
+    displayName: 'Chat Keyword Reply';
+    icon: 'search';
+  };
+  attributes: {
+    highlights: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    keywords: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    linkHref: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    linkLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    opensForm: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    reply: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+  };
+}
+
 export interface SharedChatQuickAction extends Struct.ComponentSchema {
   collectionName: 'components_shared_chat_quick_actions';
   info: {
+    description: "A pill in the chat panel. Clicking it posts the label as the visitor's message and answers with a card.";
     displayName: 'Chat Quick Action';
     icon: 'message';
   };
   attributes: {
+    action: Schema.Attribute.Enumeration<['reply', 'lead_form']> &
+      Schema.Attribute.DefaultTo<'reply'>;
+    highlights: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
+    linkHref: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    linkLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
     reply: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 600;
+      }>;
+    showFormButton: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    stats: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
       }>;
   };
 }
@@ -2529,13 +2583,39 @@ export interface SharedChatWidget extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 600;
       }>;
+    formButtonLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    formIntro: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    formSuccess: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
     greeting: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 600;
       }>;
+    keywordReplies: Schema.Attribute.Component<
+      'shared.chat-keyword-reply',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+        },
+        number
+      >;
     placeholder: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
+      }>;
+    proposalButtonLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
       }>;
     quickActions: Schema.Attribute.Component<'shared.chat-quick-action', true> &
       Schema.Attribute.SetMinMax<
@@ -2544,6 +2624,10 @@ export interface SharedChatWidget extends Struct.ComponentSchema {
         },
         number
       >;
+    serviceOptions: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
     status: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 40;
@@ -2820,6 +2904,7 @@ declare module '@strapi/strapi' {
       'services-page.why': ServicesPageWhy;
       'services.stat-item': ServicesStatItem;
       'shared.blog-band': SharedBlogBand;
+      'shared.chat-keyword-reply': SharedChatKeywordReply;
       'shared.chat-quick-action': SharedChatQuickAction;
       'shared.chat-widget': SharedChatWidget;
       'shared.faq-band': SharedFaqBand;
