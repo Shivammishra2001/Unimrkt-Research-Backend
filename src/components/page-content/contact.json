@@ -22,7 +22,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "heroCta": {
       "type": "component",
@@ -69,7 +73,16 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
+    },
+    "faqBand": {
+      "type": "component",
+      "component": "shared.faq-band",
+      "repeatable": false
     },
     "faqItems": {
       "type": "component",
@@ -94,7 +107,16 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
+    },
+    "finalCta": {
+      "type": "component",
+      "component": "shared.final-cta",
+      "repeatable": false
     },
     "seo": {
       "type": "component",

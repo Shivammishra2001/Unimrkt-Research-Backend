@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_faq_bands",
+  "info": {
+    "displayName": "FAQ Band",
+    "icon": "question",
+    "description": "FAQ section heading and its button (shown only where the page design has one). Empty fields inherit Global, then the built-in copy."
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

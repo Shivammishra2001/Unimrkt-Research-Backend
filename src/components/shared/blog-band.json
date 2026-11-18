@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_blog_bands",
+  "info": {
+    "displayName": "Blog Band",
+    "icon": "feather",
+    "description": "The \"Latest Blogs\" band. Empty fields inherit Global Header, Footer & SEO, then the built-in copy."
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 240
+    }
+  }
+}

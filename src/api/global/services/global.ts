@@ -31,6 +31,10 @@ export function buildGlobalPopulate() {
     footerColumns: { populate: { links: true } },
     socialLinks: true,
     defaultSeo: { populate: ['shareImage'] },
+    // Shared closing bands (Global defaults; pages may override).
+    blogBand: true,
+    faqBand: { populate: { cta: true } },
+    finalCta: { populate: { action: true } },
   };
 }
 

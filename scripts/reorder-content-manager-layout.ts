@@ -88,6 +88,7 @@ const INDUSTRY_FIELD_ORDER = [
   // --- not rendered by the detail JSX; identity/SEO fields, original schema order ---
   'title',
   'slug',
+  'isActive',
   'legacyUrl',
   'suggestedUrl',
   'summary',
@@ -142,6 +143,9 @@ const INDUSTRY_FIELD_ORDER = [
   'enquiryBody',
   'enquiryImage',
   // --- <BlogFaqAccordion> ---
+  // --- shared closing bands (overrides; empty = Global default) + FAQ ---
+  'blogBand',
+  'faqBand',
   'faqItems',
   // --- <CaseStudiesSection> ---
   'caseStudiesEyebrow',
@@ -153,6 +157,7 @@ const INDUSTRY_FIELD_ORDER = [
   'aboutEyebrow',
   'aboutHeading',
   'aboutBody',
+  'finalCta',
 ];
 
 // Order = exact top-to-bottom JSX render sequence of
@@ -213,12 +218,16 @@ const SERVICE_FIELD_ORDER = [
   'techHeading',
   'techBody',
   'techPanels',
-  // --- 9. FAQ ---
+  // --- 9. Latest Blogs band + FAQ (band fields override Global; empty = inherit) ---
+  'blogBand',
+  'faqBand',
   'faqItems',
   // --- 10. About ---
   'aboutEyebrow',
   'aboutHeading',
   'aboutBody',
+  // --- 11. Final CTA band (override; empty = Global default) ---
+  'finalCta',
   // --- Level-2 category pages only (trust logos, capabilities, industries served, enquiry form) ---
   'trustHeading',
   'trustLogos',
@@ -272,6 +281,12 @@ const GLOBAL_FIELD_ORDER = [
   'logoDark',
   'primaryNav',
   'navCta',
+  'servicesMenu',
+  'industriesMenu',
+  // --- shared closing bands (rendered between page content and the footer on most pages) ---
+  'blogBand',
+  'faqBand',
+  'finalCta',
   // --- Footer (Footer.tsx's own top-to-bottom order: logo already
   // covered above, then tagline, then columns, then socials, then the
   // copyright bar last — this was the confirmed mismatch: schema.json
@@ -384,18 +399,41 @@ async function reorderContentType(strapi: any, uid: string, fieldOrder: string[]
   strapi.log.info(`[reorder] ${uid}: edit-view layout rewritten to ${newEdit.length} fields in JSX order.`);
 }
 
+/** Page-record components whose schema attribute order already follows their page top to bottom: their stored
+ * edit layout is rebuilt in that order (Strapi otherwise appends newly added fields at the bottom of the form). */
+const PAGE_COMPONENTS = ['page-content.contact', 'page-content.work-with-us', 'page-content.our-company'];
+
+async function reorderComponent(strapi: any, uid: string) {
+  const componentsService = strapi.plugin('content-manager').service('components');
+  const component = strapi.components[uid];
+  const current = await componentsService.findConfiguration(component);
+  const fieldOrder = Object.keys(component.attributes).filter((n) => !['id', 'documentId'].includes(n));
+  const fieldSizes = strapi.plugin('content-manager').service('field-sizes');
+  const existing = new Map<string, number>();
+  for (const row of current.layouts?.edit ?? []) for (const el of row) existing.set(el.name, el.size);
+  const edit = fieldOrder.map((name) => [{ name, size: existing.get(name) ?? fieldSizes.getFieldSize(component.attributes[name].type).default }]);
+  await componentsService.updateConfiguration(component, { layouts: { edit, list: current.layouts?.list ?? [] } });
+  strapi.log.info(`[reorder] ${uid}: component edit layout follows its schema order (${edit.length} fields).`);
+}
+
 async function main() {
   const appContext = await compileStrapi();
   const strapi = await createStrapi(appContext).load();
   strapi.log.level = 'error';
 
-  // `-- --only=service` (comma-separated: industry, service, global, testimonial, blog) limits the run to those types.
+  // `-- --only=service` (comma-separated: industry, service, global, testimonial, blog, components) limits the run.
   const onlyArg = process.argv.find((a) => a.startsWith('--only='));
   const only = onlyArg ? onlyArg.slice('--only='.length).split(',').map((s) => s.trim()) : null;
   const run = (key: string) => !only || only.includes(key);
 
   try {
-    if (run('industry')) await reorderContentType(strapi, INDUSTRY_UID, INDUSTRY_FIELD_ORDER);
+    if (run('industry')) {
+      await reorderContentType(strapi, INDUSTRY_UID, INDUSTRY_FIELD_ORDER, {
+        trustHeading: 'Not shown on industry pages at the moment.',
+        trustLogos: 'Not shown on industry pages at the moment.',
+      });
+    }
+    if (run('components')) for (const uid of PAGE_COMPONENTS) await reorderComponent(strapi, uid);
     if (run('service')) {
       await reorderContentType(strapi, SERVICE_UID, SERVICE_FIELD_ORDER, Object.fromEntries(SERVICE_LEVEL2_ONLY.map((f) => [f, LEVEL2_NOTE])));
     }

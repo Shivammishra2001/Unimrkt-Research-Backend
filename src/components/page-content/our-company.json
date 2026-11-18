@@ -22,7 +22,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "heroCta": {
       "type": "component",
@@ -55,7 +59,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "insightsEyebrow": {
       "type": "string",
@@ -129,6 +137,16 @@
       "repeatable": true,
       "max": 8
     },
+    "blogBand": {
+      "type": "component",
+      "component": "shared.blog-band",
+      "repeatable": false
+    },
+    "faqBand": {
+      "type": "component",
+      "component": "shared.faq-band",
+      "repeatable": false
+    },
     "faqItems": {
       "type": "component",
       "component": "blocks.faq-item",
@@ -146,6 +164,11 @@
     "aboutCompanyBody": {
       "type": "text",
       "maxLength": 2000
+    },
+    "finalCta": {
+      "type": "component",
+      "component": "shared.final-cta",
+      "repeatable": false
     },
     "seo": {
       "type": "component",

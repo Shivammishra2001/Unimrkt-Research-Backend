@@ -27,6 +27,10 @@ export function buildIndustryPopulate() {
     faqItems: true,
     caseStudiesCta: true,
     caseStudies: { populate: { image: true } },
+    // Closing-band overrides (empty = Global default).
+    blogBand: true,
+    faqBand: { populate: { cta: true } },
+    finalCta: { populate: { action: true } },
   };
 }
 

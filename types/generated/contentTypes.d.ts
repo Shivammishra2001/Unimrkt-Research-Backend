@@ -796,6 +796,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    blogBand: Schema.Attribute.Component<'shared.blog-band', false>;
     copyright: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
@@ -805,6 +806,8 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     defaultSeo: Schema.Attribute.Component<'shared.seo', false> &
       Schema.Attribute.Required;
+    faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
+    finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
     footerColumns: Schema.Attribute.Component<'shared.footer-column', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -875,6 +878,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
+    blogBand: Schema.Attribute.Component<'shared.blog-band', false>;
     caseStudies: Schema.Attribute.Component<'blocks.industry-item', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -956,6 +960,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
     faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -963,6 +968,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
     heroActions: Schema.Attribute.Component<'shared.link', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -1266,6 +1272,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 40;
       }>;
+    blogBand: Schema.Attribute.Component<'shared.blog-band', false>;
     capabilitiesBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 400;
@@ -1310,6 +1317,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         maxLength: 120;
       }>;
     enquiryImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
+    faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
     faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -1324,6 +1332,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
     heroActions: Schema.Attribute.Component<'shared.link', true> &
       Schema.Attribute.SetMinMax<
         {

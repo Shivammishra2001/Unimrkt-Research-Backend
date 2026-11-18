@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_final_ctas",
+  "info": {
+    "displayName": "Final CTA",
+    "icon": "cursor",
+    "description": "The closing \"Start Your Research Journey\" band. Empty fields inherit Global, then the built-in copy."
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "action": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

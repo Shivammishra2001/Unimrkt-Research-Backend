@@ -244,6 +244,16 @@
         "files"
       ]
     },
+    "blogBand": {
+      "type": "component",
+      "component": "shared.blog-band",
+      "repeatable": false
+    },
+    "faqBand": {
+      "type": "component",
+      "component": "shared.faq-band",
+      "repeatable": false
+    },
     "faqItems": {
       "type": "component",
       "component": "blocks.faq-item",
@@ -284,6 +294,11 @@
     "aboutBody": {
       "type": "text",
       "maxLength": 2000
+    },
+    "finalCta": {
+      "type": "component",
+      "component": "shared.final-cta",
+      "repeatable": false
     }
   }
 }

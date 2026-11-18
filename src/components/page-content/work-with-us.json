@@ -22,7 +22,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "heroCta": {
       "type": "component",
@@ -67,7 +71,11 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "benefits": {
       "type": "component",
@@ -127,6 +135,11 @@
       "type": "text",
       "maxLength": 2000
     },
+    "faqBand": {
+      "type": "component",
+      "component": "shared.faq-band",
+      "repeatable": false
+    },
     "faqItems": {
       "type": "component",
       "component": "blocks.faq-item",
@@ -144,6 +157,11 @@
     "aboutCareersBody": {
       "type": "text",
       "maxLength": 800
+    },
+    "finalCta": {
+      "type": "component",
+      "component": "shared.final-cta",
+      "repeatable": false
     },
     "seo": {
       "type": "component",

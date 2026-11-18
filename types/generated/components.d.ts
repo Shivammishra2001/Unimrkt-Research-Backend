@@ -1321,6 +1321,7 @@ export interface PageContentContact extends Struct.ComponentSchema {
     displayName: 'Contact Us';
   };
   attributes: {
+    faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
     faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -1328,6 +1329,7 @@ export interface PageContentContact extends Struct.ComponentSchema {
         },
         number
       >;
+    finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
     formEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -1497,6 +1499,7 @@ export interface PageContentOurCompany extends Struct.ComponentSchema {
         maxLength: 160;
       }>;
     aboutImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
+    blogBand: Schema.Attribute.Component<'shared.blog-band', false>;
     ecosystemCards: Schema.Attribute.Component<'industries.detail-card', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -1516,6 +1519,7 @@ export interface PageContentOurCompany extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
     faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -1523,6 +1527,7 @@ export interface PageContentOurCompany extends Struct.ComponentSchema {
         },
         number
       >;
+    finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
     heroCta: Schema.Attribute.Component<'shared.link', false>;
     heroEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
@@ -1828,6 +1833,7 @@ export interface PageContentWorkWithUs extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
+    faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
     faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -1835,6 +1841,7 @@ export interface PageContentWorkWithUs extends Struct.ComponentSchema {
         },
         number
       >;
+    finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
     heroCta: Schema.Attribute.Component<'shared.link', false>;
     heroEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
@@ -2301,6 +2308,65 @@ export interface ServicesStatItem extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedBlogBand extends Struct.ComponentSchema {
+  collectionName: 'components_shared_blog_bands';
+  info: {
+    description: 'The "Latest Blogs" band. Empty fields inherit Global Header, Footer & SEO, then the built-in copy.';
+    displayName: 'Blog Band';
+    icon: 'feather';
+  };
+  attributes: {
+    description: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 240;
+      }>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+  };
+}
+
+export interface SharedFaqBand extends Struct.ComponentSchema {
+  collectionName: 'components_shared_faq_bands';
+  info: {
+    description: 'FAQ section heading and its button (shown only where the page design has one). Empty fields inherit Global, then the built-in copy.';
+    displayName: 'FAQ Band';
+    icon: 'question';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'shared.link', false>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+  };
+}
+
+export interface SharedFinalCta extends Struct.ComponentSchema {
+  collectionName: 'components_shared_final_ctas';
+  info: {
+    description: 'The closing "Start Your Research Journey" band. Empty fields inherit Global, then the built-in copy.';
+    displayName: 'Final CTA';
+    icon: 'cursor';
+  };
+  attributes: {
+    action: Schema.Attribute.Component<'shared.link', false>;
+    body: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+  };
+}
+
 export interface SharedFooterColumn extends Struct.ComponentSchema {
   collectionName: 'components_shared_footer_columns';
   info: {
@@ -2527,6 +2593,9 @@ declare module '@strapi/strapi' {
       'services-page.testimonials': ServicesPageTestimonials;
       'services-page.why': ServicesPageWhy;
       'services.stat-item': ServicesStatItem;
+      'shared.blog-band': SharedBlogBand;
+      'shared.faq-band': SharedFaqBand;
+      'shared.final-cta': SharedFinalCta;
       'shared.footer-column': SharedFooterColumn;
       'shared.link': SharedLink;
       'shared.nav-child-item': SharedNavChildItem;

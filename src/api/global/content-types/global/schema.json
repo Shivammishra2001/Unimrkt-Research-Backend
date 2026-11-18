@@ -58,6 +58,21 @@
       "component": "navigation.industries-menu",
       "repeatable": false
     },
+    "blogBand": {
+      "type": "component",
+      "component": "shared.blog-band",
+      "repeatable": false
+    },
+    "faqBand": {
+      "type": "component",
+      "component": "shared.faq-band",
+      "repeatable": false
+    },
+    "finalCta": {
+      "type": "component",
+      "component": "shared.final-cta",
+      "repeatable": false
+    },
     "footerColumns": {
       "type": "component",
       "component": "shared.footer-column",

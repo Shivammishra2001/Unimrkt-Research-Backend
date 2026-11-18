@@ -54,6 +54,10 @@ export function buildServicePopulate() {
     qualityImage: true,
     qualityItems: { populate: { image: true, icon: true } },
     techPanels: { populate: { image: true, icon: true } },
+    // Closing-band overrides (empty = Global default).
+    blogBand: true,
+    faqBand: { populate: { cta: true } },
+    finalCta: { populate: { action: true } },
     // Category hierarchy (Google Sheet IA migration) — parent is a single
     // shallow relation (no need to populate its own parent/children), and
     // children go one level deep only, matching the sheet's max depth.
