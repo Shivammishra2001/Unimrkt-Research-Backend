@@ -883,10 +883,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    challengesBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 600;
-      }>;
+    challengesBody: Schema.Attribute.Text;
     challengesCards: Schema.Attribute.Component<
       'industries.detail-card',
       true

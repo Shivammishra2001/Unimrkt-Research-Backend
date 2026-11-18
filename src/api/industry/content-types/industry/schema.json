@@ -156,8 +156,7 @@
       "maxLength": 120
     },
     "challengesBody": {
-      "type": "text",
-      "maxLength": 600
+      "type": "text"
     },
     "challengesCards": {
       "type": "component",
