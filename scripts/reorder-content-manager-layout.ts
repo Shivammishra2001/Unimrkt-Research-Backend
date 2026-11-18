@@ -157,63 +157,107 @@ const INDUSTRY_FIELD_ORDER = [
 
 // Order = exact top-to-bottom JSX render sequence of
 // Frontend/views/services/ServiceDetailView.tsx.
+// Order = the Level-3 sub-service page (Frontend/views/services/subservice/SubServiceView.tsx, Figma 859:15301), top
+// to bottom — the template most Service entries use. Fields only the Level-2 category page renders
+// (ServiceDetailView.tsx) sit after About, each labelled in the admin (see SERVICE_LEVEL2_ONLY).
 const SERVICE_FIELD_ORDER = [
-  // --- not rendered by the detail JSX; identity/meta/relational fields, original schema order ---
+  // --- core info (routing, hierarchy, listing cards) ---
   'title',
   'slug',
+  'parent',
   'summary',
+  'isActive',
   'thumbnail',
   'basePrice',
-  'seo',
-  'parent',
   'children',
   'legacyUrl',
   'suggestedUrl',
-  // --- <ServiceDetailHero> ---
+  // --- 1. Hero ---
   'heroEyebrow',
   'heroHeading',
   'heroSubheading',
   'heroImage',
   'heroActions',
-  // --- <TrustStrip> ---
-  'trustHeading',
-  'trustLogos',
-  // --- <OverviewSection> ---
+  // --- 2. Key stats / credentials ---
+  'credentialsHeading',
+  'credentials',
+  'credentialsBody',
+  // --- 3. Overview ("What are …?") ---
   'overviewEyebrow',
   'overviewHeading',
   'overviewBody',
   'overviewImage',
   'overviewFeatures',
-  // --- <CapabilitiesSection> (reuses the `features` field — see CapabilitiesSection.tsx's header comment) ---
+  // --- 4. Why … ? ---
+  'whyEyebrow',
+  'whyHeading',
+  'whyBody',
+  'whyItems',
+  // --- 5. Process / methodologies ---
+  'methodologiesEyebrow',
+  'methodologiesHeading',
+  'methodologies',
+  // --- 6. What We Can Measure ---
+  'measureEyebrow',
+  'measureHeading',
+  'measureBody',
+  'measureItems',
+  // --- 7. Quality First ---
+  'qualityEyebrow',
+  'qualityHeading',
+  'qualityBody',
+  'qualityImage',
+  'qualityItems',
+  // --- 8. Technology panels ---
+  'techEyebrow',
+  'techHeading',
+  'techBody',
+  'techPanels',
+  // --- 9. FAQ ---
+  'faqItems',
+  // --- 10. About ---
+  'aboutEyebrow',
+  'aboutHeading',
+  'aboutBody',
+  // --- Level-2 category pages only (trust logos, capabilities, industries served, enquiry form) ---
+  'trustHeading',
+  'trustLogos',
   'capabilitiesEyebrow',
   'capabilitiesHeading',
   'capabilitiesBody',
   'features',
-  // --- <CredentialsSection> ---
-  'credentialsHeading',
-  'credentialsBody',
-  'credentials',
-  // --- <MethodologiesSection> ---
-  'methodologiesEyebrow',
-  'methodologiesHeading',
-  'methodologies',
-  // --- <IndustriesServedSection> ---
   'industriesEyebrow',
   'industriesHeading',
   'industriesBody',
   'industriesServed',
-  // --- <EnquiryForm> ---
   'enquiryEyebrow',
   'enquiryHeading',
   'enquiryBody',
   'enquiryImage',
-  // --- <BlogFaqAccordion> ---
-  'faqItems',
-  // --- <AboutSection> ---
-  'aboutEyebrow',
-  'aboutHeading',
-  'aboutBody',
+  // --- SEO ---
+  'seo',
 ];
+
+/** Fields rendered only on Level-2 category pages (e.g. Primary Research) — the admin shows this note under each. */
+const SERVICE_LEVEL2_ONLY = [
+  'credentialsBody',
+  'overviewFeatures',
+  'trustHeading',
+  'trustLogos',
+  'capabilitiesEyebrow',
+  'capabilitiesHeading',
+  'capabilitiesBody',
+  'features',
+  'industriesEyebrow',
+  'industriesHeading',
+  'industriesBody',
+  'industriesServed',
+  'enquiryEyebrow',
+  'enquiryHeading',
+  'enquiryBody',
+  'enquiryImage',
+];
+const LEVEL2_NOTE = 'Level-2 category pages only (e.g. Primary Research) — not shown on sub-service pages.';
 
 
 // Order = Navbar (top of every page) then Footer (bottom of every
@@ -314,14 +358,22 @@ function buildEditLayout(
   });
 }
 
-async function reorderContentType(strapi: any, uid: string, fieldOrder: string[]) {
+async function reorderContentType(strapi: any, uid: string, fieldOrder: string[], descriptions: Record<string, string> = {}) {
   const contentTypesService = strapi.plugin('content-manager').service('content-types');
   const current = await contentTypesService.findConfiguration({ uid });
   const newEdit = buildEditLayout(strapi, uid, fieldOrder, current.layouts?.edit ?? []);
 
+  // Optional per-field admin help text (edit-view description); every other metadata value is kept as stored.
+  const metadatas = { ...(current.metadatas ?? {}) };
+  for (const [name, description] of Object.entries(descriptions)) {
+    const meta = metadatas[name] ?? {};
+    metadatas[name] = { ...meta, edit: { ...(meta.edit ?? {}), description } };
+  }
+
   await contentTypesService.updateConfiguration(
     { uid },
     {
+      ...(Object.keys(descriptions).length ? { metadatas } : {}),
       layouts: {
         edit: newEdit,
         list: current.layouts?.list ?? [],
@@ -337,13 +389,20 @@ async function main() {
   const strapi = await createStrapi(appContext).load();
   strapi.log.level = 'error';
 
+  // `-- --only=service` (comma-separated: industry, service, global, testimonial, blog) limits the run to those types.
+  const onlyArg = process.argv.find((a) => a.startsWith('--only='));
+  const only = onlyArg ? onlyArg.slice('--only='.length).split(',').map((s) => s.trim()) : null;
+  const run = (key: string) => !only || only.includes(key);
+
   try {
-    await reorderContentType(strapi, INDUSTRY_UID, INDUSTRY_FIELD_ORDER);
-    await reorderContentType(strapi, SERVICE_UID, SERVICE_FIELD_ORDER);
-    await reorderContentType(strapi, GLOBAL_UID, GLOBAL_FIELD_ORDER);
-    await reorderContentType(strapi, TESTIMONIAL_UID, TESTIMONIAL_FIELD_ORDER);
-    await reorderContentType(strapi, BLOG_UID, BLOG_FIELD_ORDER);
-    console.log('[reorder] Done. All six content types now match their live-page JSX order in the admin edit view.');
+    if (run('industry')) await reorderContentType(strapi, INDUSTRY_UID, INDUSTRY_FIELD_ORDER);
+    if (run('service')) {
+      await reorderContentType(strapi, SERVICE_UID, SERVICE_FIELD_ORDER, Object.fromEntries(SERVICE_LEVEL2_ONLY.map((f) => [f, LEVEL2_NOTE])));
+    }
+    if (run('global')) await reorderContentType(strapi, GLOBAL_UID, GLOBAL_FIELD_ORDER);
+    if (run('testimonial')) await reorderContentType(strapi, TESTIMONIAL_UID, TESTIMONIAL_FIELD_ORDER);
+    if (run('blog')) await reorderContentType(strapi, BLOG_UID, BLOG_FIELD_ORDER);
+    console.log(`[reorder] Done (${only ? only.join(', ') : 'all content types'}): edit-view layouts match their live-page JSX order.`);
   } finally {
     await strapi.destroy();
   }

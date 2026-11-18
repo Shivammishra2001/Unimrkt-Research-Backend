@@ -48,6 +48,12 @@ export function buildServicePopulate() {
     industriesServed: { populate: { image: true, icon: true } },
     enquiryImage: true,
     faqItems: true,
+    // Level-3 sub-service sections (Figma 859:15301): Why, What We Can Measure, Quality First, Technology panels.
+    whyItems: { populate: { image: true, icon: true } },
+    measureItems: { populate: { image: true, icon: true } },
+    qualityImage: true,
+    qualityItems: { populate: { image: true, icon: true } },
+    techPanels: { populate: { image: true, icon: true } },
     // Category hierarchy (Google Sheet IA migration) — parent is a single
     // shallow relation (no need to populate its own parent/children), and
     // children go one level deep only, matching the sheet's max depth.

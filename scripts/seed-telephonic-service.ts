@@ -1,6 +1,8 @@
 /**
  * Saves the approved Figma copy and media (node 859:15301) into the "Telephonic Surveys" service entry, so the
- * Level-3 page renders its Figma design from Strapi (the frontend now prefers Strapi content on every sub-service).
+ * Level-3 page renders its Figma design from Strapi (the frontend now prefers Strapi content on every sub-service) —
+ * hero, stats, overview, process, FAQ and about, plus the Why / Measure / Quality / Technology sections (filled only
+ * while empty; see scripts/lib/subservice-sections.ts).
  *
  * Safe and idempotent:
  *   - The copy is written only while the entry still holds the original seeded boilerplate (hero heading
@@ -14,6 +16,7 @@
 import path from 'path';
 import fs from 'fs';
 import { compileStrapi, createStrapi } from '@strapi/strapi';
+import { sectionData, SECTION_POPULATE, telephonicSections } from './lib/subservice-sections';
 
 const UID = 'api::service.service';
 const SLUG = 'telephonic-surveys';
@@ -94,7 +97,7 @@ async function main() {
   const appContext = await compileStrapi();
   const strapi: any = await createStrapi(appContext).load();
   try {
-    const entry = await strapi.documents(UID).findFirst({ filters: { slug: SLUG }, status: 'draft', populate: ['heroImage', 'overviewImage'] });
+    const entry = await strapi.documents(UID).findFirst({ filters: { slug: SLUG }, status: 'draft', populate: ['heroImage', 'overviewImage', ...SECTION_POPULATE] });
     if (!entry) {
       // eslint-disable-next-line no-console
       console.log(`[telephonic-service] no "${SLUG}" service entry — nothing to do`);
@@ -109,7 +112,15 @@ async function main() {
       console.log(`[telephonic-service] writing Figma copy${FORCE ? ' (--force)' : ''}`);
     } else {
       // eslint-disable-next-line no-console
-      console.log(`[telephonic-service] copy already customised ("${heading}") — left unchanged (use --force to overwrite)`);
+      console.log(`[telephonic-service] hero/stats/overview/process/FAQ/about copy already set ("${heading}") — left unchanged (use --force to overwrite)`);
+    }
+
+    // Why / What We Can Measure / Quality First / Technology panels — each written only while it is still empty.
+    const sections = await sectionData(strapi, entry, telephonicSections());
+    Object.assign(data, sections.data);
+    if (sections.written.length) {
+      // eslint-disable-next-line no-console
+      console.log(`[telephonic-service] sections filled: ${sections.written.join(', ')}`);
     }
 
     for (const img of IMAGES) {

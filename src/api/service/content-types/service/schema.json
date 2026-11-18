@@ -23,15 +23,21 @@
       "required": true,
       "unique": true
     },
-    "isActive": {
-      "type": "boolean",
-      "default": true,
-      "required": false
+    "parent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::service.service",
+      "inversedBy": "children"
     },
     "summary": {
       "type": "text",
       "required": true,
       "maxLength": 280
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "required": false
     },
     "thumbnail": {
       "type": "media",
@@ -43,26 +49,9 @@
         "files"
       ]
     },
-    "features": {
-      "type": "component",
-      "component": "blocks.feature-item",
-      "repeatable": true,
-      "max": 12
-    },
     "basePrice": {
       "type": "string",
       "maxLength": 40
-    },
-    "seo": {
-      "type": "component",
-      "component": "shared.seo",
-      "repeatable": false
-    },
-    "parent": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::service.service",
-      "inversedBy": "children"
     },
     "children": {
       "type": "relation",
@@ -106,15 +95,19 @@
       "repeatable": true,
       "max": 2
     },
-    "trustHeading": {
+    "credentialsHeading": {
       "type": "string",
-      "maxLength": 80
+      "maxLength": 120
     },
-    "trustLogos": {
+    "credentials": {
       "type": "component",
-      "component": "industries.trust-logo",
+      "component": "services.stat-item",
       "repeatable": true,
-      "max": 8
+      "max": 16
+    },
+    "credentialsBody": {
+      "type": "text",
+      "maxLength": 400
     },
     "overviewEyebrow": {
       "type": "string",
@@ -144,31 +137,23 @@
       "repeatable": true,
       "max": 4
     },
-    "capabilitiesEyebrow": {
+    "whyEyebrow": {
       "type": "string",
       "maxLength": 60
     },
-    "capabilitiesHeading": {
+    "whyHeading": {
       "type": "string",
       "maxLength": 120
     },
-    "capabilitiesBody": {
+    "whyBody": {
       "type": "text",
-      "maxLength": 400
+      "maxLength": 600
     },
-    "credentialsHeading": {
-      "type": "string",
-      "maxLength": 120
-    },
-    "credentialsBody": {
-      "type": "text",
-      "maxLength": 400
-    },
-    "credentials": {
+    "whyItems": {
       "type": "component",
-      "component": "services.stat-item",
+      "component": "industries.detail-card",
       "repeatable": true,
-      "max": 16
+      "max": 12
     },
     "methodologiesEyebrow": {
       "type": "string",
@@ -183,6 +168,114 @@
       "component": "industries.detail-card",
       "repeatable": true,
       "max": 6
+    },
+    "measureEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "measureHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "measureBody": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "measureItems": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 12
+    },
+    "qualityEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "qualityHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "qualityBody": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "qualityImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "qualityItems": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 12
+    },
+    "techEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "techHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "techBody": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "techPanels": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 8
+    },
+    "faqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 10
+    },
+    "aboutEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "aboutHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "aboutBody": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "trustHeading": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "trustLogos": {
+      "type": "component",
+      "component": "industries.trust-logo",
+      "repeatable": true,
+      "max": 8
+    },
+    "capabilitiesEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "capabilitiesHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "capabilitiesBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "features": {
+      "type": "component",
+      "component": "blocks.feature-item",
+      "repeatable": true,
+      "max": 12
     },
     "industriesEyebrow": {
       "type": "string",
@@ -224,23 +317,10 @@
         "files"
       ]
     },
-    "faqItems": {
+    "seo": {
       "type": "component",
-      "component": "blocks.faq-item",
-      "repeatable": true,
-      "max": 10
-    },
-    "aboutEyebrow": {
-      "type": "string",
-      "maxLength": 60
-    },
-    "aboutHeading": {
-      "type": "string",
-      "maxLength": 120
-    },
-    "aboutBody": {
-      "type": "text",
-      "maxLength": 2000
+      "component": "shared.seo",
+      "repeatable": false
     }
   }
 }
