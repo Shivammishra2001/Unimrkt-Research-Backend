@@ -39,3 +39,22 @@ public/uploads/
 # Crash dumps and generated inventories
 *.stackdump
 content-inventory.json
+
+# === Deploy & security hardening (see DEPLOYMENT.md) ===
+# Env & deploy secrets (.env* already covered above; explicit for clarity)
+.env.local
+.env.deploy.local
+.env.staging
+.env.production
+# Keys / certs / credentials
+*.pem
+*.key
+*.ppk
+credentials*.json
+# Databases, dumps, backups, archives
+*.sqlite
+*.db
+*.sql
+*.tar.gz
+*.zip
+backups/
