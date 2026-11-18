@@ -10,13 +10,32 @@
       "required": true,
       "maxLength": 40
     },
+    "menuType": {
+      "type": "enumeration",
+      "enum": [
+        "link",
+        "dropdown",
+        "services_mega_menu",
+        "industries_mega_menu"
+      ],
+      "default": "link"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    },
     "href": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "isExternal": {
       "type": "boolean",
       "default": false
+    },
+    "isVisible": {
+      "type": "boolean",
+      "default": true
     },
     "children": {
       "type": "component",

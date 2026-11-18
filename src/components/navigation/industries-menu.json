@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_navigation_industries_menus",
+  "info": {
+    "displayName": "Industries Mega-Menu",
+    "icon": "grid",
+    "description": "Sector groups; any industry not placed in a group appears under the Other label automatically. Labels may use {count}."
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "intro": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "groups": {
+      "type": "component",
+      "component": "navigation.industry-group",
+      "repeatable": true,
+      "max": 12
+    },
+    "otherGroupLabel": {
+      "type": "string",
+      "maxLength": 60,
+      "default": "Other Industries"
+    },
+    "viewAllLink": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "ctaLink": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

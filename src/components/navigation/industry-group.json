@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_navigation_industry_groups",
+  "info": {
+    "displayName": "Industry Group",
+    "icon": "folder",
+    "description": "A sector column heading and the industries listed under it."
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "industries": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::industry.industry"
+    }
+  }
+}

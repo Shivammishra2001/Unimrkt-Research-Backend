@@ -23,7 +23,9 @@ export default factories.createCoreController('api::global.global', ({ strapi })
     if (data && !isDraft) {
       const inactive = await getInactivePaths(strapi);
       if (inactive.size > 0) {
-        const keep = (item: { href?: string | null }) => !pointsAtInactive(item.href, inactive);
+        // A nav item may point at a Page by relation instead of (or as well as) a typed URL.
+        const keep = (item: { href?: string | null; page?: { isActive?: boolean | null } | null }) =>
+          !pointsAtInactive(item.href, inactive) && item.page?.isActive !== false;
         const nav = (data as any).primaryNav;
         if (Array.isArray(nav)) {
           (data as any).primaryNav = nav

@@ -28,6 +28,10 @@
       "default": true,
       "required": false
     },
+    "showInHeader": {
+      "type": "boolean",
+      "default": true
+    },
     "seo": {
       "type": "component",
       "component": "shared.seo",

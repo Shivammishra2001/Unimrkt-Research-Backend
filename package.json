@@ -17,7 +17,8 @@
     "set-component-labels": "ts-node scripts/set-component-labels.ts",
     "seed:industry-media": "ts-node scripts/seed-industry-media.ts",
     "seed:telephonic-service": "ts-node scripts/seed-telephonic-service.ts",
-    "seed:subservice-sections": "ts-node scripts/seed-subservice-sections.ts"
+    "seed:subservice-sections": "ts-node scripts/seed-subservice-sections.ts",
+    "seed:global-menu": "ts-node scripts/seed-global-menu.ts"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.16",

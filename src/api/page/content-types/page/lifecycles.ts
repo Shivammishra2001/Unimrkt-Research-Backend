@@ -1,4 +1,5 @@
 import { notifyRevalidate } from '../../../../utils/revalidate';
+import { syncPageToHeader } from '../../../../utils/header-sync';
 
 /**
  * afterDelete covers both a genuine delete and an unpublish (Strapi's
@@ -11,12 +12,15 @@ export default {
     const { slug } = event.result;
     await notifyRevalidate(`page-${slug}`);
     await notifyRevalidate('pages');
+    // Publishing creates the published row: a new page with "Show in header" on joins the header menu.
+    syncPageToHeader(strapi, event.result);
   },
 
   async afterUpdate(event) {
     const { slug } = event.result;
     await notifyRevalidate(`page-${slug}`);
     await notifyRevalidate('pages');
+    syncPageToHeader(strapi, event.result);
     // Menus hide links to inactive pages, so the toggle must refresh them too.
     await notifyRevalidate('global');
   },

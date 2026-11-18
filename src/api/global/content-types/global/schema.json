@@ -21,13 +21,21 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "logoDark": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "primaryNav": {
       "type": "component",
@@ -38,6 +46,16 @@
     "navCta": {
       "type": "component",
       "component": "shared.link",
+      "repeatable": false
+    },
+    "servicesMenu": {
+      "type": "component",
+      "component": "navigation.services-menu",
+      "repeatable": false
+    },
+    "industriesMenu": {
+      "type": "component",
+      "component": "navigation.industries-menu",
       "repeatable": false
     },
     "footerColumns": {

@@ -1049,6 +1049,108 @@ export interface IndustriesTrustLogo extends Struct.ComponentSchema {
   };
 }
 
+export interface NavigationIndustriesMenu extends Struct.ComponentSchema {
+  collectionName: 'components_navigation_industries_menus';
+  info: {
+    description: 'Sector groups; any industry not placed in a group appears under the Other label automatically. Labels may use {count}.';
+    displayName: 'Industries Mega-Menu';
+    icon: 'grid';
+  };
+  attributes: {
+    ctaLink: Schema.Attribute.Component<'shared.link', false>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    groups: Schema.Attribute.Component<'navigation.industry-group', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 12;
+        },
+        number
+      >;
+    intro: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    otherGroupLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }> &
+      Schema.Attribute.DefaultTo<'Other Industries'>;
+    viewAllLink: Schema.Attribute.Component<'shared.link', false>;
+  };
+}
+
+export interface NavigationIndustryGroup extends Struct.ComponentSchema {
+  collectionName: 'components_navigation_industry_groups';
+  info: {
+    description: 'A sector column heading and the industries listed under it.';
+    displayName: 'Industry Group';
+    icon: 'folder';
+  };
+  attributes: {
+    industries: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::industry.industry'
+    >;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
+export interface NavigationServicesMenu extends Struct.ComponentSchema {
+  collectionName: 'components_navigation_services_menus';
+  info: {
+    description: 'Order, rename or hide parent categories; sub-services always come live from Services.';
+    displayName: 'Services Mega-Menu';
+    icon: 'apps';
+  };
+  attributes: {
+    autoIncludeNew: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    categories: Schema.Attribute.Component<
+      'navigation.services-menu-category',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+        },
+        number
+      >;
+    ctaLink: Schema.Attribute.Component<'shared.link', false>;
+    exploreLink: Schema.Attribute.Component<'shared.link', false>;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
+export interface NavigationServicesMenuCategory extends Struct.ComponentSchema {
+  collectionName: 'components_navigation_services_menu_categories';
+  info: {
+    description: 'One parent service category in the Services mega-menu (its sub-services are pulled automatically).';
+    displayName: 'Services Menu Category';
+    icon: 'layer';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 240;
+      }>;
+    isVisible: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    service: Schema.Attribute.Relation<'oneToOne', 'api::service.service'>;
+  };
+}
+
 export interface PageContentCaseStudy extends Struct.ComponentSchema {
   collectionName: 'components_page_content_case_studys';
   info: {
@@ -2235,13 +2337,19 @@ export interface SharedNavItem extends Struct.ComponentSchema {
         },
         number
       >;
-    href: Schema.Attribute.String & Schema.Attribute.Required;
+    href: Schema.Attribute.String;
     isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isVisible: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 40;
       }>;
+    menuType: Schema.Attribute.Enumeration<
+      ['link', 'dropdown', 'services_mega_menu', 'industries_mega_menu']
+    > &
+      Schema.Attribute.DefaultTo<'link'>;
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     showIndicator: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
@@ -2350,6 +2458,10 @@ declare module '@strapi/strapi' {
       'industries-page.testimonials': IndustriesPageTestimonials;
       'industries.detail-card': IndustriesDetailCard;
       'industries.trust-logo': IndustriesTrustLogo;
+      'navigation.industries-menu': NavigationIndustriesMenu;
+      'navigation.industry-group': NavigationIndustryGroup;
+      'navigation.services-menu': NavigationServicesMenu;
+      'navigation.services-menu-category': NavigationServicesMenuCategory;
       'page-content.case-study': PageContentCaseStudy;
       'page-content.contact': PageContentContact;
       'page-content.industries-card': PageContentIndustriesCard;

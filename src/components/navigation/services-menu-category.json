@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_navigation_services_menu_categories",
+  "info": {
+    "displayName": "Services Menu Category",
+    "icon": "layer",
+    "description": "One parent service category in the Services mega-menu (its sub-services are pulled automatically)."
+  },
+  "attributes": {
+    "service": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::service.service"
+    },
+    "label": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 240
+    },
+    "isVisible": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

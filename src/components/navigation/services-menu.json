@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_navigation_services_menus",
+  "info": {
+    "displayName": "Services Mega-Menu",
+    "icon": "apps",
+    "description": "Order, rename or hide parent categories; sub-services always come live from Services."
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "autoIncludeNew": {
+      "type": "boolean",
+      "default": true
+    },
+    "categories": {
+      "type": "component",
+      "component": "navigation.services-menu-category",
+      "repeatable": true,
+      "max": 20
+    },
+    "exploreLink": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "ctaLink": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}

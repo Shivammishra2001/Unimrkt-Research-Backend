@@ -809,6 +809,10 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    industriesMenu: Schema.Attribute.Component<
+      'navigation.industries-menu',
+      false
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -827,6 +831,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
         number
       >;
     publishedAt: Schema.Attribute.DateTime;
+    servicesMenu: Schema.Attribute.Component<'navigation.services-menu', false>;
     siteName: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -1211,6 +1216,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     seo: Schema.Attribute.Component<'shared.seo', false>;
+    showInHeader: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     slug: Schema.Attribute.UID<'title'> &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
