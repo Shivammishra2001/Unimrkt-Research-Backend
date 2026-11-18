@@ -905,10 +905,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    empowerBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 2000;
-      }>;
+    empowerBody: Schema.Attribute.Text;
     empowerCta: Schema.Attribute.Component<'shared.link', false>;
     empowerEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{

@@ -205,8 +205,7 @@
       "maxLength": 120
     },
     "empowerBody": {
-      "type": "text",
-      "maxLength": 2000
+      "type": "text"
     },
     "empowerCta": {
       "type": "component",
