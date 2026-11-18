@@ -61,10 +61,6 @@
         "images"
       ]
     },
-    "basePrice": {
-      "type": "string",
-      "maxLength": 40
-    },
     "children": {
       "type": "relation",
       "relation": "oneToMany",

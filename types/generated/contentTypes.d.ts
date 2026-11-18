@@ -1280,10 +1280,6 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    basePrice: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 40;
-      }>;
     blogBand: Schema.Attribute.Component<'shared.blog-band', false>;
     capabilitiesBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{

@@ -1,28 +1,5 @@
 import { factories } from '@strapi/strapi';
 
-/**
- * No longer used by `api::service.service` itself (its `blocks`
- * dynamiczone was removed — see `buildServicePopulate()` below) or by
- * `api::industry.industry` (removed earlier the same way). Kept only
- * because `blocks.*` block components still exist and nothing else in
- * this codebase currently reads this map — safe to delete once nothing
- * needs the shape documented here.
- */
-export const BLOCK_POPULATE = {
-  'blocks.hero': { populate: { media: true, actions: true, sideMenu: true } },
-  'blocks.content': { populate: { media: true } },
-  'blocks.feature-grid': { populate: { items: { populate: { icon: true, link: true } } } },
-  'blocks.testimonials': {
-    populate: { testimonials: { populate: { avatar: true, companyLogo: true } } },
-  },
-  'blocks.cta': { populate: { actions: true, background: true } },
-  'blocks.stats-band': { populate: { items: { populate: { image: true } } } },
-  // items reuse blocks.feature-item (icon + link populated the same way
-  // blocks.feature-grid's items already are above).
-  'blocks.why-choose-us': { populate: { items: { populate: { icon: true, link: true } } } },
-  'blocks.process-steps': { populate: { steps: { populate: { icon: true } } } },
-};
-
 export function buildServiceListPopulate() {
   return { thumbnail: true };
 }

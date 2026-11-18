@@ -175,7 +175,6 @@ const SERVICE_FIELD_ORDER = [
   'thumbnail',
   'listingDescription',
   'listingIcon',
-  'basePrice',
   'children',
   'legacyUrl',
   'suggestedUrl',
@@ -407,11 +406,38 @@ async function reorderContentType(strapi: any, uid: string, fieldOrder: string[]
   strapi.log.info(`[reorder] ${uid}: edit-view layout rewritten to ${newEdit.length} fields in JSX order.`);
 }
 
+// --- Batch 4: the remaining content types, in the order their page / card renders them ---
+const CASE_STUDY_UID = 'api::case-study.case-study';
+const TEAM_MEMBER_UID = 'api::team-member.team-member';
+const GALLERY_ITEM_UID = 'api::gallery-item.gallery-item';
+const CATEGORY_UID = 'api::category.category';
+// Listing card (title/slug/visibility/category/excerpt/cover), then the detail page top to bottom
+// (Frontend/views/case-study/detail/CaseStudyDetailView.tsx): hero, trust strip, challenge, research question,
+// approach, what we uncovered, impact, FAQ.
+const CASE_STUDY_FIELD_ORDER = [
+  'title', 'slug', 'isActive', 'category', 'excerpt', 'coverImage',
+  'heroSubheading', 'heroImage',
+  'trustLogos',
+  'challengeHeading', 'challengeBody', 'challengeBullets', 'challengeClosing', 'challengePhoto',
+  'researchQuestionHeading', 'researchQuestionBody', 'researchQuestionItems',
+  'approachHeading', 'approachBody', 'approachSteps',
+  'uncoveredHeading', 'uncoveredBody', 'uncoveredPanels',
+  'impactHeading', 'impactBody', 'impactImage', 'impactItems',
+  'faqItems',
+];
+// /our-team card (photo, name, role) then the profile modal (bio, LinkedIn); sort order last.
+const TEAM_MEMBER_FIELD_ORDER = ['photo', 'name', 'role', 'bio', 'linkedinUrl', 'order'];
+// /gallery tile: the image, its alt/title, the filter category; caption + sort order last.
+const GALLERY_ITEM_FIELD_ORDER = ['image', 'title', 'category', 'caption', 'order'];
+// /blogs filter tab (name, short label) then routing; description + related posts last.
+const CATEGORY_FIELD_ORDER = ['name', 'shortLabel', 'slug', 'description', 'blogs'];
+const NOT_SHOWN = 'Not shown on the website at the moment.';
+
 /** Page-record components whose schema attribute order already follows their page top to bottom: their stored
  * edit layout is rebuilt in that order (Strapi otherwise appends newly added fields at the bottom of the form). */
 const PAGE_COMPONENTS = ['page-content.contact', 'page-content.work-with-us', 'page-content.our-company', 'page-content.blog', 'page-content.gallery'];
 
-async function reorderComponent(strapi: any, uid: string) {
+async function reorderComponent(strapi: any, uid: string, descriptions: Record<string, string> = {}) {
   const componentsService = strapi.plugin('content-manager').service('components');
   const component = strapi.components[uid];
   const current = await componentsService.findConfiguration(component);
@@ -420,7 +446,12 @@ async function reorderComponent(strapi: any, uid: string) {
   const existing = new Map<string, number>();
   for (const row of current.layouts?.edit ?? []) for (const el of row) existing.set(el.name, el.size);
   const edit = fieldOrder.map((name) => [{ name, size: existing.get(name) ?? fieldSizes.getFieldSize(component.attributes[name].type).default }]);
-  await componentsService.updateConfiguration(component, { layouts: { edit, list: current.layouts?.list ?? [] } });
+  const metadatas = { ...(current.metadatas ?? {}) };
+  for (const [name, description] of Object.entries(descriptions)) {
+    const meta = metadatas[name] ?? {};
+    metadatas[name] = { ...meta, edit: { ...(meta.edit ?? {}), description } };
+  }
+  await componentsService.updateConfiguration(component, { ...(Object.keys(descriptions).length ? { metadatas } : {}), layouts: { edit, list: current.layouts?.list ?? [] } });
   strapi.log.info(`[reorder] ${uid}: component edit layout follows its schema order (${edit.length} fields).`);
 }
 
@@ -429,7 +460,8 @@ async function main() {
   const strapi = await createStrapi(appContext).load();
   strapi.log.level = 'error';
 
-  // `-- --only=service` (comma-separated: industry, service, global, testimonial, blog, components) limits the run.
+  // `-- --only=service` (comma-separated: industry, service, global, testimonial, blog, components, case-study,
+  // team-member, gallery-item, category) limits the run.
   const onlyArg = process.argv.find((a) => a.startsWith('--only='));
   const only = onlyArg ? onlyArg.slice('--only='.length).split(',').map((s) => s.trim()) : null;
   const run = (key: string) => !only || only.includes(key);
@@ -441,7 +473,18 @@ async function main() {
         trustLogos: 'Not shown on industry pages at the moment.',
       });
     }
-    if (run('components')) for (const uid of PAGE_COMPONENTS) await reorderComponent(strapi, uid);
+    if (run('components')) {
+      for (const uid of PAGE_COMPONENTS) await reorderComponent(strapi, uid);
+      await reorderComponent(strapi, 'shared.nav-item', {
+        menuType: 'Services mega-menu / Industries mega-menu open the big menus (their content is set further down this page); link = a plain link; dropdown = the child links below.',
+        page: 'Pick a Page instead of typing a URL; its address follows the page if the slug changes.',
+        isVisible: 'Off hides the item from the header without deleting it.',
+      });
+    }
+    if (run('case-study')) await reorderContentType(strapi, CASE_STUDY_UID, CASE_STUDY_FIELD_ORDER);
+    if (run('team-member')) await reorderContentType(strapi, TEAM_MEMBER_UID, TEAM_MEMBER_FIELD_ORDER, { order: 'Sort order on /our-team (lower first).' });
+    if (run('gallery-item')) await reorderContentType(strapi, GALLERY_ITEM_UID, GALLERY_ITEM_FIELD_ORDER, { caption: NOT_SHOWN, order: 'Sort order on /gallery (lower first).' });
+    if (run('category')) await reorderContentType(strapi, CATEGORY_UID, CATEGORY_FIELD_ORDER, { description: NOT_SHOWN });
     if (run('service')) {
       await reorderContentType(strapi, SERVICE_UID, SERVICE_FIELD_ORDER, {
         ...Object.fromEntries(SERVICE_LEVEL2_ONLY.map((f) => [f, LEVEL2_NOTE])),
