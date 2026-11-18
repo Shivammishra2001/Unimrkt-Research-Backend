@@ -21,7 +21,8 @@
     "seed:global-menu": "ts-node scripts/seed-global-menu.ts",
     "seed:approved-media": "ts-node scripts/seed-approved-media.ts",
     "seed:office-map": "ts-node scripts/seed-office-map.ts",
-    "seed:closing-bands": "ts-node scripts/seed-closing-bands.ts"
+    "seed:closing-bands": "ts-node scripts/seed-closing-bands.ts",
+    "seed:site-content": "ts-node scripts/seed-site-content.ts"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.16",

@@ -455,6 +455,10 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
     body: Schema.Attribute.Blocks;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'> &
       Schema.Attribute.Required;
@@ -797,6 +801,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
   attributes: {
     blogBand: Schema.Attribute.Component<'shared.blog-band', false>;
+    chatWidget: Schema.Attribute.Component<'shared.chat-widget', false>;
     copyright: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
@@ -808,6 +813,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       Schema.Attribute.Required;
     faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
     finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
+    footerBadges: Schema.Attribute.Media<'images', true>;
     footerColumns: Schema.Attribute.Component<'shared.footer-column', true> &
       Schema.Attribute.SetMinMax<
         {
@@ -844,6 +850,10 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     servicesMenu: Schema.Attribute.Component<'navigation.services-menu', false>;
     siteName: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    socialHeading: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
       }>;
@@ -1211,6 +1221,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'services-page.faq',
         'services-page.about',
         'services-page.final-cta',
+        'page-content.blog',
+        'page-content.gallery',
       ]
     > &
       Schema.Attribute.Required &
@@ -1377,6 +1389,11 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       >;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     legacyUrl: Schema.Attribute.String;
+    listingDescription: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    listingIcon: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1409,6 +1426,10 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    methodologiesBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
     methodologiesEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;

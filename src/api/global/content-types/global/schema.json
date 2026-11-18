@@ -73,11 +73,23 @@
       "component": "shared.final-cta",
       "repeatable": false
     },
+    "footerBadges": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "footerColumns": {
       "type": "component",
       "component": "shared.footer-column",
       "repeatable": true,
       "max": 4
+    },
+    "socialHeading": {
+      "type": "string",
+      "maxLength": 60
     },
     "socialLinks": {
       "type": "component",
@@ -91,6 +103,11 @@
     "footerTagline": {
       "type": "text",
       "maxLength": 200
+    },
+    "chatWidget": {
+      "type": "component",
+      "component": "shared.chat-widget",
+      "repeatable": false
     },
     "defaultSeo": {
       "type": "component",

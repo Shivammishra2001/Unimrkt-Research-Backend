@@ -36,6 +36,7 @@ export function buildServiceListPopulate() {
 export function buildServicePopulate() {
   return {
     thumbnail: true,
+    listingIcon: true,
     seo: { populate: { shareImage: true } },
     features: { populate: { icon: true, link: true } },
     heroImage: true,

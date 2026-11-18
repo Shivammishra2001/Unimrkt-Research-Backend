@@ -49,6 +49,18 @@
         "files"
       ]
     },
+    "listingDescription": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "listingIcon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "basePrice": {
       "type": "string",
       "maxLength": 40
@@ -162,6 +174,10 @@
     "methodologiesHeading": {
       "type": "string",
       "maxLength": 120
+    },
+    "methodologiesBody": {
+      "type": "text",
+      "maxLength": 600
     },
     "methodologies": {
       "type": "component",

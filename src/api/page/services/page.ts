@@ -10,7 +10,7 @@ export function buildPagePopulate() {
     seo: { populate: ['shareImage'] },
     blocks: {
       on: {
-        'blocks.hero': { populate: { media: true, actions: true, sideMenu: true } },
+        'blocks.hero': { populate: { media: true, actions: true, sideMenu: { populate: { icon: true } } } },
         'blocks.content': { populate: { media: true } },
         'blocks.feature-grid': { populate: { items: { populate: { icon: true, link: true } } } },
         'blocks.testimonials': {
@@ -18,7 +18,7 @@ export function buildPagePopulate() {
         },
         'blocks.cta': { populate: { actions: true, background: true } },
         'blocks.stats-band': { populate: { items: { populate: { image: true } } } },
-        'blocks.service-band': { populate: { background: true, cta: true, items: true } },
+        'blocks.service-band': { populate: { background: true, cta: true, items: { populate: { icon: true } } } },
         'blocks.industry-grid': {
           populate: { background: true, cta: true, items: { populate: { image: true } } },
         },
@@ -83,6 +83,8 @@ export function buildPagePopulate() {
             heroCta: true,
             stats: true,
             offices: { populate: { image: true } },
+            whyCards: { populate: { image: true, icon: true } },
+            howSteps: { populate: { image: true, icon: true } },
             formImage: true,
             faqBand: { populate: { cta: true } },
             faqItems: true,
@@ -123,6 +125,21 @@ export function buildPagePopulate() {
         'services-page.faq': { populate: { cta: true, items: true } },
         'services-page.about': { populate: '*' },
         'services-page.final-cta': { populate: { image: true, action: true } },
+        // /blogs listing + shared blog-post labels, and /gallery.
+        'page-content.blog': {
+          populate: {
+            heroCta: true,
+            heroImage: true,
+            blogBand: true,
+            faqBand: { populate: { cta: true } },
+            faqItems: true,
+            finalCta: { populate: { action: true } },
+            seo: { populate: { shareImage: true } },
+          },
+        },
+        'page-content.gallery': {
+          populate: { heroImage: true, finalCta: { populate: { action: true } }, finalCtaImage: true, seo: { populate: { shareImage: true } } },
+        },
         'page-content.privacy-policy': {
           populate: {
             heroImage: true,

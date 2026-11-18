@@ -173,6 +173,8 @@ const SERVICE_FIELD_ORDER = [
   'summary',
   'isActive',
   'thumbnail',
+  'listingDescription',
+  'listingIcon',
   'basePrice',
   'children',
   'legacyUrl',
@@ -201,6 +203,7 @@ const SERVICE_FIELD_ORDER = [
   // --- 5. Process / methodologies ---
   'methodologiesEyebrow',
   'methodologiesHeading',
+  'methodologiesBody',
   'methodologies',
   // --- 6. What We Can Measure ---
   'measureEyebrow',
@@ -249,6 +252,7 @@ const SERVICE_FIELD_ORDER = [
 
 /** Fields rendered only on Level-2 category pages (e.g. Primary Research) — the admin shows this note under each. */
 const SERVICE_LEVEL2_ONLY = [
+  'methodologiesBody',
   'credentialsBody',
   'overviewFeatures',
   'trustHeading',
@@ -292,9 +296,13 @@ const GLOBAL_FIELD_ORDER = [
   // copyright bar last — this was the confirmed mismatch: schema.json
   // had `footerTagline` declared last, after `defaultSeo`) ---
   'footerTagline',
+  'footerBadges',
   'footerColumns',
+  'socialHeading',
   'socialLinks',
   'copyright',
+  // --- floating chat panel (every page) ---
+  'chatWidget',
   // --- not rendered anywhere on the page; global <meta> fallback only ---
   'defaultSeo',
 ];
@@ -401,7 +409,7 @@ async function reorderContentType(strapi: any, uid: string, fieldOrder: string[]
 
 /** Page-record components whose schema attribute order already follows their page top to bottom: their stored
  * edit layout is rebuilt in that order (Strapi otherwise appends newly added fields at the bottom of the form). */
-const PAGE_COMPONENTS = ['page-content.contact', 'page-content.work-with-us', 'page-content.our-company'];
+const PAGE_COMPONENTS = ['page-content.contact', 'page-content.work-with-us', 'page-content.our-company', 'page-content.blog', 'page-content.gallery'];
 
 async function reorderComponent(strapi: any, uid: string) {
   const componentsService = strapi.plugin('content-manager').service('components');
@@ -435,7 +443,11 @@ async function main() {
     }
     if (run('components')) for (const uid of PAGE_COMPONENTS) await reorderComponent(strapi, uid);
     if (run('service')) {
-      await reorderContentType(strapi, SERVICE_UID, SERVICE_FIELD_ORDER, Object.fromEntries(SERVICE_LEVEL2_ONLY.map((f) => [f, LEVEL2_NOTE])));
+      await reorderContentType(strapi, SERVICE_UID, SERVICE_FIELD_ORDER, {
+        ...Object.fromEntries(SERVICE_LEVEL2_ONLY.map((f) => [f, LEVEL2_NOTE])),
+        listingDescription: 'Services listing panel text (top-level categories only). Empty = the summary.',
+        listingIcon: 'Services listing panel icon (top-level categories only).',
+      });
     }
     if (run('global')) await reorderContentType(strapi, GLOBAL_UID, GLOBAL_FIELD_ORDER);
     if (run('testimonial')) await reorderContentType(strapi, TESTIMONIAL_UID, TESTIMONIAL_FIELD_ORDER);

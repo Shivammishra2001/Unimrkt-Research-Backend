@@ -14,6 +14,10 @@
       "type": "boolean",
       "default": true
     },
+    "overviewLabel": {
+      "type": "string",
+      "maxLength": 40
+    },
     "categories": {
       "type": "component",
       "component": "navigation.services-menu-category",

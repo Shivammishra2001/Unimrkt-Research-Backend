@@ -1,0 +1,52 @@
+{
+  "collectionName": "components_page_content_galleries",
+  "info": {
+    "displayName": "Gallery Page",
+    "icon": "picture",
+    "description": "/gallery: hero, grid heading and the closing CTA."
+  },
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heroHeading": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gridHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "finalCta": {
+      "type": "component",
+      "component": "shared.final-cta",
+      "repeatable": false
+    },
+    "finalCtaImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

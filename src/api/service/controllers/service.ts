@@ -78,6 +78,7 @@ export default factories.createCoreController('api::service.service', ({ strapi 
       sort: 'title:asc',
       populate: {
         thumbnail: true,
+        listingIcon: true,
         children: { fields: ['title', 'slug', 'summary'], sort: 'title:asc', filters: activeFilter(isDraft) },
       },
     });

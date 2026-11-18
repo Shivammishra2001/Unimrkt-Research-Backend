@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_shared_chat_widgets",
+  "info": {
+    "displayName": "Chat Widget",
+    "icon": "message",
+    "description": "The floating chat panel shown on every page."
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "status": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "greeting": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "quickActions": {
+      "type": "component",
+      "component": "shared.chat-quick-action",
+      "repeatable": true,
+      "max": 6
+    },
+    "placeholder": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "acknowledgement": {
+      "type": "text",
+      "maxLength": 600
+    }
+  }
+}

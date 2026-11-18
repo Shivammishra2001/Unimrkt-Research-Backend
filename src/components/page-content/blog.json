@@ -1,0 +1,101 @@
+{
+  "collectionName": "components_page_content_blogs",
+  "info": {
+    "displayName": "Blogs Page",
+    "icon": "feather",
+    "description": "/blogs listing (top to bottom) and the labels shared by every blog post page."
+  },
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heroHeading": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "heroSubheading": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "heroCta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gridHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "gridIntro": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "blogBand": {
+      "type": "component",
+      "component": "shared.blog-band",
+      "repeatable": false
+    },
+    "faqBand": {
+      "type": "component",
+      "component": "shared.faq-band",
+      "repeatable": false
+    },
+    "faqItems": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true,
+      "max": 12
+    },
+    "aboutEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "aboutHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "aboutBody": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "finalCta": {
+      "type": "component",
+      "component": "shared.final-cta",
+      "repeatable": false
+    },
+    "postRelatedEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "postQuickEnquiryHeading": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "postQuickEnquirySubheading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "postRecentPostsHeading": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "postShareLabel": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

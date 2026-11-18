@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_chat_quick_actions",
+  "info": {
+    "displayName": "Chat Quick Action",
+    "icon": "message"
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "reply": {
+      "type": "text",
+      "required": true,
+      "maxLength": 600
+    }
+  }
+}

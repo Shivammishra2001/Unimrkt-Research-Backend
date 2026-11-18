@@ -17,6 +17,10 @@
     "body": {
       "type": "text",
       "maxLength": 1200
+    },
+    "ctaLabel": {
+      "type": "string",
+      "maxLength": 40
     }
   }
 }

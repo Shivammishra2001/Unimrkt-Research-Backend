@@ -84,7 +84,9 @@
         "services-page.testimonials",
         "services-page.faq",
         "services-page.about",
-        "services-page.final-cta"
+        "services-page.final-cta",
+        "page-content.blog",
+        "page-content.gallery"
       ],
       "required": true,
       "min": 1

@@ -57,6 +57,42 @@
       "repeatable": true,
       "max": 6
     },
+    "whyEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "whyHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "whyBody": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "whyCards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 8
+    },
+    "howEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "howHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "howIntro": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "howSteps": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true,
+      "max": 8
+    },
     "formEyebrow": {
       "type": "string",
       "maxLength": 60
@@ -89,6 +125,18 @@
       "component": "blocks.faq-item",
       "repeatable": true,
       "max": 10
+    },
+    "aboutEyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "aboutHeading": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "aboutBody": {
+      "type": "text",
+      "maxLength": 3000
     },
     "workWithUsHeading": {
       "type": "string",

@@ -519,6 +519,7 @@ export interface BlocksServiceBandItem extends Struct.ComponentSchema {
         maxLength: 120;
       }>;
     href: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.Media<'images'>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1133,6 +1134,10 @@ export interface NavigationServicesMenu extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
       }>;
+    overviewLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
   };
 }
 
@@ -1154,6 +1159,82 @@ export interface NavigationServicesMenuCategory extends Struct.ComponentSchema {
         maxLength: 80;
       }>;
     service: Schema.Attribute.Relation<'oneToOne', 'api::service.service'>;
+  };
+}
+
+export interface PageContentBlog extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_blogs';
+  info: {
+    description: '/blogs listing (top to bottom) and the labels shared by every blog post page.';
+    displayName: 'Blogs Page';
+    icon: 'feather';
+  };
+  attributes: {
+    aboutBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
+    aboutEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    aboutHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    blogBand: Schema.Attribute.Component<'shared.blog-band', false>;
+    faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
+    faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 12;
+        },
+        number
+      >;
+    finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
+    gridHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    gridIntro: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    heroCta: Schema.Attribute.Component<'shared.link', false>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heroHeading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    postQuickEnquiryHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    postQuickEnquirySubheading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    postRecentPostsHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    postRelatedEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    postShareLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
   };
 }
 
@@ -1321,6 +1402,18 @@ export interface PageContentContact extends Struct.ComponentSchema {
     displayName: 'Contact Us';
   };
   attributes: {
+    aboutBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 3000;
+      }>;
+    aboutEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    aboutHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
     faqBand: Schema.Attribute.Component<'shared.faq-band', false>;
     faqItems: Schema.Attribute.Component<'blocks.faq-item', true> &
       Schema.Attribute.SetMinMax<
@@ -1357,6 +1450,25 @@ export interface PageContentContact extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 300;
       }>;
+    howEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    howHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    howIntro: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+    howSteps: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
     officeEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -1384,6 +1496,25 @@ export interface PageContentContact extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
+    whyBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+    whyCards: Schema.Attribute.Component<'industries.detail-card', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
+    whyEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    whyHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
     workWithUsBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 300;
@@ -1394,6 +1525,37 @@ export interface PageContentContact extends Struct.ComponentSchema {
         maxLength: 160;
       }>;
     workWithUsImage: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
+  };
+}
+
+export interface PageContentGallery extends Struct.ComponentSchema {
+  collectionName: 'components_page_content_galleries';
+  info: {
+    description: '/gallery: hero, grid heading and the closing CTA.';
+    displayName: 'Gallery Page';
+    icon: 'picture';
+  };
+  attributes: {
+    finalCta: Schema.Attribute.Component<'shared.final-cta', false>;
+    finalCtaImage: Schema.Attribute.Media<'images'>;
+    gridHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    heroHeading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Schema.Attribute.Media<'images'>;
+    heroSubheading: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
   };
 }
 
@@ -2236,6 +2398,10 @@ export interface ServicesPageShowcase extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1200;
       }>;
+    ctaLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
     eyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -2327,6 +2493,64 @@ export interface SharedBlogBand extends Struct.ComponentSchema {
     heading: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
+      }>;
+  };
+}
+
+export interface SharedChatQuickAction extends Struct.ComponentSchema {
+  collectionName: 'components_shared_chat_quick_actions';
+  info: {
+    displayName: 'Chat Quick Action';
+    icon: 'message';
+  };
+  attributes: {
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    reply: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+  };
+}
+
+export interface SharedChatWidget extends Struct.ComponentSchema {
+  collectionName: 'components_shared_chat_widgets';
+  info: {
+    description: 'The floating chat panel shown on every page.';
+    displayName: 'Chat Widget';
+    icon: 'message';
+  };
+  attributes: {
+    acknowledgement: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+    greeting: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600;
+      }>;
+    placeholder: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    quickActions: Schema.Attribute.Component<'shared.chat-quick-action', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
+    status: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
       }>;
   };
 }
@@ -2567,8 +2791,10 @@ declare module '@strapi/strapi' {
       'navigation.industry-group': NavigationIndustryGroup;
       'navigation.services-menu': NavigationServicesMenu;
       'navigation.services-menu-category': NavigationServicesMenuCategory;
+      'page-content.blog': PageContentBlog;
       'page-content.case-study': PageContentCaseStudy;
       'page-content.contact': PageContentContact;
+      'page-content.gallery': PageContentGallery;
       'page-content.industries-card': PageContentIndustriesCard;
       'page-content.industries-stat': PageContentIndustriesStat;
       'page-content.industries-testimonial': PageContentIndustriesTestimonial;
@@ -2594,6 +2820,8 @@ declare module '@strapi/strapi' {
       'services-page.why': ServicesPageWhy;
       'services.stat-item': ServicesStatItem;
       'shared.blog-band': SharedBlogBand;
+      'shared.chat-quick-action': SharedChatQuickAction;
+      'shared.chat-widget': SharedChatWidget;
       'shared.faq-band': SharedFaqBand;
       'shared.final-cta': SharedFinalCta;
       'shared.footer-column': SharedFooterColumn;

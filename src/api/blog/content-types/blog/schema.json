@@ -40,6 +40,10 @@
       "inversedBy": "blogs",
       "required": true
     },
+    "author": {
+      "type": "string",
+      "maxLength": 80
+    },
     "coverImage": {
       "type": "media",
       "multiple": false,

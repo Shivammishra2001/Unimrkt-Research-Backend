@@ -28,8 +28,10 @@ export function buildGlobalPopulate() {
         ctaLink: true,
       },
     },
+    footerBadges: true,
     footerColumns: { populate: { links: true } },
     socialLinks: true,
+    chatWidget: { populate: { quickActions: true } },
     defaultSeo: { populate: ['shareImage'] },
     // Shared closing bands (Global defaults; pages may override).
     blogBand: true,
