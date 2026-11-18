@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_privacy_policy_sections",
+  "info": {
+    "displayName": "Privacy Policy Section",
+    "icon": "paragraph",
+    "description": "A clause shown after the fixed sections. Its Anchor must match the contents-list item that links to it."
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "anchor": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "body": {
+      "type": "text",
+      "required": true,
+      "maxLength": 8000
+    }
+  }
+}

@@ -38,7 +38,21 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
+    },
+    "mapLatitude": {
+      "type": "decimal"
+    },
+    "mapLongitude": {
+      "type": "decimal"
+    },
+    "mapLabel": {
+      "type": "string",
+      "maxLength": 60
     }
   }
 }

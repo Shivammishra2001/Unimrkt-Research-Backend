@@ -123,6 +123,7 @@ export function buildPagePopulate() {
             lawfulPurposesList: true,
             lawfulBasisList: true,
             panelDataSourcesList: true,
+            sections: true,
             seo: { populate: { shareImage: true } },
           },
         },

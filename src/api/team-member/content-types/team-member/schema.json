@@ -26,7 +26,11 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "order": {
       "type": "integer",
@@ -35,6 +39,10 @@
     "bio": {
       "type": "text",
       "maxLength": 2000
+    },
+    "linkedinUrl": {
+      "type": "string",
+      "maxLength": 300
     }
   }
 }

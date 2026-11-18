@@ -700,6 +700,12 @@ export interface ContactOfficeLocation extends Struct.ComponentSchema {
       }>;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     image: Schema.Attribute.Media<'images' | 'videos' | 'files'>;
+    mapLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    mapLatitude: Schema.Attribute.Decimal;
+    mapLongitude: Schema.Attribute.Decimal;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -1749,6 +1755,13 @@ export interface PageContentPrivacyPolicy extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
+    sections: Schema.Attribute.Component<'privacy-policy.section', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 30;
+        },
+        number
+      >;
     seo: Schema.Attribute.Component<'shared.seo', false>;
     tocHeading: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
@@ -1916,6 +1929,32 @@ export interface PrivacyPolicyListItem extends Struct.ComponentSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1200;
+      }>;
+  };
+}
+
+export interface PrivacyPolicySection extends Struct.ComponentSchema {
+  collectionName: 'components_privacy_policy_sections';
+  info: {
+    description: 'A clause shown after the fixed sections. Its Anchor must match the contents-list item that links to it.';
+    displayName: 'Privacy Policy Section';
+    icon: 'paragraph';
+  };
+  attributes: {
+    anchor: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    body: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 8000;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
       }>;
   };
 }
@@ -2472,6 +2511,7 @@ declare module '@strapi/strapi' {
       'page-content.privacy-policy': PageContentPrivacyPolicy;
       'page-content.work-with-us': PageContentWorkWithUs;
       'privacy-policy.list-item': PrivacyPolicyListItem;
+      'privacy-policy.section': PrivacyPolicySection;
       'privacy-policy.toc-item': PrivacyPolicyTocItem;
       'services-page.about': ServicesPageAbout;
       'services-page.band': ServicesPageBand;

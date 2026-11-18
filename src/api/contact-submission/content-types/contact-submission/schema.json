@@ -28,8 +28,16 @@
     },
     "company": {
       "type": "string",
-      "required": true,
+      "required": false,
       "maxLength": 160
+    },
+    "message": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "source": {
+      "type": "string",
+      "maxLength": 60
     }
   }
 }

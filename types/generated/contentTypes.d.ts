@@ -700,7 +700,6 @@ export interface ApiContactSubmissionContactSubmission
   };
   attributes: {
     company: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
@@ -714,6 +713,10 @@ export interface ApiContactSubmissionContactSubmission
       'api::contact-submission.contact-submission'
     > &
       Schema.Attribute.Private;
+    message: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -724,6 +727,10 @@ export interface ApiContactSubmissionContactSubmission
         maxLength: 40;
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    source: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1536,6 +1543,10 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    linkedinUrl: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

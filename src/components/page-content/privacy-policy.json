@@ -21,7 +21,11 @@
     "heroImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images", "videos", "files"]
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
     },
     "introBody": {
       "type": "text",
@@ -106,6 +110,12 @@
     "legalBody": {
       "type": "text",
       "maxLength": 800
+    },
+    "sections": {
+      "type": "component",
+      "component": "privacy-policy.section",
+      "repeatable": true,
+      "max": 30
     },
     "seo": {
       "type": "component",
