@@ -1034,10 +1034,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    whatWeDoBody: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 2000;
-      }>;
+    whatWeDoBody: Schema.Attribute.Text;
     whatWeDoCta: Schema.Attribute.Component<'shared.link', false>;
     whatWeDoEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{

@@ -102,8 +102,7 @@
       "maxLength": 120
     },
     "whatWeDoBody": {
-      "type": "text",
-      "maxLength": 2000
+      "type": "text"
     },
     "whatWeDoCta": {
       "type": "component",
