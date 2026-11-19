@@ -161,8 +161,7 @@
     "challengesCards": {
       "type": "component",
       "component": "industries.detail-card",
-      "repeatable": true,
-      "max": 6
+      "repeatable": true
     },
     "whoWeServeEyebrow": {
       "type": "string",
