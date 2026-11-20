@@ -37,8 +37,7 @@
       "default": 0
     },
     "bio": {
-      "type": "text",
-      "maxLength": 2000
+      "type": "text"
     },
     "linkedinUrl": {
       "type": "string",
