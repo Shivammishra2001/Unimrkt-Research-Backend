@@ -12,8 +12,7 @@
     },
     "answer": {
       "type": "text",
-      "required": true,
-      "maxLength": 600
+      "required": true
     }
   }
 }
