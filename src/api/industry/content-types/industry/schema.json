@@ -130,8 +130,7 @@
     "whyResearchCards": {
       "type": "component",
       "component": "industries.detail-card",
-      "repeatable": true,
-      "max": 6
+      "repeatable": true
     },
     "expertiseEyebrow": {
       "type": "string",
@@ -174,8 +173,7 @@
     "whoWeServeCards": {
       "type": "component",
       "component": "industries.detail-card",
-      "repeatable": true,
-      "max": 6
+      "repeatable": true
     },
     "methodologiesEyebrow": {
       "type": "string",
@@ -192,8 +190,7 @@
     "methodologies": {
       "type": "component",
       "component": "blocks.industry-item",
-      "repeatable": true,
-      "max": 6
+      "repeatable": true
     },
     "empowerEyebrow": {
       "type": "string",
