@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_industry_sections_expertise",
+  "info": {
+    "displayName": "Areas of Expertise",
+    "icon": "star",
+    "description": "\"Our Expertise\" — eyebrow, heading and expertise cards."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true
+    }
+  }
+}

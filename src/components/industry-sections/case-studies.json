@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_industry_sections_case_studies",
+  "info": {
+    "displayName": "Case Studies",
+    "icon": "folder",
+    "description": "\"Case Studies\" — eyebrow, heading, body, CTA and case study cards."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "items": {
+      "type": "component",
+      "component": "blocks.industry-item",
+      "repeatable": true
+    }
+  }
+}

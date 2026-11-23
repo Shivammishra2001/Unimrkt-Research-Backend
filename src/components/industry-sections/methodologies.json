@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_industry_sections_methodologies",
+  "info": {
+    "displayName": "Research Methodologies",
+    "icon": "cog",
+    "description": "\"Research Methodologies\" — eyebrow, heading, body and methodology cards."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "items": {
+      "type": "component",
+      "component": "blocks.industry-item",
+      "repeatable": true
+    }
+  }
+}

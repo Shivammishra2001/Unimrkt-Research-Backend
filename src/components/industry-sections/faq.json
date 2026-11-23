@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_industry_sections_faq",
+  "info": {
+    "displayName": "FAQs",
+    "icon": "question",
+    "description": "FAQ section — toggle, optional heading/CTA overrides (empty inherit Global) and the Q&A items."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "items": {
+      "type": "component",
+      "component": "blocks.faq-item",
+      "repeatable": true
+    }
+  }
+}

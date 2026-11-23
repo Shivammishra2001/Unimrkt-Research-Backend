@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_industry_sections_hero",
+  "info": {
+    "displayName": "Hero Banner",
+    "icon": "picture",
+    "description": "Top hero — eyebrow, heading, subheading, background image and CTA buttons."
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "subheading": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "videos", "files"]
+    },
+    "actions": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true
+    }
+  }
+}
