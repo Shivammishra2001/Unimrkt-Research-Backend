@@ -89,6 +89,10 @@
       "component": "industries.trust-logo",
       "repeatable": true
     },
+    "showOverview": {
+      "type": "boolean",
+      "default": true
+    },
     "whatWeDoEyebrow": {
       "type": "string",
       "maxLength": 60
@@ -115,6 +119,10 @@
         "files"
       ]
     },
+    "showWhyResearch": {
+      "type": "boolean",
+      "default": true
+    },
     "whyResearchEyebrow": {
       "type": "string",
       "maxLength": 60
@@ -128,6 +136,10 @@
       "component": "industries.detail-card",
       "repeatable": true
     },
+    "showExpertise": {
+      "type": "boolean",
+      "default": true
+    },
     "expertiseEyebrow": {
       "type": "string",
       "maxLength": 60
@@ -140,6 +152,10 @@
       "type": "component",
       "component": "industries.detail-card",
       "repeatable": true
+    },
+    "showChallenges": {
+      "type": "boolean",
+      "default": true
     },
     "challengesEyebrow": {
       "type": "string",
@@ -157,6 +173,10 @@
       "component": "industries.detail-card",
       "repeatable": true
     },
+    "showWhoWeServe": {
+      "type": "boolean",
+      "default": true
+    },
     "whoWeServeEyebrow": {
       "type": "string",
       "maxLength": 60
@@ -169,6 +189,10 @@
       "type": "component",
       "component": "industries.detail-card",
       "repeatable": true
+    },
+    "showMethodologies": {
+      "type": "boolean",
+      "default": true
     },
     "methodologiesEyebrow": {
       "type": "string",
@@ -186,6 +210,10 @@
       "type": "component",
       "component": "blocks.industry-item",
       "repeatable": true
+    },
+    "showEmpower": {
+      "type": "boolean",
+      "default": true
     },
     "empowerEyebrow": {
       "type": "string",
@@ -213,6 +241,10 @@
         "files"
       ]
     },
+    "showEnquiry": {
+      "type": "boolean",
+      "default": true
+    },
     "enquiryEyebrow": {
       "type": "string",
       "maxLength": 60
@@ -235,10 +267,18 @@
         "files"
       ]
     },
+    "showBlogs": {
+      "type": "boolean",
+      "default": true
+    },
     "blogBand": {
       "type": "component",
       "component": "shared.blog-band",
       "repeatable": false
+    },
+    "showFaq": {
+      "type": "boolean",
+      "default": true
     },
     "faqBand": {
       "type": "component",
@@ -249,6 +289,10 @@
       "type": "component",
       "component": "blocks.faq-item",
       "repeatable": true
+    },
+    "showCaseStudies": {
+      "type": "boolean",
+      "default": true
     },
     "caseStudiesEyebrow": {
       "type": "string",
@@ -272,6 +316,10 @@
       "component": "blocks.industry-item",
       "repeatable": true
     },
+    "showAbout": {
+      "type": "boolean",
+      "default": true
+    },
     "aboutEyebrow": {
       "type": "string",
       "maxLength": 60
@@ -283,6 +331,10 @@
     "aboutBody": {
       "type": "text",
       "maxLength": 2000
+    },
+    "showCtaBanner": {
+      "type": "boolean",
+      "default": true
     },
     "finalCta": {
       "type": "component",
