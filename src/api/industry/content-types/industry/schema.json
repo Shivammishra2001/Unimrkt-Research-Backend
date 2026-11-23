@@ -78,8 +78,7 @@
     "heroActions": {
       "type": "component",
       "component": "shared.link",
-      "repeatable": true,
-      "max": 2
+      "repeatable": true
     },
     "trustHeading": {
       "type": "string",
@@ -88,8 +87,7 @@
     "trustLogos": {
       "type": "component",
       "component": "industries.trust-logo",
-      "repeatable": true,
-      "max": 8
+      "repeatable": true
     },
     "whatWeDoEyebrow": {
       "type": "string",
@@ -141,8 +139,7 @@
     "expertiseItems": {
       "type": "component",
       "component": "industries.detail-card",
-      "repeatable": true,
-      "max": 8
+      "repeatable": true
     },
     "challengesEyebrow": {
       "type": "string",
@@ -251,8 +248,7 @@
     "faqItems": {
       "type": "component",
       "component": "blocks.faq-item",
-      "repeatable": true,
-      "max": 10
+      "repeatable": true
     },
     "caseStudiesEyebrow": {
       "type": "string",
@@ -274,8 +270,7 @@
     "caseStudies": {
       "type": "component",
       "component": "blocks.industry-item",
-      "repeatable": true,
-      "max": 4
+      "repeatable": true
     },
     "aboutEyebrow": {
       "type": "string",
