@@ -16,8 +16,7 @@
       "maxLength": 120
     },
     "subheading": {
-      "type": "string",
-      "maxLength": 320
+      "type": "text"
     },
     "steps": {
       "type": "component",

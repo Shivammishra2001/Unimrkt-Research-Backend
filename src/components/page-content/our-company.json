@@ -11,12 +11,10 @@
       "maxLength": 60
     },
     "heroHeading": {
-      "type": "string",
-      "maxLength": 160
+      "type": "string"
     },
     "heroSubheading": {
-      "type": "text",
-      "maxLength": 300
+      "type": "text"
     },
     "heroImage": {
       "type": "media",

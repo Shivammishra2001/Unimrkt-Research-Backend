@@ -48,8 +48,7 @@
       ]
     },
     "heroSubheading": {
-      "type": "text",
-      "maxLength": 320
+      "type": "text"
     },
     "heroImage": {
       "type": "media",

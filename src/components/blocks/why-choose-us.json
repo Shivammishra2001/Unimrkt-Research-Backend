@@ -16,8 +16,7 @@
       "maxLength": 120
     },
     "subheading": {
-      "type": "string",
-      "maxLength": 160
+      "type": "text"
     },
     "description": {
       "type": "text",
