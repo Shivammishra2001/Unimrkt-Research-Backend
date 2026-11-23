@@ -8,7 +8,7 @@
     "title": {
       "type": "string",
       "required": true,
-      "maxLength": 60
+      "maxLength": 200
     },
     "image": {
       "type": "media",
@@ -17,8 +17,7 @@
       "allowedTypes": ["images", "videos", "files"]
     },
     "description": {
-      "type": "text",
-      "maxLength": 160
+      "type": "text"
     },
     "accentColor": {
       "type": "string",

@@ -8,12 +8,11 @@
     "title": {
       "type": "string",
       "required": true,
-      "maxLength": 80
+      "maxLength": 200
     },
     "description": {
       "type": "text",
-      "required": false,
-      "maxLength": 600
+      "required": false
     },
     "image": {
       "type": "media",
