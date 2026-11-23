@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_industry_sections_empower",
+  "info": {
+    "displayName": "Empower Section",
+    "icon": "rocket",
+    "description": "\"Empower\" content block — eyebrow, heading, body, CTA and image."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "videos", "files"]
+    }
+  }
+}

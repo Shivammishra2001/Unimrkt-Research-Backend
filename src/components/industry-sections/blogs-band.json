@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_industry_sections_blogs_band",
+  "info": {
+    "displayName": "Blogs Band",
+    "icon": "feather",
+    "description": "\"Latest Blogs\" band toggle + optional overrides (empty fields inherit the Global band)."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 240
+    }
+  }
+}

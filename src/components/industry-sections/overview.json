@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_industry_sections_overview",
+  "info": {
+    "displayName": "Overview — What We Do",
+    "icon": "bulletList",
+    "description": "\"What We Do\" overview — eyebrow, heading, body, CTA, image and optional partner logos."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "videos", "files"]
+    },
+    "partnersHeading": {
+      "type": "string"
+    },
+    "partners": {
+      "type": "component",
+      "component": "industries.trust-logo",
+      "repeatable": true
+    }
+  }
+}

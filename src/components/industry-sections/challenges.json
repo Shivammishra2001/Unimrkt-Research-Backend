@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_industry_sections_challenges",
+  "info": {
+    "displayName": "Key Challenges",
+    "icon": "exclamationMarkCircle",
+    "description": "\"Key Challenges\" — eyebrow, heading, body and challenge cards."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "cards": {
+      "type": "component",
+      "component": "industries.detail-card",
+      "repeatable": true
+    }
+  }
+}

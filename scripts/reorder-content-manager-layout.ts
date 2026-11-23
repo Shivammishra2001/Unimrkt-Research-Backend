@@ -82,10 +82,11 @@ const BLOG_UID = 'api::blog.blog';
 // way a fixed named field can — so this is the one content type this
 // script cannot improve, including for the Home page it backs.
 
-// Order = exact top-to-bottom JSX render sequence of
-// Frontend/views/industries/IndustryDetailView.tsx.
+// Industry is now a lean core + a `sections` dynamic zone (the page content
+// lives as draggable, collapsible section blocks an editor arranges per
+// entry). Only the flat top-level fields have a fixed admin order; the DZ
+// block order is per-entry data, not an admin-layout concern.
 const INDUSTRY_FIELD_ORDER = [
-  // --- not rendered by the detail JSX; identity/SEO fields, original schema order ---
   'title',
   'slug',
   'isActive',
@@ -93,84 +94,7 @@ const INDUSTRY_FIELD_ORDER = [
   'suggestedUrl',
   'summary',
   'icon',
-  'seo',
-  // --- <DetailHero> ---
-  'heroEyebrow',
-  'heroHeading',
-  'heroSubheading',
-  'heroImage',
-  'heroActions',
-  // --- <TrustStrip> ---
-  'trustHeading',
-  'trustLogos',
-  // --- <ContentBlock> ("What We Do") ---
-  'showOverview',
-  'whatWeDoEyebrow',
-  'whatWeDoHeading',
-  'whatWeDoBody',
-  'whatWeDoCta',
-  'whatWeDoImage',
-  // --- <WhyResearchSection> ---
-  'showWhyResearch',
-  'whyResearchEyebrow',
-  'whyResearchHeading',
-  'whyResearchCards',
-  // --- <ExpertiseStrip> ---
-  'showExpertise',
-  'expertiseEyebrow',
-  'expertiseHeading',
-  'expertiseItems',
-  // --- <ChallengesSection> ---
-  'showChallenges',
-  'challengesEyebrow',
-  'challengesHeading',
-  'challengesBody',
-  'challengesCards',
-  // --- <WhoWeServeSection> ---
-  'showWhoWeServe',
-  'whoWeServeEyebrow',
-  'whoWeServeHeading',
-  'whoWeServeCards',
-  // --- <MethodologiesSection> ---
-  'showMethodologies',
-  'methodologiesEyebrow',
-  'methodologiesHeading',
-  'methodologiesBody',
-  'methodologies',
-  // --- <ContentBlock> ("Empower") ---
-  'showEmpower',
-  'empowerEyebrow',
-  'empowerHeading',
-  'empowerBody',
-  'empowerCta',
-  'empowerImage',
-  // --- <EnquiryForm> ---
-  'showEnquiry',
-  'enquiryEyebrow',
-  'enquiryHeading',
-  'enquiryBody',
-  'enquiryImage',
-  // --- <BlogFaqAccordion> ---
-  // --- shared closing bands (overrides; empty = Global default) + FAQ ---
-  'showBlogs',
-  'blogBand',
-  'showFaq',
-  'faqBand',
-  'faqItems',
-  // --- <CaseStudiesSection> ---
-  'showCaseStudies',
-  'caseStudiesEyebrow',
-  'caseStudiesHeading',
-  'caseStudiesBody',
-  'caseStudiesCta',
-  'caseStudies',
-  // --- <AboutIndustrySection> ---
-  'showAbout',
-  'aboutEyebrow',
-  'aboutHeading',
-  'aboutBody',
-  'showCtaBanner',
-  'finalCta',
+  'sections',
 ];
 
 // Order = exact top-to-bottom JSX render sequence of
@@ -482,21 +406,7 @@ async function main() {
   try {
     if (run('industry')) {
       await reorderContentType(strapi, INDUSTRY_UID, INDUSTRY_FIELD_ORDER, {
-        trustHeading: 'Not shown on industry pages at the moment.',
-        trustLogos: 'Not shown on industry pages at the moment.',
-        showOverview: 'ON shows the "What We Do" / Overview section on this page. OFF hides it.',
-        showWhyResearch: 'ON shows the "Why Research" section on this page. OFF hides it.',
-        showExpertise: 'ON shows the "Our Expertise" section on this page. OFF hides it.',
-        showChallenges: 'ON shows the "Key Challenges" section on this page. OFF hides it.',
-        showWhoWeServe: 'ON shows the "Who We Serve" section on this page. OFF hides it.',
-        showMethodologies: 'ON shows the "Research Methodologies" section on this page. OFF hides it.',
-        showEmpower: 'ON shows the "Empower" section on this page. OFF hides it.',
-        showEnquiry: 'ON shows the enquiry / "Get a Free Quote" form on this page. OFF hides it.',
-        showBlogs: 'ON shows the "Latest Blogs" band on this page. OFF hides it.',
-        showFaq: 'ON shows the FAQ section on this page. OFF hides it.',
-        showCaseStudies: 'ON shows the Case Studies section on this page. OFF hides it.',
-        showAbout: 'ON shows the bottom "About" copy section on this page. OFF hides it.',
-        showCtaBanner: 'ON shows the bottom call-to-action banner on this page. OFF hides it.',
+        sections: 'Each page section is a collapsible block. Click a block to expand it, drag to reorder, and use its Show section toggle to hide it without deleting the content.',
       });
     }
     if (run('components')) {

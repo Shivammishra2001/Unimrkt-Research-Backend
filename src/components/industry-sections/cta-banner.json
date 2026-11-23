@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_industry_sections_cta_banner",
+  "info": {
+    "displayName": "Bottom CTA",
+    "icon": "cursor",
+    "description": "Closing call-to-action banner toggle + optional overrides (empty fields inherit the Global CTA)."
+  },
+  "attributes": {
+    "showSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "action": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    }
+  }
+}
