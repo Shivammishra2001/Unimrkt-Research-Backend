@@ -77,7 +77,7 @@ export default factories.createCoreController('api::service.service', ({ strapi 
     const entries = await strapi.documents('api::service.service').findMany({
       filters: { parent: { id: { $null: true } }, ...activeFilter(isDraft) },
       status,
-      sort: ['order:asc', 'title:asc'],
+      sort: [{ order: 'asc' }, { title: 'asc' }],
       populate: {
         thumbnail: true,
         listingIcon: true,
