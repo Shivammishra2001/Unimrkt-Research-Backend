@@ -1438,6 +1438,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<100>;
     overviewBody: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 2000;
