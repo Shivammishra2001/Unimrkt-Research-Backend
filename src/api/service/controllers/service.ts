@@ -72,10 +72,12 @@ export default factories.createCoreController('api::service.service', ({ strapi 
     const isDraft = ctx.query.status === 'draft';
     const status = isDraft ? 'draft' : 'published';
 
+    // `order` (editor-controlled, default 100) drives the /services listing card
+    // sequence; `title:asc` is the tiebreak so same-order entries stay stable.
     const entries = await strapi.documents('api::service.service').findMany({
       filters: { parent: { id: { $null: true } }, ...activeFilter(isDraft) },
       status,
-      sort: 'title:asc',
+      sort: ['order:asc', 'title:asc'],
       populate: {
         thumbnail: true,
         listingIcon: true,

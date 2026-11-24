@@ -22,7 +22,8 @@
     "seed:approved-media": "ts-node scripts/seed-approved-media.ts",
     "seed:office-map": "ts-node scripts/seed-office-map.ts",
     "seed:closing-bands": "ts-node scripts/seed-closing-bands.ts",
-    "seed:site-content": "ts-node scripts/seed-site-content.ts"
+    "seed:site-content": "ts-node scripts/seed-site-content.ts",
+    "seed:service-order": "ts-node scripts/seed-service-order.ts"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.16",

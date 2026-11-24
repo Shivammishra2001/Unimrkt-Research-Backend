@@ -39,6 +39,10 @@
       "default": true,
       "required": false
     },
+    "order": {
+      "type": "integer",
+      "default": 100
+    },
     "thumbnail": {
       "type": "media",
       "multiple": false,
